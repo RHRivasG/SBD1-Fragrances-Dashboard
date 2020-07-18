@@ -65,8 +65,8 @@ CREATE TABLE KMR_Presentacion(
     volml INT NOT NULL,
     CONSTRAINT fk_intensidad
 	FOREIGN KEY (id_intensidad,id_perfume)
-	    REFERENCES KMR_Intensidad(id,id_perfume)
-    PRIMARY KEY (id,id_intensidad,id_perfume),
+	    REFERENCES KMR_Intensidad(id,id_perfume),
+    PRIMARY KEY (id,id_intensidad,id_perfume)
 );
 
 CREATE TABLE KMR_Esencia_Perfume(
@@ -280,9 +280,9 @@ CREATE TABLE KMR_Contrato_Particulares(
 	FOREIGN KEY (id_cond_pago, id_cond_pago_prov)
 	    REFERENCES KMR_Condiciones_Pago(id,id_emp_prov),
     CONSTRAINT fk_envio_pais
-	FOREIGN KEY (id_envio_pais, id_emp_prov)
+	FOREIGN KEY (id_envio_pais, id_envio_pais_prov)
 	    REFERENCES KMR_Envio_Pais(id_pais,id_emp_prov),
-    PRIMARY KEY (id)
+    PRIMARY KEY (id,id_contrato)
 );
 
 CREATE TABLE KMR_Ing_Contrato(
@@ -310,7 +310,7 @@ CREATE TABLE KMR_Pedido(
     fecha_confirma DATE,
     nro_factura INT,
     id_condcontrapago INT REFERENCES KMR_Contrato_Particulares(id),
-    id_condcontenvio INT 
+    id_condcontenvio INT REFERENCES KMR_Contrato_Particulares(id)
     
 );
 
@@ -318,7 +318,8 @@ CREATE TABLE KMR_Pago(
     id INT NOT NULL,
     id_pedido INT NOT NULL REFERENCES KMR_Pedido(id),
     fecha_pago DATE NOT NULL,
-    monto DECIMAL NOT NULL
+    monto DECIMAL NOT NULL,
+    PRIMARY KEY (id,id_pedido)
 );
 
 CREATE TABLE KMR_Pedido_Lote(
