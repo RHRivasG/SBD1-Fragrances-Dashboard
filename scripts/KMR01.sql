@@ -21,7 +21,7 @@ CREATE TABLE KMR_Empresa_Productora(
 
 CREATE TABLE KMR_EP_P(
     id_emp_prod INT NOT NULL REFERENCES KMR_Empresa_Productora(id),
-    id_pais INT NOT NULL REFERENCES KMR_Pais(id),
+    id_pais SMALLINT NOT NULL REFERENCES KMR_Pais(id),
     PRIMARY KEY (id_emp_prod,id_pais)
 );
 
@@ -60,10 +60,13 @@ CREATE TABLE KMR_Intensidad(
 
 CREATE TABLE KMR_Presentacion(
     id INT NOT NULL,
-    id_intensidad INT NOT NULL REFERENCES KMR_Intensidad(id),
-    id_perfume INT NOT NULL REFERENCES KMR_Intensidad(id),
+    id_intensidad INT NOT NULL,
+    id_perfume INT NOT NULL,
     volml INT NOT NULL,
-    PRIMARY KEY (id,id_intensidad,id_perfume)
+    CONSTRAINT fk_intensidad
+	FOREIGN KEY (id_intensidad,id_perfume)
+	    REFERENCES KMR_Intensidad(id,id_perfume)
+    PRIMARY KEY (id,id_intensidad,id_perfume),
 );
 
 CREATE TABLE KMR_Esencia_Perfume(
@@ -75,15 +78,15 @@ CREATE TABLE KMR_Esencia_Perfume(
 
 CREATE TABLE KMR_Perfume_Fases(
     id_perfume INT NOT NULL REFERENCES KMR_Perfume(id),
-    id_esencia_per INT NOT NULL REFERENCES KMR_Esencia_Perfume(id),
+    id_esencia_per INT NOT NULL REFERENCES KMR_Esencia_Perfume(tsca_cas),
     tiponota VARCHAR NOT NULL,
     PRIMARY KEY (id_perfume,id_esencia_per)
 );
 
 CREATE TABLE KMR_Monolitico(
     id_perfume INT NOT NULL REFERENCES KMR_Perfume(id),
-    id_esencia_perf INT NOT NULL REFERENCES KMR_Esencia_Perfume(id),
-    PRIMARY KEY (id_perfume,id_esencia_per)
+    id_esencia_perf INT NOT NULL REFERENCES KMR_Esencia_Perfume(tsca_cas),
+    PRIMARY KEY (id_perfume,id_esencia_perf)
 );
 
 CREATE TABLE KMR_Familia_Olf(
@@ -99,7 +102,7 @@ CREATE TABLE KMR_P_FO(
 );
 
 CREATE TABLE KMR_EP_FO(
-    id_esencia_perf INT NOT NULL REFERENCES KMR_Esencia_Perfume(id),
+    id_esencia_perf INT NOT NULL REFERENCES KMR_Esencia_Perfume(tsca_cas),
     id_familia_olf INT NOT NULL REFERENCES KMR_Familia_Olf(id),
     PRIMARY KEY (id_esencia_perf,id_familia_olf)
 );
@@ -134,6 +137,7 @@ CREATE TABLE KMR_Criterio_Eval(
     fechai DATE NOT NULL,
     fechaf DATE,
     tipoformula VARCHAR NOT NULL CHECK(tipoformula='E' OR tipoformula='I'),
+    peso INT NOT NULL,
     id_emp_prod INT NOT NULL REFERENCES KMR_Empresa_Productora(id),
     id_criterio INT REFERENCES KMR_Criterio(id),
     PRIMARY KEY (fechai, id_emp_prod,id_criterio)
@@ -159,16 +163,22 @@ CREATE TABLE KMR_IFRA_Ingrediente(
 );
 
 CREATE TABLE KMR_Origen(
-    id_ifra_ing INT NOT NULL REFERENCES KMR_IFRA_Ingrediente(cas_number),
-    id_emp_prov INT NOT NULL REFERENCES KMR_IFRA_Ingrediente(id_emp_prov),
+    id_ifra_ing INT NOT NULL,
+    id_emp_prov INT NOT NULL,
     id_pais INT NOT NULL REFERENCES KMR_Pais(id),
-    PRIMARY KEY (id_ifra_ing,id_pais)
+    CONSTRAINT fk_ifra_ing
+	FOREIGN KEY (id_ifra_ing, id_emp_prov)
+	    REFERENCES KMR_IFRA_Ingrediente(cas_number,id_emp_prov),
+    PRIMARY KEY (id_ifra_ing,id_emp_prov,id_pais)
 );
 
 CREATE TABLE KMR_FO_IF(
-    id_ifra_ing INT NOT NULL REFERENCES KMR_IFRA_Ingrediente(cas_number),
-    id_emp_prov INT NOT NULL REFERENCES KMR_IFRA_Ingrediente(id_emp_prov),
+    id_ifra_ing INT NOT NULL,
+    id_emp_prov INT NOT NULL,
     id_familia_olf INT NOT NULL REFERENCES KMR_Familia_Olf(id),
+    CONSTRAINT fk_ifra_ing
+	FOREIGN KEY (id_ifra_ing, id_emp_prov)
+	    REFERENCES KMR_IFRA_Ingrediente(cas_number,id_emp_prov),
     PRIMARY KEY (id_ifra_ing,id_emp_prov,id_familia_olf)
 );
 
@@ -181,9 +191,12 @@ CREATE TABLE KMR_Ingrediente_Otros(
 );
 
 CREATE TABLE KMR_Otros(
-    id_ifra_ing INT NOT NULL REFERENCES KMR_IFRA_Ingrediente(cas_number),
-    id_emp_prov INT NOT NULL REFERENCES KMR_IFRA_Ingrediente(id_emp_prov),
+    id_ifra_ing INT NOT NULL,
+    id_emp_prov INT NOT NULL,
     id_ing_otros INT NOT NULL REFERENCES KMR_Ingrediente_Otros(ipc),
+    CONSTRAINT fk_ifra_ing
+	FOREIGN KEY (id_ifra_ing, id_emp_prov)
+	    REFERENCES KMR_IFRA_Ingrediente(cas_number,id_emp_prov),
     PRIMARY KEY (id_ifra_ing,id_emp_prov,id_ing_otros)
 );
 
@@ -194,9 +207,12 @@ CREATE TABLE KMR_Ingrediente_Presentacion(
     precio_unitario INT NOT NULL,
     unidades INT,
     envase CHAR CHECK(envase='P' OR envase='V'),
-    id_ifra_ing INT REFERENCES KMR_IFRA_Ingrediente(cas_number),
-    id_emp_prov INT REFERENCES KMR_IFRA_Ingrediente(id_emp_prov),
-    id_ing_otros INT REFERENCES KMR_Ingrediente_Otros(ipc)
+    id_ifra_ing INT,
+    id_emp_prov INT,
+    id_ing_otros INT REFERENCES KMR_Ingrediente_Otros(ipc),
+    CONSTRAINT fk_ifra_ing
+	FOREIGN KEY (id_ifra_ing, id_emp_prov)
+	    REFERENCES KMR_IFRA_Ingrediente(cas_number,id_emp_prov)
 );
 
 CREATE TABLE KMR_Comp_Extra(
@@ -228,9 +244,10 @@ CREATE TABLE KMR_Envio_Pais(
 );
 
 CREATE TABLE KMR_Contrato(
-    id INT NOT NULL,
+    id INT UNIQUE NOT NULL,
     id_emp_prod INT NOT NULL REFERENCES KMR_Empresa_Productora(id),
     id_emp_prov INT NOT NULL REFERENCES KMR_Empresa_Proveedora(id),
+    exclusividad VARCHAR NOT NULL,
     fecha_emision DATE NOT NULL,
     fecha_cancelado DATE,
     motivo_cancelo VARCHAR,
@@ -239,28 +256,48 @@ CREATE TABLE KMR_Contrato(
 
 CREATE TABLE KMR_Renueva(
     id INT NOT NULL,
-    id_contrato INT NOT NULL REFERENCES KMR_Contrato(id),
+    id_contrato INT NOT NULL,
+    id_emp_prov INT NOT NULL,
     fecha DATE NOT NULL,
-    PRIMARY KEY (id, id_contrato)
+    CONSTRAINT fk_contrato
+	FOREIGN KEY (id_contrato, id_emp_prov)
+	    REFERENCES KMR_Contrato(id,id_emp_prov),
+    PRIMARY KEY (id, id_contrato, id_emp_prov)
 );
 
-CREATE KMR_Contrato_Particulares(
-    id INT NOT NULL,
-    id_contrato INT NOT NULL REFERENCES KMR_Contrato(id),
-    id_cond_pago INT REFERENCES KMR_Condiciones_Pago(id),
-    id_emp_prov INT REFERENCES KMR_Condiciones_Pago(id_emp_prov),
-    id_envio_pais INT REFERENCES KMR_Pais(id),
+CREATE TABLE KMR_Contrato_Particulares(
+    id INT UNIQUE NOT NULL,
+    id_contrato INT NOT NULL,
+    id_cond_pago INT,
+    id_cond_pago_prov INT,
+    id_envio_pais INT,
+    id_envio_pais_prov INT,
     descripcion VARCHAR,
-    PRIMARY KEY (id,id_contrato)
+    CONSTRAINT fk_contrato
+	FOREIGN KEY (id_contrato)
+	    REFERENCES KMR_Contrato(id),
+    CONSTRAINT fk_cond_pago
+	FOREIGN KEY (id_cond_pago, id_cond_pago_prov)
+	    REFERENCES KMR_Condiciones_Pago(id,id_emp_prov),
+    CONSTRAINT fk_envio_pais
+	FOREIGN KEY (id_envio_pais, id_emp_prov)
+	    REFERENCES KMR_Envio_Pais(id_pais,id_emp_prov),
+    PRIMARY KEY (id)
 );
 
-CREATE KMR_Ing_Contrato(
+CREATE TABLE KMR_Ing_Contrato(
     id INT NOT NULL,
-    id_contrato INT NOT NULL REFERENCES KMR_Contrato(id),
-    id_emp_prov INT NOT NULL REFERENCES KMR_Contrato(id_emp_prov),
+    id_contrato INT NOT NULL,
+    id_emp_prov INT NOT NULL,
     id_ing_otros INT REFERENCES KMR_Ingrediente_Otros(ipc),
-    id_ing_ifra INT REFERENCES KMR_IFRA_Ingrediente(cas_number),
-    id_ing_ifra_prov INT REFERENCES KMR_IFRA_Ingrediente(id_emp_prov),
+    id_ing_ifra INT,
+    id_ing_ifra_prov INT,
+    CONSTRAINT fk_contrato
+	FOREIGN KEY (id_contrato, id_emp_prov)
+	    REFERENCES KMR_Contrato(id,id_emp_prov),
+    CONSTRAINT fk_ing_ifra
+	FOREIGN KEY (id_ing_ifra, id_ing_ifra_prov)
+	    REFERENCES KMR_IFRA_Ingrediente(cas_number,id_emp_prov),
     PRIMARY KEY(id,id_contrato,id_emp_prov)
 );
 
@@ -272,9 +309,9 @@ CREATE TABLE KMR_Pedido(
     pago_total INT NOT NULL,
     fecha_confirma DATE,
     nro_factura INT,
-    id_contrato_pago INT REFERENCES KMR_Contrato_Particulares(id),
-    id_contrato INT REFERENCES KMR_Contrato_Particulares(id_contrato),
-    id_condcontenvio INT REFERENCES KMR_Contrato_Particulares(id_envio_pais)
+    id_condcontrapago INT REFERENCES KMR_Contrato_Particulares(id),
+    id_condcontenvio INT 
+    
 );
 
 CREATE TABLE KMR_Pago(
