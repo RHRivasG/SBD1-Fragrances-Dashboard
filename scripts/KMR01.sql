@@ -244,10 +244,10 @@ CREATE TABLE KMR_Envio_Pais(
 );
 
 CREATE TABLE KMR_Contrato(
-    id INT UNIQUE NOT NULL,
+    id INT NOT NULL,
     id_emp_prod INT NOT NULL REFERENCES KMR_Empresa_Productora(id),
     id_emp_prov INT NOT NULL REFERENCES KMR_Empresa_Proveedora(id),
-    exclusividad VARCHAR NOT NULL,
+    exclusividad BOOLEAN NOT NULL,
     fecha_emision DATE NOT NULL,
     fecha_cancelado DATE,
     motivo_cancelo VARCHAR,
@@ -268,21 +268,22 @@ CREATE TABLE KMR_Renueva(
 CREATE TABLE KMR_Contrato_Particulares(
     id INT UNIQUE NOT NULL,
     id_contrato INT NOT NULL,
+    id_emp_prov INT NOT NULL,
     id_cond_pago INT,
     id_cond_pago_prov INT,
     id_envio_pais INT,
     id_envio_pais_prov INT,
     descripcion VARCHAR,
     CONSTRAINT fk_contrato
-	FOREIGN KEY (id_contrato)
-	    REFERENCES KMR_Contrato(id),
+	FOREIGN KEY (id_contrato, id_emp_prov)
+	    REFERENCES KMR_Contrato(id,id_emp_prov),
     CONSTRAINT fk_cond_pago
 	FOREIGN KEY (id_cond_pago, id_cond_pago_prov)
 	    REFERENCES KMR_Condiciones_Pago(id,id_emp_prov),
     CONSTRAINT fk_envio_pais
 	FOREIGN KEY (id_envio_pais, id_envio_pais_prov)
 	    REFERENCES KMR_Envio_Pais(id_pais,id_emp_prov),
-    PRIMARY KEY (id,id_contrato)
+    PRIMARY KEY (id,id_contrato,id_emp_prov)
 );
 
 CREATE TABLE KMR_Ing_Contrato(
@@ -309,9 +310,18 @@ CREATE TABLE KMR_Pedido(
     pago_total INT NOT NULL,
     fecha_confirma DATE,
     nro_factura INT,
-    id_condcontrapago INT REFERENCES KMR_Contrato_Particulares(id),
-    id_condcontenvio INT REFERENCES KMR_Contrato_Particulares(id)
-    
+    id_condcontrapago INT,
+    id_condcontrapago_contrato INT,
+    id_condcontrapago_prov INT,
+    id_condcontenvio INT,
+    id_condcontenvio_contrato INT,
+    id_condcontenvio_prov INT,
+    CONSTRAINT fk_condcontrapago
+	FOREIGN KEY (id_condcontrapago,id_condcontrapago_contrato,id_emp_prov)
+	    REFERENCES KMR_Contrato_Particulares(id,id_contrato,id_emp_prov),
+    CONSTRAINT fk_concontenvio
+	FOREIGN KEY (id_condcontenvio,id_condcontenvio_contrato,id_condcontenvio_prov)
+	    REFERENCES KMR_Contrato_Particulares(id,id_contrato,id_emp_prov)
 );
 
 CREATE TABLE KMR_Pago(
