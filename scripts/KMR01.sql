@@ -340,7 +340,7 @@ CREATE TABLE KMR_Pedido_Lote(
     PRIMARY KEY (id,id_pedido)
 );
 
-CREATE TABLE Resul_Eval(
+CREATE TABLE KMR_Resul_Eval(
     fecha INT NOT NULL,
     id_emp_prod INT NOT NULL REFERENCES KMR_Empresa_Productora(id),
     id_emp_prov INT NOT NULL REFERENCES KMR_Empresa_Proveedora(id),
