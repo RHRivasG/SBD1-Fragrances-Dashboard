@@ -229,7 +229,7 @@ CREATE TABLE KMR_Prohibida(
 CREATE TABLE KMR_Condiciones_Pago(
     id SERIAL,
     id_emp_prov INT NOT NULL REFERENCES KMR_Empresa_Proveedora(id),
-    tipo VARCHAR NOT NULL,
+    tipo VARCHAR CHECK(tipo='AP' OR tipo='C') NOT NULL,
     cuotas INT,
     PRIMARY KEY (id,id_emp_prov)
 );
@@ -239,7 +239,7 @@ CREATE TABLE KMR_Envio_Pais(
     id_pais INT NOT NULL REFERENCES KMR_Pais(id),
     dias_entrega INT NOT NULL,
     tipo_transporte CHAR NOT NULL CHECK (tipo_transporte='A' OR tipo_transporte='B'),
-    costo INT,
+    costo REAL,
     PRIMARY KEY (id_emp_prov, id_pais)
 );
 
