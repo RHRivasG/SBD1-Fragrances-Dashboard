@@ -209,7 +209,7 @@ INSERT INTO KMR_Asociacion_Nacional
 	(2,'Cosmetic,Toiletry and Frangance Association of Singapore','Central Business District, Singapore',170),
 	(3,'South African Association of the Flavour & Fragrance Industry','Johannesburg, Gauteng',175),
 	(4,'Fragance Creator''s Association', 'Centro Rosslyn', 68),
-	(5, 'SFFIA', 'Geneva', 168);
+	(5, 'Swiss Flavour and Fragrance Industry Association', 'Geneva', 178);
 	
 INSERT INTO KMR_Empresa_Productora 
     VALUES
@@ -229,7 +229,13 @@ INSERT INTO KMR_Perfume
 	(6,'Flower by Kenzo','F','M','JO',2),
 	(7,'Kenzo Amour','F','M','JO',3),
 	(8,'Hugo Dark Blue','F','H','AD',3),
-	(9,'Miracle de Lancome','F','M','JO',3);
+	(9,'Miracle de Lancome','F','M','JO',3),
+	(10,'Tiffany & Love For Her ','F','M','AT',4),
+	(11,'Sauvage Eau de Parfum','F','H','AD',4),
+	(12,'Bloom Eau De Parfum','M','M','AT',4),
+	(13,'Love Secret','F','M','AT',5),
+	(14,'Secret Charm','M','M','AT',5),
+	(15,'Vitality','F','M','AD',5);
 	
 INSERT INTO KMR_Empresa_Proveedora
 	(nombre, pag_web, inf_contacto, id_asoc_nacional)
