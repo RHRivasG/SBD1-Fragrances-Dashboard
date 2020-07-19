@@ -1,18 +1,18 @@
 CREATE TABLE KMR_Pais(
-    id SMALLINT NOT NULL PRIMARY KEY,
+    id SMALLSERIAL PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,
     continente VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE KMR_Asociacion_Nacional(
-    id INT NOT NULL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     nombre VARCHAR NOT NULL,
     region VARCHAR NOT NULL,
     id_pais SMALLINT NOT NULL REFERENCES KMR_Pais(id)
 );
 
 CREATE TABLE KMR_Empresa_Productora(
-    id INT NOT NULL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     nombre VARCHAR NOT NULL,
     pag_web VARCHAR NOT NULL,
     inf_contacto VARCHAR NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE KMR_EP_P(
 );
 
 CREATE TABLE KMR_Perfume(
-    id INT NOT NULL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     nombre VARCHAR NOT NULL,
     tipo CHAR NOT NULL CHECK(tipo='F' OR tipo='M'),
     genero CHAR NOT NULL CHECK(genero='H' OR genero='M' OR genero='U'),
@@ -35,7 +35,7 @@ CREATE TABLE KMR_Perfume(
 );
 
 CREATE TABLE KMR_Perfumista(
-    id INT NOT NULL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     nombre VARCHAR NOT NULL,
     primer_apellido VARCHAR NOT NULL,
     segundo_apellido VARCHAR NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE KMR_P_P(
 );
 
 CREATE TABLE KMR_Intensidad(
-    id INT NOT NULL,
+    id SERIAL,
     id_perfume INT NOT NULL REFERENCES KMR_Perfume(id),
     tipo VARCHAR NOT NULL,
     concentracion DECIMAL,
@@ -59,7 +59,7 @@ CREATE TABLE KMR_Intensidad(
 );
 
 CREATE TABLE KMR_Presentacion(
-    id INT NOT NULL,
+    id SERIAL,
     id_intensidad INT NOT NULL,
     id_perfume INT NOT NULL,
     volml INT NOT NULL,
@@ -90,7 +90,7 @@ CREATE TABLE KMR_Monolitico(
 );
 
 CREATE TABLE KMR_Familia_Olf(
-    id INT NOT NULL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     nombre VARCHAR NOT NULL,
     descripcion VARCHAR NOT NULL
 );
@@ -108,7 +108,7 @@ CREATE TABLE KMR_EP_FO(
 );
 
 CREATE TABLE KMR_Palabra_Clave(
-    id INT NOT NULL PRIMARY KEY, 
+    id SERIAL PRIMARY KEY, 
     palabra_unica VARCHAR UNIQUE NOT NULL
 );
 
@@ -128,7 +128,7 @@ CREATE TABLE KMR_Escala_Eval(
 );
 
 CREATE TABLE KMR_Criterio(
-    id INT NOT NULL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     nombre VARCHAR NOT NULL,
     descripcion VARCHAR NOT NULL
 );
@@ -144,7 +144,7 @@ CREATE TABLE KMR_Criterio_Eval(
 );
 
 CREATE TABLE KMR_Empresa_Proveedora(
-    id INT NOT NULL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     nombre VARCHAR NOT NULL,
     pag_web VARCHAR NOT NULL,
     inf_contacto VARCHAR NOT NULL,
@@ -201,7 +201,7 @@ CREATE TABLE KMR_Otros(
 );
 
 CREATE TABLE KMR_Ingrediente_Presentacion(
-    id INT NOT NULL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     vol INT NOT NULL,
     cantidad_almacenada INT NOT NULL,
     precio_unitario INT NOT NULL,
@@ -227,7 +227,7 @@ CREATE TABLE KMR_Prohibida(
 );
 
 CREATE TABLE KMR_Condiciones_Pago(
-    id INT NOT NULL,
+    id SERIAL,
     id_emp_prov INT NOT NULL REFERENCES KMR_Empresa_Proveedora(id),
     tipo VARCHAR NOT NULL,
     cuotas INT,
@@ -244,7 +244,7 @@ CREATE TABLE KMR_Envio_Pais(
 );
 
 CREATE TABLE KMR_Contrato(
-    id INT NOT NULL,
+    id SERIAL,
     id_emp_prod INT NOT NULL REFERENCES KMR_Empresa_Productora(id),
     id_emp_prov INT NOT NULL REFERENCES KMR_Empresa_Proveedora(id),
     exclusividad BOOLEAN NOT NULL,
@@ -255,7 +255,7 @@ CREATE TABLE KMR_Contrato(
 );
 
 CREATE TABLE KMR_Renueva(
-    id INT NOT NULL,
+    id SERIAL,
     id_contrato INT NOT NULL,
     id_emp_prov INT NOT NULL,
     fecha DATE NOT NULL,
@@ -266,7 +266,7 @@ CREATE TABLE KMR_Renueva(
 );
 
 CREATE TABLE KMR_Contrato_Particulares(
-    id INT UNIQUE NOT NULL,
+    id SERIAL,
     id_contrato INT NOT NULL,
     id_emp_prov INT NOT NULL,
     id_cond_pago INT,
@@ -287,7 +287,7 @@ CREATE TABLE KMR_Contrato_Particulares(
 );
 
 CREATE TABLE KMR_Ing_Contrato(
-    id INT NOT NULL,
+    id SERIAL,
     id_contrato INT NOT NULL,
     id_emp_prov INT NOT NULL,
     id_ing_otros INT REFERENCES KMR_Ingrediente_Otros(ipc),
@@ -303,7 +303,7 @@ CREATE TABLE KMR_Ing_Contrato(
 );
 
 CREATE TABLE KMR_Pedido(
-    id INT NOT NULL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     id_emp_prod INT NOT NULL REFERENCES KMR_Empresa_Productora(id),
     id_emp_prov INT NOT NULL REFERENCES KMR_Empresa_Proveedora(id),
     fecha_emision DATE NOT NULL,
@@ -325,7 +325,7 @@ CREATE TABLE KMR_Pedido(
 );
 
 CREATE TABLE KMR_Pago(
-    id INT NOT NULL,
+    id SERIAL,
     id_pedido INT NOT NULL REFERENCES KMR_Pedido(id),
     fecha_pago DATE NOT NULL,
     monto DECIMAL NOT NULL,
@@ -333,7 +333,7 @@ CREATE TABLE KMR_Pago(
 );
 
 CREATE TABLE KMR_Pedido_Lote(
-    id INT NOT NULL,
+    id SERIAL,
     id_pedido INT NOT NULL REFERENCES KMR_Pedido(id),
     id_ing_presentacion INT NOT NULL REFERENCES KMR_Ingrediente_Presentacion(id),
     cantidad INT NOT NULL,
@@ -350,7 +350,7 @@ CREATE TABLE KMR_Resul_Eval(
 );
 
 CREATE TABLE KMR_Membresia_IFRA(
-    id INT NOT NULL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     fechai DATE NOT NULL,
     fechat DATE,
     tipo VARCHAR NOT NULL CHECK(tipo='PD' OR tipo='PV'),
