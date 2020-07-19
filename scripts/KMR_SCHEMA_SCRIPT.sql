@@ -39,7 +39,7 @@ CREATE TABLE KMR_Perfumista(
     nombre VARCHAR NOT NULL,
     primer_apellido VARCHAR NOT NULL,
     segundo_apellido VARCHAR NOT NULL,
-    genero VARCHAR NOT NULL CHECK(genero='H' OR genero='M'),
+    genero CHAR NOT NULL CHECK(genero='H' OR genero='M'),
     id_pais SMALLINT NOT NULL REFERENCES KMR_Pais(id)
 );
 

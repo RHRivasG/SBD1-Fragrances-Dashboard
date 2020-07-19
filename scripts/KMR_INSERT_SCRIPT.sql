@@ -222,10 +222,10 @@ INSERT INTO KMR_Empresa_Productora
 INSERT INTO KMR_Perfume
     VALUES 
 	(1,'Geo Donna','F','M','AD',1),
-	(2,'Flags Donna','F','M','JO',1),
-	(3,'Geo Uomo','M','H','AT',1),
-	(4,'L Eau d Issey Pour Femme','F','M','JO',2),
-	(5,'L Eau d Issey Pour Homme','F','H','AD',2),
+	(2,'Flags Donna','F','M','AT',1),
+	(3,'Geo Uomo','M','H','AD',1),
+	(4,'L Eau d Issey','F','M','AT',2),
+	(5,'L Eau d Issey Pour Homme','F','H','AT',2),
 	(6,'Flower by Kenzo','F','M','JO',2),
 	(7,'Kenzo Amour','F','M','JO',3),
 	(8,'Hugo Dark Blue','F','H','AD',3),
@@ -236,7 +236,32 @@ INSERT INTO KMR_Perfume
 	(13,'Love Secret','F','M','AT',5),
 	(14,'Secret Charm','M','M','AT',5),
 	(15,'Vitality','F','M','AD',5);
+
+INSERT INTO KMR_Perfumista
+    VALUES
+	(1,'Jacques','Cavallier','Belletrud','H',75);
+
+INSERT INTO KMR_P_P
+    VALUES
+	(4,1),
+	(5,1);
+
+INSERT INTO KMR_Intensidad
+    VALUES
+	(1,1,'EdP',15);
+
+INSERT INTO KMR_Presentacion
+    VALUES
+	(1,1,1,100);
 	
+INSERT INTO KMR_Esencia_Perfume
+    VALUES
+	(8006879,'sandalo','aceite','El aceite esencial de sandalo se obtiene por medio de arrastre de vapor de la madera y raices de la Santalum album, arbol de hoja perenne que crece al unirse al sistema de raíces de otros árboles. Pertenece a la familia Santalaceae.'),
+	(8014093,'pachuli','aceite','El aceite esencial de pachuli se extrae por arrastre de vapor de la Pachulí Pogostemon cablin, original del Sureste de Asia. Hoy en día se cultiva en China, Malasia, India, Indonesia y Filipinas, pero también crece en América del sur y otras regiones tropicales como Hawaii.'),
+	(8008319,'naranja tangerina','aceite','El aceite esencial de Mandarina se obtiene por la técnica de presión en frio de la cascara de Citrus Reticulata, que es el fruto del árbol mandarino.'),
+	(223747884,'peonia','aceite','La esencia floral de peonía tiene un agradable aroma a flores frescas. Es una fragancia pura, limpia e intensa y su olor evoca a la primavera. Al oler esta esencia de peonía, lo primero que viene al recuerdo es un gran ramo de flores naturales.'),
+	(8007758,'bergamota','aceite','se obtiene por presión en frio de la cascara del fruto del, Citrus Bergamia Risso, Rutaceae, del árbol conocido como bergamota. Este árbol es el resultado de los cruces del limonero y el naranjo, eso explica su forma de pera y su color amarillo.'),
+
 INSERT INTO KMR_Empresa_Proveedora
 	(nombre, pag_web, inf_contacto, id_asoc_nacional)
 	VALUES
