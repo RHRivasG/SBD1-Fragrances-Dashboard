@@ -239,6 +239,7 @@ INSERT INTO KMR_Perfume
 
 INSERT INTO KMR_Perfumista
     VALUES
+	(1,'Alviero','Martini','Martini','H',96),
 	(1,'Jacques','Cavallier','Belletrud','H',75);
 
 INSERT INTO KMR_P_P
@@ -248,19 +249,92 @@ INSERT INTO KMR_P_P
 
 INSERT INTO KMR_Intensidad
     VALUES
-	(1,1,'EdP',15);
+	(1,1,'EdP',15,'clasico');
 
 INSERT INTO KMR_Presentacion
     VALUES
-	(1,1,1,100);
+	(1,1,1,100),
+	(2,1,1,50);
 	
 INSERT INTO KMR_Esencia_Perfume
     VALUES
-	(8006879,'sandalo','aceite','El aceite esencial de sandalo se obtiene por medio de arrastre de vapor de la madera y raices de la Santalum album, arbol de hoja perenne que crece al unirse al sistema de raíces de otros árboles. Pertenece a la familia Santalaceae.'),
-	(8014093,'pachuli','aceite','El aceite esencial de pachuli se extrae por arrastre de vapor de la Pachulí Pogostemon cablin, original del Sureste de Asia. Hoy en día se cultiva en China, Malasia, India, Indonesia y Filipinas, pero también crece en América del sur y otras regiones tropicales como Hawaii.'),
-	(8008319,'naranja tangerina','aceite','El aceite esencial de Mandarina se obtiene por la técnica de presión en frio de la cascara de Citrus Reticulata, que es el fruto del árbol mandarino.'),
-	(223747884,'peonia','aceite','La esencia floral de peonía tiene un agradable aroma a flores frescas. Es una fragancia pura, limpia e intensa y su olor evoca a la primavera. Al oler esta esencia de peonía, lo primero que viene al recuerdo es un gran ramo de flores naturales.'),
-	(8007758,'bergamota','aceite','se obtiene por presión en frio de la cascara del fruto del, Citrus Bergamia Risso, Rutaceae, del árbol conocido como bergamota. Este árbol es el resultado de los cruces del limonero y el naranjo, eso explica su forma de pera y su color amarillo.'),
+	(8006879,'sandalo','.','.'),
+	(8014093,'pachuli','.','.'),
+	(8008319,'naranja tangerina','.','.'),
+	(84929408,'peonia','.','.'),
+	(90028061,'haba tonka','.','.'),
+	(84012340,'durazno','.','.'),
+	(8006813,'ylang ylang','.','.'),
+	(8024064,'vainilla','.','.'),
+	(8001045,'almizcle','.','.'),
+	(5502750,'muguete','.','.'),
+	(8022966,'jazmin','.','.'),
+	(8007758,'bergamota','.','.');
+
+INSERT INTO KMR_Monolitico
+    VALUES
+	(1,8006879),
+	(1,8014093),
+	(1,8008319),
+	(1,84929408),
+	(1,90028061),
+	(1,84012340),
+	(1,8006813),
+	(1,8024064),
+	(1,8001045),
+	(1,8022966);
+
+INSERT INTO KMR_Perfume_Fases
+    VALUES
+	(1,8007758,'S'),
+	(1,8008319,'S'),
+	(1,84929408,'C'),
+	(1,84012340,'C'),
+	(1,8022966,'C'),
+	(1,8006813,'C'),
+	(1,5502750,'C'),
+	(1,8006879,'F'),
+	(1,90028061,'F'),
+	(1,8014093,'F'),
+	(1,8001045,'F'),
+	(1,8024064,'F');
+
+INSERT INTO KMR_Familia_Olf
+    VALUES
+	(1,'Verde','.'),
+	(2,'Citrico','.'),
+	(3,'Floral','.'),
+	(4,'Frutal','.'),
+	(5,'Aromatico','.'),
+	(6,'Fougere','.'),
+	(7,'Chipre','.'),
+	(8,'Amaderado','.'),
+	(9,'Oriental','.');
+
+INSERT INTO KMR_P_FO
+    VALUES
+	(1,8),
+	(1,3);
+
+INSERT INTO KMR_EP_FO
+    VALUES
+	(8006879,8),
+	(8006879,6),
+	(8014093,8),
+	(8014093,7),
+	(8008319,2),
+	(84929408,3),
+	(90028061,9),
+	(84012340,4),
+	(8006813,3),
+	(8024064,9),
+	(8001045,9),
+	(5502750,3),
+	(8022966,3),
+	(8007758,2),
+	(8007758,6),
+	(8007758,7);
+
 
 INSERT INTO KMR_Empresa_Proveedora
 	(nombre, pag_web, inf_contacto, id_asoc_nacional)
