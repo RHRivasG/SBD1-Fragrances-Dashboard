@@ -240,21 +240,33 @@ INSERT INTO KMR_Perfume
 INSERT INTO KMR_Perfumista
     VALUES
 	(1,'Alviero','Martini','Martini','H',96),
-	(1,'Jacques','Cavallier','Belletrud','H',75);
+	(2,'Jacques','Cavallier','Belletrud','H',75);
 
 INSERT INTO KMR_P_P
     VALUES
-	(4,1),
-	(5,1);
+	(1,1),
+	(2,1),
+	(3,1),
+	(4,2),
+	(5,2);
 
 INSERT INTO KMR_Intensidad
     VALUES
-	(1,1,'EdP',15,'clasico');
+	(1,1,'EdP',15,'clasico'),
+	(2,2,'EdT',10,'seductor'),
+	(3,3,'EdP',15,'normal'),
+	(4,4,'EdT',10,'elegante'),
 
 INSERT INTO KMR_Presentacion
     VALUES
 	(1,1,1,100),
-	(2,1,1,50);
+	(2,1,1,50),
+	(3,2,2,50),
+	(4,3,3,100),
+	(5,3,3,50),
+	(6,4,4,100),
+	(7,4,4,50),
+	(8,4,4,25),
 	
 INSERT INTO KMR_Esencia_Perfume
     VALUES
@@ -269,35 +281,32 @@ INSERT INTO KMR_Esencia_Perfume
 	(8001045,'almizcle','.','.'),
 	(5502750,'muguete','.','.'),
 	(8022966,'jazmin','.','.'),
-	(8007758,'bergamota','.','.');
-
-INSERT INTO KMR_Monolitico
-    VALUES
-	(1,8006879),
-	(1,8014093),
-	(1,8008319),
-	(1,84929408),
-	(1,90028061),
-	(1,84012340),
-	(1,8006813),
-	(1,8024064),
-	(1,8001045),
-	(1,8022966);
-
-INSERT INTO KMR_Perfume_Fases
-    VALUES
-	(1,8007758,'S'),
-	(1,8008319,'S'),
-	(1,84929408,'C'),
-	(1,84012340,'C'),
-	(1,8022966,'C'),
-	(1,8006813,'C'),
-	(1,5502750,'C'),
-	(1,8006879,'F'),
-	(1,90028061,'F'),
-	(1,8014093,'F'),
-	(1,8001045,'F'),
-	(1,8024064,'F');
+	(8007758,'bergamota','.','.'),
+	(8008579,'naranja','.','citrus sinensis'),
+	(8007703,'anis estrellado','.','illicum verum'),
+	(68606815,'grocella negra','.','ribes nigrum'),
+	(97676272,'piña','.','ananas comosus'),
+	(8016384,'flor de azahar del naranjo','.','citrus aurantium'),
+	(84082688,'nuez moscada','.','myristica fragrans'),
+	(8000428,'alcaravea','.','Carum carvi'),
+	(8012917,'bayas rojas','.','.'),
+	(8006404,'miel','.','.'),
+	(8028895,'caramelo','.','.'),
+	(8015734,'albahaca','.','Ocimum basilicum'),
+	(8006904,'menta','.','Mentha spicata, piperita, aquatica (labiatae)'),
+	(8016204,'toronja','.','citrus paradisi'),
+	(8000348,'clavos de olor','.','eugenia caryophyllata'),
+	(90082432,'pera','.','pyrus communis (rosaceae)'),
+	(85940325,'cardamomo','.','elletaria cardamomum'),
+	(103957,'ciclamen','.','Cyclamen'),
+	(90106380,'rosa','.','rosa gallica, centifollia, damascena'),
+	(89998038,'melon','.','cucurbitaceae family'),
+	(223749017,'fresia','.','freesia refracta (Iridaceae)'),
+	(85085514,'flor de loto','.','nelumbo nucifera'),
+	(28940116,'calone','.','.'),
+	(8021430,'clavel','.','.'),
+	(84776670,'azucena','.','lilium (liliaceae)'),
+	(
 
 INSERT INTO KMR_Familia_Olf
     VALUES
@@ -314,7 +323,15 @@ INSERT INTO KMR_Familia_Olf
 INSERT INTO KMR_P_FO
     VALUES
 	(1,8),
-	(1,3);
+	(1,3),
+	(1,9),
+	(2,9),
+	(2,4),
+	(2,5),
+	(3,9),
+	(3,5),
+	(3,2),
+	(3,1),
 
 INSERT INTO KMR_EP_FO
     VALUES
@@ -333,8 +350,82 @@ INSERT INTO KMR_EP_FO
 	(8022966,3),
 	(8007758,2),
 	(8007758,6),
-	(8007758,7);
+	(8007758,7),
+	(8008579,2),
+	(8007703,9),
+	(68606815,4),
+	(97676272,4),
+	(8016384,3),
+	(84082688,9),
+	(8000428,9),
+	(8012917,4),
+	(8006404,9),
+	(8028895,9),
+	(8015734,1),
+	(8015734,6),
+	(8015734,5),
+	(8006904,1),
+	(8006904,6),
+	(8016204,2),
+	(8000348,9),
+	(90082432,4),
+	(85940325,9),
 
+INSERT INTO KMR_Monolitico
+    VALUES
+	(1,8006879),
+	(1,8014093),
+	(1,8008319),
+	(1,84929408),
+	(1,90028061),
+	(1,84012340),
+	(1,8006813),
+	(1,8024064),
+	(1,8001045),
+	(1,8022966),
+	(2,8024064),
+	(2,97676272),
+	(2,8028895),
+	(2,90028061),
+	(2,68606815),
+	(2,8012917),
+	(2,8016384),
+	(2,8006404),
+	(2,8007703),
+	(3,8024064),
+	(3,8015734),
+	(3,8006904),
+	(3,8016204),
+	(3,8000348),
+	(3,90082432),
+	(3,85940325),
+
+INSERT INTO KMR_Perfume_Fases
+    VALUES
+	(1,8007758,'S'),
+	(1,8008319,'S'),
+	(1,84929408,'C'),
+	(1,84012340,'C'),
+	(1,8022966,'C'),
+	(1,8006813,'C'),
+	(1,5502750,'C'),
+	(1,8006879,'F'),
+	(1,90028061,'F'),
+	(1,8014093,'F'),
+	(1,8001045,'F'),
+	(1,8024064,'F'),
+	(2,8008579,'S'),
+	(2,8007703,'S'),
+	(2,68606815,'S'),
+	(2,97676272,'S'),
+	(2,8016384,'C'),
+	(2,84082688,'C'),
+	(2,8000428,'C'),
+	(2,8012917,'C'),
+	(2,90028061,'F'),
+	(2,8024064,'F'),
+	(2,8006404,'F'),
+	(2,8028895,'F'),
 
 INSERT INTO KMR_Empresa_Proveedora
 	(nombre, pag_web, inf_contacto, id_asoc_nacional)
