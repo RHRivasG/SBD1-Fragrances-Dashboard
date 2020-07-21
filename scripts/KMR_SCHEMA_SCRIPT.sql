@@ -52,7 +52,7 @@ CREATE TABLE KMR_P_P(
 CREATE TABLE KMR_Intensidad(
     id SERIAL,
     id_perfume INT NOT NULL REFERENCES KMR_Perfume(id),
-    tipo VARCHAR NOT NULL,
+    tipo VARCHAR NOT NULL CHECK(tipo='P' OR tipo='EdP' OR tipo='EdT' OR tipo='EdC' OR tipo='EdS'),
     concentracion DECIMAL,
     descripcion VARCHAR,
     PRIMARY KEY (id,id_perfume)
@@ -79,7 +79,7 @@ CREATE TABLE KMR_Esencia_Perfume(
 CREATE TABLE KMR_Perfume_Fases(
     id_perfume INT NOT NULL REFERENCES KMR_Perfume(id),
     id_esencia_per INT NOT NULL REFERENCES KMR_Esencia_Perfume(tsca_cas),
-    tiponota VARCHAR NOT NULL,
+    tiponota CHAR NOT NULL CHECK(tiponota='S' OR tiponota='C' OR tiponota='F'),
     PRIMARY KEY (id_perfume,id_esencia_per)
 );
 
