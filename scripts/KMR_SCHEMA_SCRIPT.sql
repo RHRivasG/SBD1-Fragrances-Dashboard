@@ -159,27 +159,25 @@ CREATE TABLE KMR_IFRA_Ingrediente(
     vida_util VARCHAR NOT NULL,
     solubilidad VARCHAR,
     procesodescripcion VARCHAR,
-    PRIMARY KEY (cas_number,id_emp_prov)
+    PRIMARY KEY (cas_number)
 );
 
 CREATE TABLE KMR_Origen(
     id_ifra_ing INT NOT NULL,
-    id_emp_prov INT NOT NULL,
     id_pais INT NOT NULL REFERENCES KMR_Pais(id),
     CONSTRAINT fk_ifra_ing
-	FOREIGN KEY (id_ifra_ing, id_emp_prov)
-	    REFERENCES KMR_IFRA_Ingrediente(cas_number,id_emp_prov),
-    PRIMARY KEY (id_ifra_ing,id_emp_prov,id_pais)
+	FOREIGN KEY (id_ifra_ing)
+	    REFERENCES KMR_IFRA_Ingrediente(cas_number),
+    PRIMARY KEY (id_ifra_ing,id_pais)
 );
 
 CREATE TABLE KMR_FO_IF(
     id_ifra_ing INT NOT NULL,
-    id_emp_prov INT NOT NULL,
     id_familia_olf INT NOT NULL REFERENCES KMR_Familia_Olf(id),
     CONSTRAINT fk_ifra_ing
-	FOREIGN KEY (id_ifra_ing, id_emp_prov)
-	    REFERENCES KMR_IFRA_Ingrediente(cas_number,id_emp_prov),
-    PRIMARY KEY (id_ifra_ing,id_emp_prov,id_familia_olf)
+	FOREIGN KEY (id_ifra_ing)
+	    REFERENCES KMR_IFRA_Ingrediente(cas_number),
+    PRIMARY KEY (id_ifra_ing,id_familia_olf)
 );
 
 CREATE TABLE KMR_Ingrediente_Otros(
@@ -192,27 +190,24 @@ CREATE TABLE KMR_Ingrediente_Otros(
 
 CREATE TABLE KMR_Otros(
     id_ifra_ing INT NOT NULL,
-    id_emp_prov INT NOT NULL,
     id_ing_otros INT NOT NULL REFERENCES KMR_Ingrediente_Otros(ipc),
     CONSTRAINT fk_ifra_ing
-	FOREIGN KEY (id_ifra_ing, id_emp_prov)
-	    REFERENCES KMR_IFRA_Ingrediente(cas_number,id_emp_prov),
-    PRIMARY KEY (id_ifra_ing,id_emp_prov,id_ing_otros)
+	FOREIGN KEY (id_ifra_ing)
+	    REFERENCES KMR_IFRA_Ingrediente(cas_number),
+    PRIMARY KEY (id_ifra_ing,id_ing_otros)
 );
 
 CREATE TABLE KMR_Ingrediente_Presentacion(
     id SERIAL PRIMARY KEY,
     vol INT NOT NULL,
+    unidades VARCHAR CHECK(unidades = 'mL' OR unidades ='g'),
     cantidad_almacenada INT NOT NULL,
     precio_unitario INT NOT NULL,
-    unidades INT,
-    envase CHAR CHECK(envase='P' OR envase='V'),
     id_ifra_ing INT,
-    id_emp_prov INT,
     id_ing_otros INT REFERENCES KMR_Ingrediente_Otros(ipc),
     CONSTRAINT fk_ifra_ing
-	FOREIGN KEY (id_ifra_ing, id_emp_prov)
-	    REFERENCES KMR_IFRA_Ingrediente(cas_number,id_emp_prov)
+	FOREIGN KEY (id_ifra_ing)
+	    REFERENCES KMR_IFRA_Ingrediente(cas_number)
 );
 
 CREATE TABLE KMR_Comp_Extra(
@@ -292,13 +287,12 @@ CREATE TABLE KMR_Ing_Contrato(
     id_emp_prov INT NOT NULL,
     id_ing_otros INT REFERENCES KMR_Ingrediente_Otros(ipc),
     id_ing_ifra INT,
-    id_ing_ifra_prov INT,
     CONSTRAINT fk_contrato
 	FOREIGN KEY (id_contrato, id_emp_prov)
 	    REFERENCES KMR_Contrato(id,id_emp_prov),
     CONSTRAINT fk_ing_ifra
-	FOREIGN KEY (id_ing_ifra, id_ing_ifra_prov)
-	    REFERENCES KMR_IFRA_Ingrediente(cas_number,id_emp_prov),
+	FOREIGN KEY (id_ing_ifra)
+	    REFERENCES KMR_IFRA_Ingrediente(cas_number),
     PRIMARY KEY(id,id_contrato,id_emp_prov)
 );
 

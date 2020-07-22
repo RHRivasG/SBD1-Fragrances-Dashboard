@@ -618,3 +618,13 @@ INSERT INTO KMR_IFRA_Ingrediente
 	(504632, 4, 'Liquido transparente incoloro', 'Quimico', 'NA', 'Alcohol', NULL),
 	(111273, 4, 'Liquido transparente incoloro', 'Quimico', 'NA', 'Alcohol', NULL),
 	(542461, 4, 'Liquido cristalino incoloro o blanquecino', 'Quimico', '2 semanas', 'Glicol Dipropileno', NULL);
+
+INSERT INTO KMR_Criterio
+	(nombre, descripcion)
+	VALUES
+	('Criterio de Condiciones de Pago', 'Criterio de evaluacion de una Evaluación inicial
+			   , toma en consideracion las Condiciones de pago disponibles de una empresa proveedora'),
+	('Criterio de Alternativas de Envio', 'Criterio de evaluacion de una Evaluación inicial
+			   , toma en consideracion las Alternativas de envío disponibles de una empresa proveedora'),
+	('Criterio de eficiencia', 'Condicion de evaluacion de una Evaluacion Anual, toma en consideracion
+			   el porcentaje de pedidos que fueron entregados correctamente.');
