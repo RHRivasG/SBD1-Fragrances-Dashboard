@@ -1,0 +1,4 @@
+INSERT INTO KMR_Escala_Eval
+    VALUES
+	('2020-07-20',NULL,1,10),
+	('2020-07-10',NULL,1,10);
