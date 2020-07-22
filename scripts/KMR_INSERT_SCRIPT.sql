@@ -255,7 +255,7 @@ INSERT INTO KMR_Intensidad
 	(1,1,'EdP',15,'clasico'),
 	(2,2,'EdT',10,'seductor'),
 	(3,3,'EdP',15,'normal'),
-	(4,4,'EdT',10,'elegante');
+	(4,4,'EdT',10,'elegante'),
 
 INSERT INTO KMR_Presentacion
     VALUES
@@ -266,7 +266,7 @@ INSERT INTO KMR_Presentacion
 	(5,3,3,50),
 	(6,4,4,100),
 	(7,4,4,50),
-	(8,4,4,25);
+	(8,4,4,25),
 	
 INSERT INTO KMR_Esencia_Perfume
     VALUES
@@ -305,8 +305,8 @@ INSERT INTO KMR_Esencia_Perfume
 	(85085514,'flor de loto','.','nelumbo nucifera'),
 	(28940116,'calone','.','.'),
 	(8021430,'clavel','.','.'),
-	(84776670,'azucena','.','lilium (liliaceae)');
-	
+	(84776670,'azucena','.','lilium (liliaceae)'),
+	(
 
 INSERT INTO KMR_Familia_Olf
     VALUES
@@ -331,7 +331,7 @@ INSERT INTO KMR_P_FO
 	(3,9),
 	(3,5),
 	(3,2),
-	(3,1);
+	(3,1),
 
 INSERT INTO KMR_EP_FO
     VALUES
@@ -369,7 +369,7 @@ INSERT INTO KMR_EP_FO
 	(8016204,2),
 	(8000348,9),
 	(90082432,4),
-	(85940325,9);
+	(85940325,9),
 
 INSERT INTO KMR_Monolitico
     VALUES
@@ -398,7 +398,7 @@ INSERT INTO KMR_Monolitico
 	(3,8016204),
 	(3,8000348),
 	(3,90082432),
-	(3,85940325);
+	(3,85940325),
 
 INSERT INTO KMR_Perfume_Fases
     VALUES
@@ -425,7 +425,7 @@ INSERT INTO KMR_Perfume_Fases
 	(2,90028061,'F'),
 	(2,8024064,'F'),
 	(2,8006404,'F'),
-	(2,8028895,'F');
+	(2,8028895,'F'),
 
 INSERT INTO KMR_Empresa_Proveedora
 	(nombre, pag_web, inf_contacto, id_asoc_nacional)
