@@ -200,7 +200,7 @@ CREATE TABLE KMR_Otros(
 CREATE TABLE KMR_Ingrediente_Presentacion(
     id SERIAL PRIMARY KEY,
     vol INT NOT NULL,
-    unidades VARCHAR CHECK(unidades = 'mL' OR unidades ='g')
+    unidades VARCHAR CHECK(unidades = 'mL' OR unidades ='g'),
     cantidad_almacenada INT NOT NULL,
     precio_unitario INT NOT NULL,
     id_ifra_ing INT,
