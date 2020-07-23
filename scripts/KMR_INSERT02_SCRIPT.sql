@@ -19,3 +19,11 @@ INSERT INTO KMR_Ing_Contrato (id,id_contrato,id_emp_prov,id_ing_ifra)
     VALUES 
 	(1,1,1,131766739),
 	(2,1,1,14352615);
+
+INSERT INTO KMR_EP_P
+    VALUES
+	(1,155),
+	(1,89),
+	(1,147),
+	(1,126),
+	(1,91);
