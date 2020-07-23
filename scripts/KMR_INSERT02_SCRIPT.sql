@@ -11,7 +11,7 @@ INSERT INTO KMR_Contrato
     VALUES (1,1,1,FALSE,'2019-07-04',NULL,NULL);
 
 INSERT INTO KMR_Contrato_Particulares
-    VALUES (1,1,1,1,1,147,1,'descripcion');
+    VALUES (1,1,1,1,1,89,1,'descripcion');
 
 INSERT INTO KMR_Ing_Contrato (id,id_contrato,id_emp_prov,id_ing_ifra)
     VALUES 
