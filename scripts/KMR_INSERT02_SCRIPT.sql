@@ -1,7 +1,7 @@
 INSERT INTO KMR_Escala_Eval
     VALUES
 	('2020-07-20',NULL,1,10,1),
-	('2020-07-10',NULL,1,10,1);
+	('2020-07-10',NULL,1,5,1);
 
 
 INSERT INTO KMR_Envio_Pais
