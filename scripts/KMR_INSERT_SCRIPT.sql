@@ -243,7 +243,7 @@ INSERT INTO KMR_Perfumista
 	(2,'Jacques','Cavallier','Belletrud','H',75),
 	(3,'Alberto','Morillas','Morillas','H',67);
 	(4,'Daphne','Bugey','Bugey',75),
-	(5,'Olivier','Cresp','Cresp',75),
+	(5,'Olivier','Cresp','Cresp',75);
 
 INSERT INTO KMR_P_P
     VALUES
@@ -254,7 +254,7 @@ INSERT INTO KMR_P_P
 	(5,2),
 	(6,3),
 	(7,4),
-	(7,5),
+	(7,5);
 
 INSERT INTO KMR_Intensidad
     VALUES
@@ -264,7 +264,7 @@ INSERT INTO KMR_Intensidad
 	(4,4,'EdT',10,'elegante'),
 	(5,5,'EdT',10,'moderno'),
 	(6,6,'EdP',15,'clasico'),
-	(7,7,'EdP',15,'clasico'),
+	(7,7,'EdP',15,'clasico');
 
 INSERT INTO KMR_Presentacion
     VALUES
@@ -285,7 +285,7 @@ INSERT INTO KMR_Presentacion
 	(15,6,6,30),
 	(16,7,7,100),
 	(17,7,7,50),
-	(18,7,7,30),
+	(18,7,7,30);
 	
 INSERT INTO KMR_Esencia_Perfume
     VALUES
@@ -351,7 +351,7 @@ INSERT INTO KMR_Esencia_Perfume
 	(8016602,'hoja de arroz','.','oryza family poaceae'), 
 	(32388559,'flor de cerezo','.','family rosaceae, genus prunus'),
 	(223748069,'frangipani','.','Plumeria rubra (Apocyanaceae)'),
-	(90045582,'heliotropo','.','heliotropium arborescens'),
+	(90045582,'heliotropo','.','heliotropium arborescens');
 
 INSERT INTO KMR_Familia_Olf
     VALUES
@@ -385,7 +385,7 @@ INSERT INTO KMR_P_FO
 	(5,8),
 	(5,3),
 	(6,3),
-	(6,9),
+	(6,9);
 
 INSERT INTO KMR_EP_FO
     VALUES
@@ -463,7 +463,7 @@ INSERT INTO KMR_EP_FO
 	(90045526,3),
 	(8021361,9),
 	(90147367,3),
-	(8050075,9),
+	(8050075,9);
 
 INSERT INTO KMR_Monolitico
     VALUES
@@ -541,7 +541,7 @@ INSERT INTO KMR_Monolitico
 	(6,90045526),
 	(6,8022966),
 	(6,68606815),
-	(6,223748445),
+	(6,223748445);
 
 INSERT INTO KMR_Perfume_Fases
     VALUES
@@ -618,7 +618,7 @@ INSERT INTO KMR_Perfume_Fases
 	(6,90106380,'C'),
 	(6,8024064,'F'),
 	(6,8001045,'F'),
-	(6,8050075,'F'),
+	(6,8050075,'F');
 
 INSERT INTO KMR_Empresa_Proveedora
 	(nombre, pag_web, inf_contacto, id_asoc_nacional) VALUES
