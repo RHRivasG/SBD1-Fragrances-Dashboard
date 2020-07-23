@@ -15,7 +15,7 @@ INSERT INTO KMR_Contrato
 INSERT INTO KMR_Contrato_Particulares
     VALUES (1,1,1,1,1,147,1,'descripcion');
 
-INSERT INTO KMR_Ing_Contrato (id,id_emp_prov,id_ing_ifra)
+INSERT INTO KMR_Ing_Contrato (id,id_contrato,id_emp_prov,id_ing_ifra)
     VALUES 
 	(1,1,1,131766739),
 	(2,1,1,14352615);
