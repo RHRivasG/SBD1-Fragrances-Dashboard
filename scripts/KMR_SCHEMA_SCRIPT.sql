@@ -200,7 +200,7 @@ CREATE TABLE KMR_Otros(
 CREATE TABLE KMR_Ingrediente_Presentacion(
     id SERIAL PRIMARY KEY,
     vol INT NOT NULL,
-    unidades VARCHAR CHECK(unidades = 'mL' OR unidades ='g')
+    unidades VARCHAR CHECK(unidades = 'mL' OR unidades ='g'),
     cantidad_almacenada INT NOT NULL,
     precio_unitario INT NOT NULL,
     id_ifra_ing INT,
@@ -295,7 +295,6 @@ CREATE TABLE KMR_Ing_Contrato(
 	    REFERENCES KMR_IFRA_Ingrediente(cas_number),
     PRIMARY KEY(id,id_contrato,id_emp_prov)
 );
-
 CREATE TABLE KMR_Pedido(
     id SERIAL PRIMARY KEY,
     id_emp_prod INT NOT NULL REFERENCES KMR_Empresa_Productora(id),
