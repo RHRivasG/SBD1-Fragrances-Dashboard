@@ -1,10 +1,8 @@
 INSERT INTO KMR_Escala_Eval
     VALUES
-	('2020-07-20',NULL,1,10),
-	('2020-07-10',NULL,1,10);
+	('2020-07-20',NULL,1,10,1),
+	('2020-07-10',NULL,1,10,1);
 
-INSERT INTO KMR_Condiciones_Pago
-    VALUES (1,1,'AP',3);
 
 INSERT INTO KMR_Envio_Pais
     VALUES (1,147,10,'A',30);
