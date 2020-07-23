@@ -240,7 +240,10 @@ INSERT INTO KMR_Perfume
 INSERT INTO KMR_Perfumista
     VALUES
 	(1,'Alviero','Martini','Martini','H',96),
-	(2,'Jacques','Cavallier','Belletrud','H',75);
+	(2,'Jacques','Cavallier','Belletrud','H',75),
+	(3,'Alberto','Morillas','Morillas','H',67);
+	(4,'Daphne','Bugey','Bugey',75),
+	(5,'Olivier','Cresp','Cresp',75),
 
 INSERT INTO KMR_P_P
     VALUES
@@ -248,7 +251,10 @@ INSERT INTO KMR_P_P
 	(2,1),
 	(3,1),
 	(4,2),
-	(5,2);
+	(5,2),
+	(6,3),
+	(7,4),
+	(7,5),
 
 INSERT INTO KMR_Intensidad
     VALUES
@@ -256,7 +262,9 @@ INSERT INTO KMR_Intensidad
 	(2,2,'EdT',10,'seductor'),
 	(3,3,'EdP',15,'normal'),
 	(4,4,'EdT',10,'elegante'),
-	(5,5,'EdT',10,'moderno');
+	(5,5,'EdT',10,'moderno'),
+	(6,6,'EdP',15,'clasico'),
+	(7,7,'EdP',15,'clasico'),
 
 INSERT INTO KMR_Presentacion
     VALUES
@@ -271,7 +279,13 @@ INSERT INTO KMR_Presentacion
 	(9,5,5,200),
 	(10,5,5,125),
 	(11,5,5,75),
-	(12,5,5,40);
+	(12,5,5,40),
+	(13,6,6,100),
+	(14,6,6,50),
+	(15,6,6,30),
+	(16,7,7,100),
+	(17,7,7,50),
+	(18,7,7,30),
 	
 INSERT INTO KMR_Esencia_Perfume
     VALUES
@@ -328,7 +342,16 @@ INSERT INTO KMR_Esencia_Perfume
 	(90082512,'geranio','.','pelargonium Graveolens'),
 	(8022193,'azafran','.','crocus Sativus Linneaus'),
 	(84238299,'vetiver','.','vetiveria Zizanoid'),
-	(84961660,'tabaco','.','Nicotiana tabacum (Solanaceae)');
+	(84961660,'tabaco','.','Nicotiana tabacum (Solanaceae)'),
+	(90045526,'flor de espino','.','crataegus monogyna (rosaceae)'),
+	(8021361,'opoponaco de Somalia','.','commiphora erythraea'),
+	(90147367,'violeta','.','viola odorata'),
+	(8050075,'incienso','.','.'),
+	(68916734,'te blanco','.','.'),
+	(8016602,'hoja de arroz','.','oryza family poaceae'), 
+	(32388559,'flor de cerezo','.','family rosaceae, genus prunus'),
+	(223748069,'frangipani','.','Plumeria rubra (Apocyanaceae)'),
+	(90045582,'heliotropo','.','heliotropium arborescens'),
 
 INSERT INTO KMR_Familia_Olf
     VALUES
@@ -360,7 +383,9 @@ INSERT INTO KMR_P_FO
 	(5,5),
 	(5,9),
 	(5,8),
-	(5,3);
+	(5,3),
+	(6,3),
+	(6,9),
 
 INSERT INTO KMR_EP_FO
     VALUES
@@ -434,7 +459,11 @@ INSERT INTO KMR_EP_FO
 	(8022193,9),
 	(84238299,8),
 	(84961660,10),
-	(233683846,2);
+	(233683846,2),
+	(90045526,3),
+	(8021361,9),
+	(90147367,3),
+	(8050075,9),
 
 INSERT INTO KMR_Monolitico
     VALUES
@@ -503,6 +532,16 @@ INSERT INTO KMR_Monolitico
 	(5,84961660),
 	(5,91721981),
 	(5,8002673);
+	(6,90147367),
+	(6,90106380),
+	(6,8024064),
+	(6,8001045),
+	(6,8050075),
+	(6,8021361),
+	(6,90045526),
+	(6,8022966),
+	(6,68606815),
+	(6,223748445),
 
 INSERT INTO KMR_Perfume_Fases
     VALUES
@@ -568,7 +607,18 @@ INSERT INTO KMR_Perfume_Fases
 	(5,8006879,'F'),
 	(5,92201553,'F'),
 	(5,8002673,'F'),
-	(5,84961660,'F');
+	(5,84961660,'F'),
+	(6,68606815,'S'),
+	(6,90045526,'S'),
+	(6,90106380,'S'),
+	(6,223748445,'S'),
+	(6,8021361,'C'),
+	(6,8022966,'C'),
+	(6,90147367,'C'),
+	(6,90106380,'C'),
+	(6,8024064,'F'),
+	(6,8001045,'F'),
+	(6,8050075,'F'),
 
 INSERT INTO KMR_Empresa_Proveedora
 	(nombre, pag_web, inf_contacto, id_asoc_nacional) VALUES
