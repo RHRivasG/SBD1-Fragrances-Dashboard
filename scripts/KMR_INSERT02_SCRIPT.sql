@@ -17,5 +17,5 @@ INSERT INTO KMR_Contrato_Particulares
 
 INSERT INTO KMR_Ing_Contrato (id,id_emp_prov,id_ing_ifra)
     VALUES 
-	(1,1,131766739),
-	(2,1,14352615);
+	(1,1,1,131766739),
+	(2,1,1,14352615);

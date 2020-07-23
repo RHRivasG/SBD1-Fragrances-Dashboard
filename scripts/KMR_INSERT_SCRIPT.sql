@@ -241,9 +241,9 @@ INSERT INTO KMR_Perfumista
     VALUES
 	(1,'Alviero','Martini','Martini','H',96),
 	(2,'Jacques','Cavallier','Belletrud','H',75),
-	(3,'Alberto','Morillas','Morillas','H',67);
-	(4,'Daphne','Bugey','Bugey',75),
-	(5,'Olivier','Cresp','Cresp',75);
+	(3,'Alberto','Morillas','Morillas','H',67),
+	(4,'Daphne','Bugey','Bugey','M',75),
+	(5,'Olivier','Cresp','Cresp','H',75);
 
 INSERT INTO KMR_P_P
     VALUES
@@ -541,7 +541,6 @@ INSERT INTO KMR_Monolitico
 	(6,90045526),
 	(6,8022966),
 	(6,68606815),
-	(6,223748445);
 
 INSERT INTO KMR_Perfume_Fases
     VALUES
