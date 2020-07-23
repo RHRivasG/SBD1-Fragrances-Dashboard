@@ -486,3 +486,14 @@ INSERT INTO KMR_Criterio
 			   , toma en consideracion las Alternativas de envío disponibles de una empresa proveedora'),
 	('Criterio de eficiencia', 'Condicion de evaluacion de una Evaluacion Anual, toma en consideracion
 			   el porcentaje de pedidos que fueron entregados correctamente.');
+/*
+INSERT INTO KMR_Ingrediente_Presentacion
+	   (vol, unidades, cantidad_almacenada, precio_unitario, id_ifra_ing, id_ing_otros)
+	   VALUES
+	   (5, 'g', 100, 5, 131766739, NULL),
+	   (25, 'g', 100, 9, 131766739, NULL),
+	   (200, 'g', 100, 45, 131766739, NULL)
+	   (5, 'g', 100, 5, 131766739, NULL),
+	   (25, 'g', 100, 9, 131766739, NULL),
+	   (200, 'g', 100, 45, 131766739, NULL)
+*/
