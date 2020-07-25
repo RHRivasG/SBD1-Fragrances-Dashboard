@@ -24,6 +24,7 @@ INSERT INTO KMR_Escala_Eval
 INSERT INTO KMR_Condiciones_Pago
     VALUES (1,'AP',3);
 
+
 INSERT INTO KMR_Envio_Pais
     VALUES (1,147,10,'A',30);
 
@@ -59,6 +60,7 @@ INSERT INTO KMR_Contrato_Particulares
     (16,8,2,2,2, NULL, NULL, 'Sephora contrato a essence con condicion de pago aplazado con 2 cuotas'),    
     (17,9,4,NULL,NULL,14,4, 'fourchem contrato a essence con envio a Australia'),   
     (18,9,4,8,4, NULL, NULL, 'Sephora contrato a essence con condicion de pago contado con sin cuotas');
+
 
 INSERT INTO KMR_Ing_Contrato
     (id,id_contrato,id_emp_prov,id_ing_ifra)

@@ -164,7 +164,7 @@ CREATE TABLE KMR_IFRA_Ingrediente(
 
 CREATE TABLE KMR_Origen(
     id_ifra_ing INT NOT NULL,
-    id_pais INT NOT NULL REFERENCES KMR_Pais(id),
+    id_pais SMALLINT NOT NULL REFERENCES KMR_Pais(id),
     CONSTRAINT fk_ifra_ing
 	FOREIGN KEY (id_ifra_ing)
 	    REFERENCES KMR_IFRA_Ingrediente(cas_number),
@@ -231,7 +231,7 @@ CREATE TABLE KMR_Condiciones_Pago(
 
 CREATE TABLE KMR_Envio_Pais(
     id_emp_prov INT NOT NULL REFERENCES KMR_Empresa_Proveedora(id),
-    id_pais INT NOT NULL REFERENCES KMR_Pais(id),
+    id_pais SMALLINT NOT NULL REFERENCES KMR_Pais(id),
     dias_entrega INT NOT NULL,
     tipo_transporte CHAR NOT NULL CHECK (tipo_transporte='A' OR tipo_transporte='B'),
     costo REAL,
@@ -268,7 +268,7 @@ CREATE TABLE KMR_Contrato_Particulares(
     id_emp_prov INT NOT NULL,
     id_cond_pago INT,
     id_cond_pago_prov INT,
-    id_envio_pais INT,
+    id_envio_pais SMALLINT,
     id_envio_pais_prov INT,
     descripcion VARCHAR,
     CONSTRAINT fk_contrato
