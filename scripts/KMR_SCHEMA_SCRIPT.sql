@@ -246,7 +246,9 @@ CREATE TABLE KMR_Contrato(
     fecha_emision DATE NOT NULL,
     fecha_cancelado DATE,
     motivo_cancelo VARCHAR,
-    PRIMARY KEY (id,id_emp_prov)
+    PRIMARY KEY (id,id_emp_prov),
+    CONSTRAINT unique_one_per_pair
+    UNIQUE (id_emp_prov, id_emp_prod)
 );
 
 CREATE TABLE KMR_Renueva(
