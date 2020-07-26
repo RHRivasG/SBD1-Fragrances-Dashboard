@@ -38,7 +38,7 @@ INSERT INTO KMR_Contrato
     (6,3,3,FALSE,'2019-02-19',NULL,NULL),
     (7,4,2,FALSE,'2020-12-25',NULL,NULL),
     (8,5,2,FALSE,'2020-01-24',NULL,NULL),
-    (9,5,4,TRUE,'2020-03-23',NULL,NULL),    
+    (9,5,4,TRUE,'2020-03-23',NULL,NULL);
 
 INSERT INTO KMR_Contrato_Particulares
     VALUES
@@ -77,7 +77,7 @@ INSERT INTO KMR_Ing_Contrato
     (11,7,2,106241),
     (12,7,2,121335),
     (13,8,2,121335),
-    (14,9,4,504632),
+    (14,9,4,504632);
     
 INSERT INTO KMR_EP_P
     VALUES
