@@ -2,7 +2,6 @@ package services
 
 import (
 	"echo-pedidos/app/models"
-	"fmt"
 	"time"
 
 	"github.com/go-pg/pg"
@@ -33,7 +32,6 @@ func (s *PedidoService) CreatePedido(idProd int, idProv int, pedidoForm models.P
 		Column("id_contrato", "id_emp_prov", "id_envio_pais").
 		Where("id = ?", pedidoForm.ContratoEnvio).
 		Select(&condEnvioContrato, &condEnvioProv, &pais); err != nil {
-		fmt.Println(err)
 		return err
 	}
 	var a float64
@@ -43,7 +41,6 @@ func (s *PedidoService) CreatePedido(idProd int, idProv int, pedidoForm models.P
 		Where("id_pais = ?", pais).
 		Where("id_emp_prov = ?", condEnvioProv).
 		Select(&a); err != nil {
-		fmt.Println(err)
 		return err
 	}
 	pedido.PagoTotal = a
@@ -54,7 +51,6 @@ func (s *PedidoService) CreatePedido(idProd int, idProv int, pedidoForm models.P
 		Column("id_contrato", "id_emp_prov").
 		Where("id = ?", pedidoForm.ContratoPago).
 		Select(&condPagoContrato, &condPagoProv); err != nil {
-		fmt.Println(err)
 		return err
 	}
 
@@ -72,7 +68,6 @@ func (s *PedidoService) CreatePedido(idProd int, idProv int, pedidoForm models.P
 			Column("precio_unitario").
 			Where("id = ?", presentacion.ID).
 			Select(&precioUnitario); err != nil {
-			fmt.Println(err)
 			return err
 		}
 		pedido.PagoTotal += precioUnitario * float64(presentacion.Cantidad)
@@ -99,7 +94,6 @@ func CreateLote(idPedido int, presentaciones []models.Par, db *pg.DB) error {
 		lote.IDIngPresentacion = presentacion.ID
 		lote.Cantidad = presentacion.Cantidad
 		if err := db.Insert(&lote); err != nil {
-			fmt.Println(err)
 			return err
 		}
 	}
@@ -109,7 +103,9 @@ func CreateLote(idPedido int, presentaciones []models.Par, db *pg.DB) error {
 //ShowAll .
 func (s *PedidoService) ShowAll(idProd int, db *pg.DB) ([]models.Pedido, error) {
 	var pedidos []models.Pedido
-	if err := db.Model(&pedidos).Select(); err != nil {
+	if err := db.Model(&pedidos).
+		Where("id = ?", idProd).
+		Select(); err != nil {
 		return nil, err
 	}
 	return pedidos, nil
