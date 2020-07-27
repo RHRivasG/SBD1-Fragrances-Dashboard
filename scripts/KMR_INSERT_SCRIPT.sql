@@ -933,3 +933,15 @@ INSERT INTO KMR_Ingrediente_Presentacion
 	   (5, 'g', 100, 5, 131766739, NULL),
 	   (25, 'g', 100, 9, 131766739, NULL),
 	   (200, 'g', 100, 45, 131766739, NULL);
+
+INSERT INTO KMR_Ingrediente_Otros
+	(ipc,nombre,tipo,tsca_cas,id_emp_prov)
+	VALUES
+	(131766739,'Sagecete','Floral',,1),
+	(93049,'Yara Yara','citrico',,1),
+	(28897214,'Beta Iso Damascol','amaderado',4927360, 3),
+	(18479577,'Tetrahydromyrcenol','citrico',,3),
+	(5989548,'L Limonene','citrico',,3),
+	(542461,'Civettone','oriental',,4),
+	(121335,'Vanillin','oriental',,2);
+	
