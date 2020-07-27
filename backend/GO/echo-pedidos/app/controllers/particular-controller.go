@@ -25,6 +25,9 @@ func (c *ParticularController) FindEnviosParticulares(ctx echo.Context, db *pg.D
 		return echo.NewHTTPError(http.StatusBadRequest, err)
 	}
 	idProv, err := strconv.Atoi(ctx.Param("idprov"))
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err)
+	}
 	service := services.ParticularService{}
 	enviosParticulares, err := service.FindEnviosParticulares(idProd, idProv, db)
 	if err != nil {
