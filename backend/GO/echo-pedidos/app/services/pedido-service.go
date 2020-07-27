@@ -104,7 +104,7 @@ func CreateLote(idPedido int, presentaciones []models.Par, db *pg.DB) error {
 func (s *PedidoService) ShowAll(idProd int, db *pg.DB) ([]models.Pedido, error) {
 	var pedidos []models.Pedido
 	if err := db.Model(&pedidos).
-		Where("id = ?", idProd).
+		Where("id_emp_prod = ?", idProd).
 		Select(); err != nil {
 		return nil, err
 	}
