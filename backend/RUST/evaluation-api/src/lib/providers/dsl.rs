@@ -2,7 +2,6 @@ use crate::schema::kmr_empresa_proveedora::columns::*;
 use diesel::{query_builder::{SqlQuery, InsertStatement}, dsl::{Filter, Select, Eq, exists}, expression::exists::Exists, insert_into};
 use crate::diesel::prelude::*;
 use crate::schema::{self, kmr_empresa_proveedora, kmr_ifra_ingrediente};
-use super::model::Contract;
 
 
 type AllProviderColumns = (id, nombre, pag_web, inf_contacto, id_asoc_nacional);
@@ -50,18 +49,41 @@ pub fn providers_evaluable_efficiency_by(provider_id: i32) -> SqlQuery {
          (NOW() - c.fecha_emision) > interval '11 months'", provider_id))
 }
 
-pub fn ifra_ingredients_of(provider_id: i32) -> Filter<kmr_ifra_ingrediente::table, Eq<kmr_ifra_ingrediente::id_emp_prov, i32>>
+pub fn ifra_ingredients_of(provider_id: i32) -> SqlQuery
 {
     use kmr_ifra_ingrediente::*;
 
-    table.filter(id_emp_prov.eq(provider_id))
+    diesel::sql_query(format!(
+        "SELECT i.* FROM kmr_ifra_ingrediente i \
+         WHERE NOT EXISTS \
+         (SELECT * \
+         FROM kmr_ing_contrato ic,\
+         kmr_contrato c \
+         WHERE ic.id_contrato = c.id \
+         AND ic.id_emp_prov = c.id_emp_prov \
+         AND c.exclusividad = FALSE \
+         AND ic.id_ing_ifra = i.cas_number) \
+         AND i.id_emp_prov = {};"
+            , provider_id 
+    ))
 }
 
-pub fn other_ingredients_of(provider_id: i32) -> Filter<schema::kmr_ingrediente_otros::table, Eq<schema::kmr_ingrediente_otros::id_emp_prov, i32>>
+pub fn other_ingredients_of(provider_id: i32) -> SqlQuery
 {
     use schema::kmr_ingrediente_otros::*;
 
-    table.filter(id_emp_prov.eq(provider_id))
+    diesel::sql_query(format!(
+        "SELECT i.* FROM kmr_ingrediente_otros i \
+         WHERE NOT EXISTS \
+         (SELECT * \
+         FROM kmr_ing_contrato ic,\
+         kmr_contrato c \
+         WHERE ic.id_contrato = c.id \
+         AND ic.id_emp_prov = c.id_emp_prov \
+         AND c.exclusividad = FALSE \
+         AND ic.id_ing_ifra = i.ipc) \
+         AND i.id_emp_prov = {};", provider_id  
+    ))
 }
 
 pub fn filter_by_id(id_producer: i32) -> Filter<kmr_empresa_proveedora::table, Eq<kmr_empresa_proveedora::id, i32>> {
@@ -76,9 +98,4 @@ pub fn exists_by_id(id_producer: i32) -> Exists<Filter<kmr_empresa_proveedora::t
     exists(
         table.filter(id.eq(id_producer))
     )
-}
-
-pub fn insert_contract<C: Into<Contract>>(c: C) -> InsertStatement<schema::kmr_contrato::table, <Contract as Insertable<schema::kmr_contrato::table>>::Values> {
-    insert_into(schema::kmr_contrato::table)
-             .values(c.into())
 }

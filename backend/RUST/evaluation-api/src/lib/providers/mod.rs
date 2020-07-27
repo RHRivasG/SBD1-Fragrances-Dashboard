@@ -1,25 +1,25 @@
-use model::{PaymentCondition, Provider, ShipmentOption, IfraIngredient, ContractViewModel, OtherIngredients};
+use model::{PaymentCondition, Provider, ShipmentOption, IfraIngredient, OtherIngredients};
 use rocket_contrib::json::Json;
 use super::db::Connection;
-use dsl::{payment_conditions_of, all, shipment_options_of, providers_evaluable_efficiency_by, providers_evaluable_initial_by, ifra_ingredients_of, other_ingredients_of, insert_contract};
+use dsl::{payment_conditions_of, all, shipment_options_of, providers_evaluable_efficiency_by, providers_evaluable_initial_by, ifra_ingredients_of, other_ingredients_of};
 use rocket::http::Cookies;
 use super::auth::session;
-use super::db::{process_insert, process_query};
+use super::db::{process_query_deser, process_query};
 use rocket_contrib::json::JsonValue;
 pub mod model;
 pub mod dsl;
 
 fn all_ingredients_of(conn: &Connection, id: i32) -> Option<JsonValue>
 {
-    process_query::<_,IfraIngredient>(ifra_ingredients_of(id), &conn)
+    process_query_deser::<_,IfraIngredient>(ifra_ingredients_of(id), &conn)
     .and_then(
       |ifing|
       {
-        process_query::<_,OtherIngredients>(other_ingredients_of(id), &conn)
+        process_query_deser::<_,OtherIngredients>(other_ingredients_of(id), &conn)
           .map(|othering|
                json!({
-                   "ifra": ifing.into_inner(),
-                   "others": othering.into_inner()
+                   "ifra": ifing,
+                   "others": othering
                  })
           )   
       }
@@ -74,11 +74,4 @@ pub fn get_ingredients_of(id: i32, conn: Connection) -> Option<JsonValue> {
 pub fn get_session_ingredients(cookies: Cookies, conn: Connection) -> Option<JsonValue> { 
   session::get_session_of("providerId", cookies)
     .and_then(|id_provider|   all_ingredients_of(&conn, id_provider))
-}
-
-#[post("/providers/contract/new", format="application/json", data="<contract>")]
-pub fn new_contract(contract: Json<ContractViewModel>, conn: Connection) -> Option<Json<i32>>{
-  process_insert(
-    insert_contract(contract.into_inner()).returning(crate::schema::kmr_contrato::id),
-    &conn)
 }

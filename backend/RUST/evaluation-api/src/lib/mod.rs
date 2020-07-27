@@ -2,6 +2,7 @@ pub(crate) mod db;
 pub(crate) mod providers;
 pub(crate) mod producers;
 pub(crate) mod auth;
+pub(crate) mod contract;
 
 mod tests {
     use super::db::{connect, process_query};
@@ -24,7 +25,7 @@ mod tests {
         let conn = connect().get().expect("Connection unreachable");
       
         let result: Vec<IfraIngredient>=
-            ifra_ingredients_of(1)
+            ifra_ingredients_of(2)
             .load(&conn)
             .expect("Query Failed");
         assert!(result.len() > 0)

@@ -7,7 +7,7 @@ use rocket_contrib::json::Json;
 
 pub type PgPool = Pool<ConnectionManager<PgConnection>>;
 
-pub fn process_insert<T, K>(insert: T, conn: &Connection) -> Option<Json<K>>
+pub fn process_insert<T, K>(insert: T, conn: &Connection) -> Option<K>
 where
     T: RunQueryDsl<K>,
     T: LoadQuery<PgConnection, K>
@@ -15,19 +15,15 @@ where
     insert
         .get_result(&conn)
         .ok()
-        .map(|v| Json(v))
 }
 
-pub fn process_query_first<T, K>(query: T, conn: &Connection) -> Option<K>
+pub fn process_query_deser<T, K>(query: T, conn: &Connection) -> Option<Vec<K>>
 where
     T: RunQueryDsl<K>,
-    T: LoadQuery<PgConnection, K>,
-    T: LimitDsl,
-    T::Output: LoadQuery<PgConnection, K>,
-    T::Output: RunQueryDsl<K>
+    T: LoadQuery<PgConnection, K>
 {
     query
-        .first(&*conn)
+        .load(&*conn)
         .ok()
 
 }
