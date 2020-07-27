@@ -4,12 +4,13 @@ import "time"
 
 //Pedido .
 type Pedido struct {
-	tableName                struct{}  `pg:"kmr_pedido"`
+	tableName                struct{}  `pg:"kmr_pedido" sql:"kmr_pedido"`
 	ID                       int       `pg:"id,pk" json:"id"`
 	IDEmpProd                int       `pg:"id_emp_prod" json:"id_emp_prod"`
 	IDEmpProv                int       `pg:"id_emp_prov" json:"id_emp_prov"`
 	FechaEmision             time.Time `pg:"fecha_emision" json:"fecha_emision"`
 	PagoTotal                float64   `pg:"pago_total" json:"pago_total"`
+	Status                   string    `pg:"status" json:"status"`
 	FechaConfirma            time.Time `pg:"fecha_confirma" json:"fecha_confirma"`
 	NroFactura               int       `pg:"nro_factura" json:"nro_factura"`
 	IDCondcontrapago         int       `pg:"id_condcontrapago" json:"id_condcontrapago"`
