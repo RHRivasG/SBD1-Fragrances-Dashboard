@@ -14,5 +14,8 @@ func SetPedidoRoutes(e *echo.Group, db *pg.DB) {
 	e.POST("/pedido/:idprod/:idprov", func(ctx echo.Context) error {
 		return controller.CreatePedido(ctx, db)
 	})
+	e.GET("/pedidos/:idprod", func(ctx echo.Context) error {
+		return controller.ShowAll(ctx, db)
+	})
 
 }

@@ -2,6 +2,7 @@ package services
 
 import (
 	"echo-pedidos/app/models"
+	"fmt"
 	"time"
 
 	"github.com/go-pg/pg"
@@ -24,40 +25,45 @@ func (s *PedidoService) CreatePedido(idProd int, idProv int, pedidoForm models.P
 	pedido.FechaEmision = time.Now()
 	pedido.Status = "ped"
 
-	var condEnvio int
+	var condEnvioContrato int
 	var condEnvioProv int
+	var pais int
 	if err := db.Model().
 		Table("kmr_contrato_particulares").
-		Column("id_envio_pais", "id_envio_pais_prov").
+		Column("id_contrato", "id_emp_prov", "id_envio_pais").
 		Where("id = ?", pedidoForm.ContratoEnvio).
-		Select(&condEnvio, &condEnvioProv); err != nil {
+		Select(&condEnvioContrato, &condEnvioProv, &pais); err != nil {
+		fmt.Println(err)
 		return err
 	}
+	var a float64
 	if err := db.Model().
 		Table("kmr_envio_pais").
 		Column("costo").
-		Where("id_pais = ?", condEnvio).
+		Where("id_pais = ?", pais).
 		Where("id_emp_prov = ?", condEnvioProv).
-		Select(&pedido.PagoTotal); err != nil {
+		Select(&a); err != nil {
+		fmt.Println(err)
 		return err
 	}
-
-	var condPago int
+	pedido.PagoTotal = a
+	var condPagoContrato int
 	var condPagoProv int
 	if err := db.Model().
 		Table("kmr_contrato_particulares").
-		Column("id_cond_pago", "id_cond_pago_prov").
+		Column("id_contrato", "id_emp_prov").
 		Where("id = ?", pedidoForm.ContratoPago).
-		Select(&condPago, &condPagoProv); err != nil {
+		Select(&condPagoContrato, &condPagoProv); err != nil {
+		fmt.Println(err)
 		return err
 	}
 
-	pedido.IDCondcontrapago = condPago
-	pedido.IDCondcontrapagoContrato = pedidoForm.ContratoPago
+	pedido.IDCondcontrapago = pedidoForm.ContratoPago
+	pedido.IDCondcontrapagoContrato = condPagoContrato
 	pedido.IDCondcontrapagoProv = condPagoProv
-	pedido.IDCondcontenvio = condEnvio
-	pedido.IDCondcontenvioContrato = pedidoForm.ContratoEnvio
-	pedido.IDCondcontrapagoProv = condPagoProv
+	pedido.IDCondcontenvio = pedidoForm.ContratoEnvio
+	pedido.IDCondcontenvioContrato = condEnvioContrato
+	pedido.IDCondcontenvioProv = condEnvioProv
 
 	for _, presentacion := range pedidoForm.Presentaciones {
 		var precioUnitario float64
@@ -66,19 +72,19 @@ func (s *PedidoService) CreatePedido(idProd int, idProv int, pedidoForm models.P
 			Column("precio_unitario").
 			Where("id = ?", presentacion.ID).
 			Select(&precioUnitario); err != nil {
+			fmt.Println(err)
 			return err
 		}
 		pedido.PagoTotal += precioUnitario * float64(presentacion.Cantidad)
 	}
 
 	var idPedido int
-	if _, err := db.Model(pedido).
+	if _, err := db.Model(&pedido).
 		Returning("id", idPedido).
 		Insert(); err != nil {
 		return err
 	}
-
-	if err := CreateLote(idPedido, pedidoForm.Presentaciones, db); err != nil {
+	if err := CreateLote(pedido.ID, pedidoForm.Presentaciones, db); err != nil {
 		return err
 	}
 
@@ -92,9 +98,19 @@ func CreateLote(idPedido int, presentaciones []models.Par, db *pg.DB) error {
 		lote.IDPedido = idPedido
 		lote.IDIngPresentacion = presentacion.ID
 		lote.Cantidad = presentacion.Cantidad
-		if err := db.Insert(lote); err != nil {
+		if err := db.Insert(&lote); err != nil {
+			fmt.Println(err)
 			return err
 		}
 	}
 	return nil
+}
+
+//ShowAll .
+func (s *PedidoService) ShowAll(idProd int, db *pg.DB) ([]models.Pedido, error) {
+	var pedidos []models.Pedido
+	if err := db.Model(&pedidos).Select(); err != nil {
+		return nil, err
+	}
+	return pedidos, nil
 }

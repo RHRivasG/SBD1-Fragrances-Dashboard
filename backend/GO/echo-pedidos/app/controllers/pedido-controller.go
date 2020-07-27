@@ -13,6 +13,7 @@ import (
 //PedidoControllerI .
 type PedidoControllerI interface {
 	CreatePedido(ctx echo.Context, db *pg.DB) error
+	ShowAll(ctx echo.Context, db *pg.DB) error
 }
 
 //PedidoController .
@@ -38,4 +39,18 @@ func (c *PedidoController) CreatePedido(ctx echo.Context, db *pg.DB) error {
 		return err
 	}
 	return ctx.JSON(http.StatusCreated, "Se ha creado el pedido")
+}
+
+//ShowAll .
+func (c *PedidoController) ShowAll(ctx echo.Context, db *pg.DB) error {
+	idProd, err := strconv.Atoi(ctx.Param("idprod"))
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err)
+	}
+	service := services.PedidoService{}
+	pedidos, err := service.ShowAll(idProd, db)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err)
+	}
+	return ctx.JSON(200, pedidos)
 }
