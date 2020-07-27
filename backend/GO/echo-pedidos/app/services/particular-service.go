@@ -2,6 +2,7 @@ package services
 
 import (
 	"echo-pedidos/app/models"
+	"fmt"
 
 	"github.com/go-pg/pg"
 )
@@ -37,6 +38,15 @@ func (s *ParticularService) FindEnviosParticulares(idProd int, idProv int, db *p
 		Select(&enviosParticulares); err != nil {
 		return nil, err
 	}
+
+	//MUESTRA
+	var a []int
+	_, err := db.Query(pg.Scan(&a), `SELECT id FROM kmr_empresa_productora`)
+	if err != nil {
+		fmt.Println(err)
+		fmt.Println(a)
+	}
+
 	return enviosParticulares, nil
 }
 
