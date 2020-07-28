@@ -10,4 +10,3 @@ services:
     - PORT=80
     depends_on:
     - "pgdb"
-    command: ["./wait-for.sh", "pgdb:5432", "--", "./evaluation-api"]
