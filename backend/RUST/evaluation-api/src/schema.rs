@@ -42,7 +42,7 @@ table! {
         id_emp_prov -> Int4,
         id_cond_pago -> Nullable<Int4>,
         id_cond_pago_prov -> Nullable<Int4>,
-        id_envio_pais -> Nullable<Int4>,
+        id_envio_pais -> Nullable<Int2>,
         id_envio_pais_prov -> Nullable<Int4>,
         descripcion -> Nullable<Varchar>,
     }
@@ -90,7 +90,7 @@ table! {
 table! {
     kmr_envio_pais (id_emp_prov, id_pais) {
         id_emp_prov -> Int4,
-        id_pais -> Int4,
+        id_pais -> Int2,
         dias_entrega -> Int4,
         tipo_transporte -> Bpchar,
         costo -> Nullable<Float4>,
@@ -181,10 +181,9 @@ table! {
     kmr_ingrediente_presentacion (id) {
         id -> Int4,
         vol -> Int4,
+        unidades -> Nullable<Varchar>,
         cantidad_almacenada -> Int4,
         precio_unitario -> Int4,
-        unidades -> Nullable<Int4>,
-        envase -> Nullable<Bpchar>,
         id_ifra_ing -> Nullable<Int4>,
         id_ing_otros -> Nullable<Int4>,
     }
@@ -221,7 +220,7 @@ table! {
 table! {
     kmr_origen (id_ifra_ing, id_pais) {
         id_ifra_ing -> Int4,
-        id_pais -> Int4,
+        id_pais -> Int2,
     }
 }
 
@@ -380,6 +379,7 @@ joinable!(kmr_criterio_eval -> kmr_empresa_productora (id_emp_prod));
 joinable!(kmr_empresa_productora -> kmr_asociacion_nacional (id_asoc_nacional));
 joinable!(kmr_empresa_proveedora -> kmr_asociacion_nacional (id_asoc_nacional));
 joinable!(kmr_envio_pais -> kmr_empresa_proveedora (id_emp_prov));
+joinable!(kmr_envio_pais -> kmr_pais (id_pais));
 joinable!(kmr_ep_fo -> kmr_esencia_perfume (id_esencia_perf));
 joinable!(kmr_ep_fo -> kmr_familia_olf (id_familia_olf));
 joinable!(kmr_ep_p -> kmr_empresa_productora (id_emp_prod));
@@ -396,6 +396,7 @@ joinable!(kmr_membresia_ifra -> kmr_empresa_productora (id_emp_prod));
 joinable!(kmr_membresia_ifra -> kmr_empresa_proveedora (id_emp_prov));
 joinable!(kmr_monolitico -> kmr_esencia_perfume (id_esencia_perf));
 joinable!(kmr_monolitico -> kmr_perfume (id_perfume));
+joinable!(kmr_origen -> kmr_pais (id_pais));
 joinable!(kmr_otros -> kmr_ingrediente_otros (id_ing_otros));
 joinable!(kmr_p_fo -> kmr_familia_olf (id_familia_olf));
 joinable!(kmr_p_fo -> kmr_perfume (id_perfume));

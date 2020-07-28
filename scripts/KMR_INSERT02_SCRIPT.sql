@@ -11,7 +11,7 @@ INSERT INTO KMR_Criterio_Eval
 	('2020-07-10',NULL,'E', 100, 3,3),
 	('2020-07-20',NULL,'I', 33, 4,1),
 	('2020-07-10',NULL,'I', 67, 4,2),
-	('2020-07-10',NULL,'E', 100, 4,3);
+	('2020-07-10',NULL,'E', 100, 4,3),
 	('2020-07-20',NULL,'I', 33, 5,1),
 	('2020-07-10',NULL,'I', 67, 5,2),
 	('2020-07-10',NULL,'E', 100, 5,3);
@@ -20,9 +20,6 @@ INSERT INTO KMR_Escala_Eval
     VALUES
 	('2020-07-20',NULL,1,10,1),
 	('2020-07-10',NULL,1,5,1);
-
-INSERT INTO KMR_Condiciones_Pago
-    VALUES (1,'AP',3);
 
 
 INSERT INTO KMR_Envio_Pais

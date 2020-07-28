@@ -25,7 +25,7 @@ pub struct PaymentCondition {
 #[table_name="kmr_envio_pais"]
 pub struct ShipmentOption {
     pub id_emp_prov: i32,
-    pub id_pais: i32,
+    pub id_pais: i16,
     pub dias_entrega: i32,
     pub tipo_transporte: String,
     pub costo: Option<f32>
