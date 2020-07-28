@@ -1,11 +1,13 @@
+pub mod model;
+pub mod dsl;
+
+use super::auth as auth;
 use rocket_contrib::json::Json;
 use model::{EvalCriteria, Producer, EvalScale};
 use dsl::{criteria_of, all, scales_of};
 use super::db::Connection;
 use diesel::prelude::*;
 use rocket::http::Cookies;
-pub mod model;
-pub mod dsl;
 
 #[get("/producers")]
 pub fn get_producers(conn: Connection) -> Option<Json<Vec<Producer>>>
@@ -17,12 +19,9 @@ pub fn get_producers(conn: Connection) -> Option<Json<Vec<Producer>>>
 }
 
 #[get("/producers/criteria")]
-pub fn get_criteria_of(mut cookies: Cookies, conn: Connection) -> Option<Json<Vec<EvalCriteria>>>
+pub fn get_criteria_of(cookies: Cookies, conn: Connection) -> Option<Json<Vec<EvalCriteria>>>
 {
-    cookies
-        .get_private("producerId")
-        .map(|v| v.value().parse().ok())
-        .flatten()
+    auth::session::get_session_of("producerId", cookies)
         .and_then(|id|
                   criteria_of(id)
                   .load(&*conn)
@@ -32,12 +31,9 @@ pub fn get_criteria_of(mut cookies: Cookies, conn: Connection) -> Option<Json<Ve
 }
 
 #[get("/producers/scales")]
-pub fn get_scales_of(mut cookies: Cookies, conn: Connection) -> Option<Json<Vec<EvalScale>>>
+pub fn get_scales_of(cookies: Cookies, conn: Connection) -> Option<Json<Vec<EvalScale>>>
 {
-    cookies
-        .get_private("producerId")
-        .map(|v| v.value().parse().ok())
-        .flatten()
+    auth::session::get_session_of("producerId", cookies)
         .and_then(|id|
                   scales_of(id)
                   .load(&*conn)
