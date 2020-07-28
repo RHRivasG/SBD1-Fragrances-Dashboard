@@ -66,7 +66,7 @@ func (s *ParticularService) FindPagosParticulares(idProd int, idProv int, db *pg
 	if err := db.Model().
 		Table("kmr_contrato_particulares").
 		ColumnExpr("kmr_contrato_particulares.id, kmr_contrato_particulares.id_cond_pago, kmr_contrato_particulares.id_cond_pago_prov").
-		ColumnExpr("kmr_condiciones_pago.tipo").
+		ColumnExpr("kmr_condiciones_pago.tipo, kmr_condiciones_pago.cuotas").
 		Join("JOIN kmr_condiciones_pago ON kmr_condiciones_pago.id = kmr_contrato_particulares.id_cond_pago").
 		Where("kmr_contrato_particulares.id_contrato = ?", contrato).
 		Select(&pagosParticulares); err != nil {
