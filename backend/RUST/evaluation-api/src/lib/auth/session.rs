@@ -2,7 +2,7 @@ use rocket::http::Cookies;
 
 pub fn get_session_of(session: &str, mut cookies: Cookies) -> Option<i32> {
     cookies
-        .get_private(session)
+        .get(session)
         .map(|id|
              id
              .value()

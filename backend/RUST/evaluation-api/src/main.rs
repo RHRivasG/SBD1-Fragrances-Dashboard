@@ -20,9 +20,13 @@ use crate::lib::db::connect;
 fn config() -> rocket::config::Result<Config> {
         dotenv().ok();
         let port = std::env::var("PORT").expect("PORT not found").parse().expect("PORT is not valid port");
-        Config::build(Environment::Production)
-                .port(port)
-                .finalize()
+        let config = Config::build(Environment::Production).port(port);
+        
+        std::env::var("SECRET_KEY")
+                .map(|secret_key| config.secret_key(secret_key).finalize())
+                .ok()
+                .unwrap_or_else(|| Config::build(Environment::Production).port(port).finalize())
+        
 }
 
 fn main() {

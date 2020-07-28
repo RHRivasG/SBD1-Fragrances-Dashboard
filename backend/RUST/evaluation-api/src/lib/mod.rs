@@ -1,4 +1,5 @@
 pub(crate) mod db;
+pub(crate) mod perfume_recommender;
 pub(crate) mod providers;
 pub(crate) mod producers;
 pub(crate) mod auth;
