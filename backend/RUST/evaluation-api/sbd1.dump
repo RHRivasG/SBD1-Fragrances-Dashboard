@@ -1,0 +1,3185 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 11.7 (Debian 11.7-0+deb10u1)
+-- Dumped by pg_dump version 11.7 (Debian 11.7-0+deb10u1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: kmr_asociacion_nacional; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_asociacion_nacional (
+    id integer NOT NULL,
+    nombre character varying NOT NULL,
+    region character varying NOT NULL,
+    id_pais smallint NOT NULL
+);
+
+
+ALTER TABLE public.kmr_asociacion_nacional OWNER TO syfers;
+
+--
+-- Name: kmr_asociacion_nacional_id_seq; Type: SEQUENCE; Schema: public; Owner: syfers
+--
+
+CREATE SEQUENCE public.kmr_asociacion_nacional_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kmr_asociacion_nacional_id_seq OWNER TO syfers;
+
+--
+-- Name: kmr_asociacion_nacional_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: syfers
+--
+
+ALTER SEQUENCE public.kmr_asociacion_nacional_id_seq OWNED BY public.kmr_asociacion_nacional.id;
+
+
+--
+-- Name: kmr_comp_extra; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_comp_extra (
+    id_perfume integer NOT NULL,
+    id_ing_presentacion integer NOT NULL
+);
+
+
+ALTER TABLE public.kmr_comp_extra OWNER TO syfers;
+
+--
+-- Name: kmr_condiciones_pago; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_condiciones_pago (
+    id integer NOT NULL,
+    id_emp_prov integer NOT NULL,
+    tipo character varying NOT NULL,
+    cuotas integer,
+    CONSTRAINT kmr_condiciones_pago_tipo_check CHECK ((((tipo)::text = 'AP'::text) OR ((tipo)::text = 'C'::text)))
+);
+
+
+ALTER TABLE public.kmr_condiciones_pago OWNER TO syfers;
+
+--
+-- Name: kmr_condiciones_pago_id_seq; Type: SEQUENCE; Schema: public; Owner: syfers
+--
+
+CREATE SEQUENCE public.kmr_condiciones_pago_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kmr_condiciones_pago_id_seq OWNER TO syfers;
+
+--
+-- Name: kmr_condiciones_pago_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: syfers
+--
+
+ALTER SEQUENCE public.kmr_condiciones_pago_id_seq OWNED BY public.kmr_condiciones_pago.id;
+
+
+--
+-- Name: kmr_contrato; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_contrato (
+    id integer NOT NULL,
+    id_emp_prod integer NOT NULL,
+    id_emp_prov integer NOT NULL,
+    exclusividad boolean NOT NULL,
+    fecha_emision date NOT NULL,
+    fecha_cancelado date,
+    motivo_cancelo character varying
+);
+
+
+ALTER TABLE public.kmr_contrato OWNER TO syfers;
+
+--
+-- Name: kmr_contrato_id_seq; Type: SEQUENCE; Schema: public; Owner: syfers
+--
+
+CREATE SEQUENCE public.kmr_contrato_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kmr_contrato_id_seq OWNER TO syfers;
+
+--
+-- Name: kmr_contrato_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: syfers
+--
+
+ALTER SEQUENCE public.kmr_contrato_id_seq OWNED BY public.kmr_contrato.id;
+
+
+--
+-- Name: kmr_contrato_particulares; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_contrato_particulares (
+    id integer NOT NULL,
+    id_contrato integer NOT NULL,
+    id_emp_prov integer NOT NULL,
+    id_cond_pago integer,
+    id_cond_pago_prov integer,
+    id_envio_pais smallint,
+    id_envio_pais_prov integer,
+    descripcion character varying
+);
+
+
+ALTER TABLE public.kmr_contrato_particulares OWNER TO syfers;
+
+--
+-- Name: kmr_contrato_particulares_id_seq; Type: SEQUENCE; Schema: public; Owner: syfers
+--
+
+CREATE SEQUENCE public.kmr_contrato_particulares_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kmr_contrato_particulares_id_seq OWNER TO syfers;
+
+--
+-- Name: kmr_contrato_particulares_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: syfers
+--
+
+ALTER SEQUENCE public.kmr_contrato_particulares_id_seq OWNED BY public.kmr_contrato_particulares.id;
+
+
+--
+-- Name: kmr_criterio; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_criterio (
+    id integer NOT NULL,
+    nombre character varying NOT NULL,
+    descripcion character varying NOT NULL
+);
+
+
+ALTER TABLE public.kmr_criterio OWNER TO syfers;
+
+--
+-- Name: kmr_criterio_eval; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_criterio_eval (
+    fechai date NOT NULL,
+    fechaf date,
+    tipoformula character varying NOT NULL,
+    peso integer NOT NULL,
+    id_emp_prod integer NOT NULL,
+    id_criterio integer NOT NULL,
+    CONSTRAINT kmr_criterio_eval_tipoformula_check CHECK ((((tipoformula)::text = 'E'::text) OR ((tipoformula)::text = 'I'::text)))
+);
+
+
+ALTER TABLE public.kmr_criterio_eval OWNER TO syfers;
+
+--
+-- Name: kmr_criterio_id_seq; Type: SEQUENCE; Schema: public; Owner: syfers
+--
+
+CREATE SEQUENCE public.kmr_criterio_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kmr_criterio_id_seq OWNER TO syfers;
+
+--
+-- Name: kmr_criterio_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: syfers
+--
+
+ALTER SEQUENCE public.kmr_criterio_id_seq OWNED BY public.kmr_criterio.id;
+
+
+--
+-- Name: kmr_empresa_productora; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_empresa_productora (
+    id integer NOT NULL,
+    nombre character varying NOT NULL,
+    pag_web character varying NOT NULL,
+    inf_contacto character varying NOT NULL,
+    id_asoc_nacional integer
+);
+
+
+ALTER TABLE public.kmr_empresa_productora OWNER TO syfers;
+
+--
+-- Name: kmr_empresa_productora_id_seq; Type: SEQUENCE; Schema: public; Owner: syfers
+--
+
+CREATE SEQUENCE public.kmr_empresa_productora_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kmr_empresa_productora_id_seq OWNER TO syfers;
+
+--
+-- Name: kmr_empresa_productora_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: syfers
+--
+
+ALTER SEQUENCE public.kmr_empresa_productora_id_seq OWNED BY public.kmr_empresa_productora.id;
+
+
+--
+-- Name: kmr_empresa_proveedora; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_empresa_proveedora (
+    id integer NOT NULL,
+    nombre character varying NOT NULL,
+    pag_web character varying NOT NULL,
+    inf_contacto character varying NOT NULL,
+    id_asoc_nacional integer
+);
+
+
+ALTER TABLE public.kmr_empresa_proveedora OWNER TO syfers;
+
+--
+-- Name: kmr_empresa_proveedora_id_seq; Type: SEQUENCE; Schema: public; Owner: syfers
+--
+
+CREATE SEQUENCE public.kmr_empresa_proveedora_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kmr_empresa_proveedora_id_seq OWNER TO syfers;
+
+--
+-- Name: kmr_empresa_proveedora_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: syfers
+--
+
+ALTER SEQUENCE public.kmr_empresa_proveedora_id_seq OWNED BY public.kmr_empresa_proveedora.id;
+
+
+--
+-- Name: kmr_envio_pais; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_envio_pais (
+    id_emp_prov integer NOT NULL,
+    id_pais smallint NOT NULL,
+    dias_entrega integer NOT NULL,
+    tipo_transporte character(1) NOT NULL,
+    costo real,
+    CONSTRAINT kmr_envio_pais_tipo_transporte_check CHECK (((tipo_transporte = 'A'::bpchar) OR (tipo_transporte = 'B'::bpchar)))
+);
+
+
+ALTER TABLE public.kmr_envio_pais OWNER TO syfers;
+
+--
+-- Name: kmr_ep_fo; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_ep_fo (
+    id_esencia_perf integer NOT NULL,
+    id_familia_olf integer NOT NULL
+);
+
+
+ALTER TABLE public.kmr_ep_fo OWNER TO syfers;
+
+--
+-- Name: kmr_ep_p; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_ep_p (
+    id_emp_prod integer NOT NULL,
+    id_pais smallint NOT NULL
+);
+
+
+ALTER TABLE public.kmr_ep_p OWNER TO syfers;
+
+--
+-- Name: kmr_escala_eval; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_escala_eval (
+    fechai date NOT NULL,
+    fechaf date,
+    rangoi integer NOT NULL,
+    rangf integer NOT NULL,
+    id_emp_prod integer NOT NULL
+);
+
+
+ALTER TABLE public.kmr_escala_eval OWNER TO syfers;
+
+--
+-- Name: kmr_esencia_perfume; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_esencia_perfume (
+    tsca_cas integer NOT NULL,
+    nombre character varying NOT NULL,
+    tipo character varying NOT NULL,
+    descripcion character varying NOT NULL
+);
+
+
+ALTER TABLE public.kmr_esencia_perfume OWNER TO syfers;
+
+--
+-- Name: kmr_familia_olf; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_familia_olf (
+    id integer NOT NULL,
+    nombre character varying NOT NULL,
+    descripcion character varying NOT NULL
+);
+
+
+ALTER TABLE public.kmr_familia_olf OWNER TO syfers;
+
+--
+-- Name: kmr_familia_olf_id_seq; Type: SEQUENCE; Schema: public; Owner: syfers
+--
+
+CREATE SEQUENCE public.kmr_familia_olf_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kmr_familia_olf_id_seq OWNER TO syfers;
+
+--
+-- Name: kmr_familia_olf_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: syfers
+--
+
+ALTER SEQUENCE public.kmr_familia_olf_id_seq OWNED BY public.kmr_familia_olf.id;
+
+
+--
+-- Name: kmr_fo_if; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_fo_if (
+    id_ifra_ing integer NOT NULL,
+    id_familia_olf integer NOT NULL
+);
+
+
+ALTER TABLE public.kmr_fo_if OWNER TO syfers;
+
+--
+-- Name: kmr_ifra_ingrediente; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_ifra_ingrediente (
+    cas_number integer NOT NULL,
+    id_emp_prov integer NOT NULL,
+    descripcion_visual character varying NOT NULL,
+    proceso character varying NOT NULL,
+    vida_util character varying NOT NULL,
+    solubilidad character varying,
+    procesodescripcion character varying
+);
+
+
+ALTER TABLE public.kmr_ifra_ingrediente OWNER TO syfers;
+
+--
+-- Name: kmr_ing_contrato; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_ing_contrato (
+    id integer NOT NULL,
+    id_contrato integer NOT NULL,
+    id_emp_prov integer NOT NULL,
+    id_ing_otros integer,
+    id_ing_ifra integer
+);
+
+
+ALTER TABLE public.kmr_ing_contrato OWNER TO syfers;
+
+--
+-- Name: kmr_ing_contrato_id_seq; Type: SEQUENCE; Schema: public; Owner: syfers
+--
+
+CREATE SEQUENCE public.kmr_ing_contrato_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kmr_ing_contrato_id_seq OWNER TO syfers;
+
+--
+-- Name: kmr_ing_contrato_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: syfers
+--
+
+ALTER SEQUENCE public.kmr_ing_contrato_id_seq OWNED BY public.kmr_ing_contrato.id;
+
+
+--
+-- Name: kmr_ingrediente_otros; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_ingrediente_otros (
+    ipc integer NOT NULL,
+    nombre character varying NOT NULL,
+    tipo character varying NOT NULL,
+    tsca_cas integer,
+    id_emp_prov integer
+);
+
+
+ALTER TABLE public.kmr_ingrediente_otros OWNER TO syfers;
+
+--
+-- Name: kmr_ingrediente_presentacion; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_ingrediente_presentacion (
+    id integer NOT NULL,
+    vol integer NOT NULL,
+    unidades character varying,
+    cantidad_almacenada integer NOT NULL,
+    precio_unitario integer NOT NULL,
+    id_ifra_ing integer,
+    id_ing_otros integer,
+    CONSTRAINT kmr_ingrediente_presentacion_unidades_check CHECK ((((unidades)::text = 'mL'::text) OR ((unidades)::text = 'g'::text)))
+);
+
+
+ALTER TABLE public.kmr_ingrediente_presentacion OWNER TO syfers;
+
+--
+-- Name: kmr_ingrediente_presentacion_id_seq; Type: SEQUENCE; Schema: public; Owner: syfers
+--
+
+CREATE SEQUENCE public.kmr_ingrediente_presentacion_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kmr_ingrediente_presentacion_id_seq OWNER TO syfers;
+
+--
+-- Name: kmr_ingrediente_presentacion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: syfers
+--
+
+ALTER SEQUENCE public.kmr_ingrediente_presentacion_id_seq OWNED BY public.kmr_ingrediente_presentacion.id;
+
+
+--
+-- Name: kmr_intensidad; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_intensidad (
+    id integer NOT NULL,
+    id_perfume integer NOT NULL,
+    tipo character varying NOT NULL,
+    concentracion numeric,
+    descripcion character varying,
+    CONSTRAINT kmr_intensidad_tipo_check CHECK ((((tipo)::text = 'P'::text) OR ((tipo)::text = 'EdP'::text) OR ((tipo)::text = 'EdT'::text) OR ((tipo)::text = 'EdC'::text) OR ((tipo)::text = 'EdS'::text)))
+);
+
+
+ALTER TABLE public.kmr_intensidad OWNER TO syfers;
+
+--
+-- Name: kmr_intensidad_id_seq; Type: SEQUENCE; Schema: public; Owner: syfers
+--
+
+CREATE SEQUENCE public.kmr_intensidad_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kmr_intensidad_id_seq OWNER TO syfers;
+
+--
+-- Name: kmr_intensidad_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: syfers
+--
+
+ALTER SEQUENCE public.kmr_intensidad_id_seq OWNED BY public.kmr_intensidad.id;
+
+
+--
+-- Name: kmr_membresia_ifra; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_membresia_ifra (
+    id integer NOT NULL,
+    fechai date NOT NULL,
+    fechat date,
+    tipo character varying NOT NULL,
+    id_emp_prod integer,
+    id_emp_prov integer,
+    CONSTRAINT kmr_membresia_ifra_tipo_check CHECK ((((tipo)::text = 'PD'::text) OR ((tipo)::text = 'PV'::text)))
+);
+
+
+ALTER TABLE public.kmr_membresia_ifra OWNER TO syfers;
+
+--
+-- Name: kmr_membresia_ifra_id_seq; Type: SEQUENCE; Schema: public; Owner: syfers
+--
+
+CREATE SEQUENCE public.kmr_membresia_ifra_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kmr_membresia_ifra_id_seq OWNER TO syfers;
+
+--
+-- Name: kmr_membresia_ifra_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: syfers
+--
+
+ALTER SEQUENCE public.kmr_membresia_ifra_id_seq OWNED BY public.kmr_membresia_ifra.id;
+
+
+--
+-- Name: kmr_monolitico; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_monolitico (
+    id_perfume integer NOT NULL,
+    id_esencia_perf integer NOT NULL
+);
+
+
+ALTER TABLE public.kmr_monolitico OWNER TO syfers;
+
+--
+-- Name: kmr_origen; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_origen (
+    id_ifra_ing integer NOT NULL,
+    id_pais smallint NOT NULL
+);
+
+
+ALTER TABLE public.kmr_origen OWNER TO syfers;
+
+--
+-- Name: kmr_otros; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_otros (
+    id_ifra_ing integer NOT NULL,
+    id_ing_otros integer NOT NULL
+);
+
+
+ALTER TABLE public.kmr_otros OWNER TO syfers;
+
+--
+-- Name: kmr_p_fo; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_p_fo (
+    id_perfume integer NOT NULL,
+    id_familia_olf integer NOT NULL
+);
+
+
+ALTER TABLE public.kmr_p_fo OWNER TO syfers;
+
+--
+-- Name: kmr_p_p; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_p_p (
+    id_perfume integer NOT NULL,
+    id_perfumista integer NOT NULL
+);
+
+
+ALTER TABLE public.kmr_p_p OWNER TO syfers;
+
+--
+-- Name: kmr_pago; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_pago (
+    id integer NOT NULL,
+    id_pedido integer NOT NULL,
+    fecha_pago date NOT NULL,
+    monto numeric NOT NULL
+);
+
+
+ALTER TABLE public.kmr_pago OWNER TO syfers;
+
+--
+-- Name: kmr_pago_id_seq; Type: SEQUENCE; Schema: public; Owner: syfers
+--
+
+CREATE SEQUENCE public.kmr_pago_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kmr_pago_id_seq OWNER TO syfers;
+
+--
+-- Name: kmr_pago_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: syfers
+--
+
+ALTER SEQUENCE public.kmr_pago_id_seq OWNED BY public.kmr_pago.id;
+
+
+--
+-- Name: kmr_pais; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_pais (
+    id smallint NOT NULL,
+    nombre character varying(255) NOT NULL,
+    continente character varying(30) NOT NULL
+);
+
+
+ALTER TABLE public.kmr_pais OWNER TO syfers;
+
+--
+-- Name: kmr_pais_id_seq; Type: SEQUENCE; Schema: public; Owner: syfers
+--
+
+CREATE SEQUENCE public.kmr_pais_id_seq
+    AS smallint
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kmr_pais_id_seq OWNER TO syfers;
+
+--
+-- Name: kmr_pais_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: syfers
+--
+
+ALTER SEQUENCE public.kmr_pais_id_seq OWNED BY public.kmr_pais.id;
+
+
+--
+-- Name: kmr_palabra_clave; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_palabra_clave (
+    id integer NOT NULL,
+    palabra_unica character varying NOT NULL
+);
+
+
+ALTER TABLE public.kmr_palabra_clave OWNER TO syfers;
+
+--
+-- Name: kmr_palabra_clave_id_seq; Type: SEQUENCE; Schema: public; Owner: syfers
+--
+
+CREATE SEQUENCE public.kmr_palabra_clave_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kmr_palabra_clave_id_seq OWNER TO syfers;
+
+--
+-- Name: kmr_palabra_clave_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: syfers
+--
+
+ALTER SEQUENCE public.kmr_palabra_clave_id_seq OWNED BY public.kmr_palabra_clave.id;
+
+
+--
+-- Name: kmr_pc_fo; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_pc_fo (
+    id_familia_olf integer NOT NULL,
+    id_pal_clave integer NOT NULL
+);
+
+
+ALTER TABLE public.kmr_pc_fo OWNER TO syfers;
+
+--
+-- Name: kmr_pedido; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_pedido (
+    id integer NOT NULL,
+    id_emp_prod integer NOT NULL,
+    id_emp_prov integer NOT NULL,
+    fecha_emision date NOT NULL,
+    pago_total integer NOT NULL,
+    fecha_confirma date,
+    nro_factura integer,
+    id_condcontrapago integer,
+    id_condcontrapago_contrato integer,
+    id_condcontrapago_prov integer,
+    id_condcontenvio integer,
+    id_condcontenvio_contrato integer,
+    id_condcontenvio_prov integer
+);
+
+
+ALTER TABLE public.kmr_pedido OWNER TO syfers;
+
+--
+-- Name: kmr_pedido_id_seq; Type: SEQUENCE; Schema: public; Owner: syfers
+--
+
+CREATE SEQUENCE public.kmr_pedido_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kmr_pedido_id_seq OWNER TO syfers;
+
+--
+-- Name: kmr_pedido_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: syfers
+--
+
+ALTER SEQUENCE public.kmr_pedido_id_seq OWNED BY public.kmr_pedido.id;
+
+
+--
+-- Name: kmr_pedido_lote; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_pedido_lote (
+    id integer NOT NULL,
+    id_pedido integer NOT NULL,
+    id_ing_presentacion integer NOT NULL,
+    cantidad integer NOT NULL
+);
+
+
+ALTER TABLE public.kmr_pedido_lote OWNER TO syfers;
+
+--
+-- Name: kmr_pedido_lote_id_seq; Type: SEQUENCE; Schema: public; Owner: syfers
+--
+
+CREATE SEQUENCE public.kmr_pedido_lote_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kmr_pedido_lote_id_seq OWNER TO syfers;
+
+--
+-- Name: kmr_pedido_lote_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: syfers
+--
+
+ALTER SEQUENCE public.kmr_pedido_lote_id_seq OWNED BY public.kmr_pedido_lote.id;
+
+
+--
+-- Name: kmr_perfume; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_perfume (
+    id integer NOT NULL,
+    nombre character varying NOT NULL,
+    tipo character(1) NOT NULL,
+    genero character(1) NOT NULL,
+    edad character varying NOT NULL,
+    id_emp_prod integer NOT NULL,
+    CONSTRAINT kmr_perfume_edad_check CHECK ((((edad)::text = 'JO'::text) OR ((edad)::text = 'AD'::text) OR ((edad)::text = 'AT'::text))),
+    CONSTRAINT kmr_perfume_genero_check CHECK (((genero = 'H'::bpchar) OR (genero = 'M'::bpchar) OR (genero = 'U'::bpchar))),
+    CONSTRAINT kmr_perfume_tipo_check CHECK (((tipo = 'F'::bpchar) OR (tipo = 'M'::bpchar)))
+);
+
+
+ALTER TABLE public.kmr_perfume OWNER TO syfers;
+
+--
+-- Name: kmr_perfume_fases; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_perfume_fases (
+    id_perfume integer NOT NULL,
+    id_esencia_per integer NOT NULL,
+    tiponota character(1) NOT NULL,
+    CONSTRAINT kmr_perfume_fases_tiponota_check CHECK (((tiponota = 'S'::bpchar) OR (tiponota = 'C'::bpchar) OR (tiponota = 'F'::bpchar)))
+);
+
+
+ALTER TABLE public.kmr_perfume_fases OWNER TO syfers;
+
+--
+-- Name: kmr_perfume_id_seq; Type: SEQUENCE; Schema: public; Owner: syfers
+--
+
+CREATE SEQUENCE public.kmr_perfume_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kmr_perfume_id_seq OWNER TO syfers;
+
+--
+-- Name: kmr_perfume_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: syfers
+--
+
+ALTER SEQUENCE public.kmr_perfume_id_seq OWNED BY public.kmr_perfume.id;
+
+
+--
+-- Name: kmr_perfumista; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_perfumista (
+    id integer NOT NULL,
+    nombre character varying NOT NULL,
+    primer_apellido character varying NOT NULL,
+    segundo_apellido character varying NOT NULL,
+    genero character(1) NOT NULL,
+    id_pais smallint NOT NULL,
+    CONSTRAINT kmr_perfumista_genero_check CHECK (((genero = 'H'::bpchar) OR (genero = 'M'::bpchar)))
+);
+
+
+ALTER TABLE public.kmr_perfumista OWNER TO syfers;
+
+--
+-- Name: kmr_perfumista_id_seq; Type: SEQUENCE; Schema: public; Owner: syfers
+--
+
+CREATE SEQUENCE public.kmr_perfumista_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kmr_perfumista_id_seq OWNER TO syfers;
+
+--
+-- Name: kmr_perfumista_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: syfers
+--
+
+ALTER SEQUENCE public.kmr_perfumista_id_seq OWNED BY public.kmr_perfumista.id;
+
+
+--
+-- Name: kmr_presentacion; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_presentacion (
+    id integer NOT NULL,
+    id_intensidad integer NOT NULL,
+    id_perfume integer NOT NULL,
+    volml integer NOT NULL
+);
+
+
+ALTER TABLE public.kmr_presentacion OWNER TO syfers;
+
+--
+-- Name: kmr_presentacion_id_seq; Type: SEQUENCE; Schema: public; Owner: syfers
+--
+
+CREATE SEQUENCE public.kmr_presentacion_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kmr_presentacion_id_seq OWNER TO syfers;
+
+--
+-- Name: kmr_presentacion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: syfers
+--
+
+ALTER SEQUENCE public.kmr_presentacion_id_seq OWNED BY public.kmr_presentacion.id;
+
+
+--
+-- Name: kmr_prohibida; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_prohibida (
+    tscacas integer NOT NULL,
+    nombre character varying NOT NULL
+);
+
+
+ALTER TABLE public.kmr_prohibida OWNER TO syfers;
+
+--
+-- Name: kmr_renueva; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_renueva (
+    id integer NOT NULL,
+    id_contrato integer NOT NULL,
+    id_emp_prov integer NOT NULL,
+    fecha date NOT NULL
+);
+
+
+ALTER TABLE public.kmr_renueva OWNER TO syfers;
+
+--
+-- Name: kmr_renueva_id_seq; Type: SEQUENCE; Schema: public; Owner: syfers
+--
+
+CREATE SEQUENCE public.kmr_renueva_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.kmr_renueva_id_seq OWNER TO syfers;
+
+--
+-- Name: kmr_renueva_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: syfers
+--
+
+ALTER SEQUENCE public.kmr_renueva_id_seq OWNED BY public.kmr_renueva.id;
+
+
+--
+-- Name: kmr_resul_eval; Type: TABLE; Schema: public; Owner: syfers
+--
+
+CREATE TABLE public.kmr_resul_eval (
+    fecha integer NOT NULL,
+    id_emp_prod integer NOT NULL,
+    id_emp_prov integer NOT NULL,
+    resultado character varying NOT NULL,
+    tipoformula character varying NOT NULL
+);
+
+
+ALTER TABLE public.kmr_resul_eval OWNER TO syfers;
+
+--
+-- Name: kmr_asociacion_nacional id; Type: DEFAULT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_asociacion_nacional ALTER COLUMN id SET DEFAULT nextval('public.kmr_asociacion_nacional_id_seq'::regclass);
+
+
+--
+-- Name: kmr_condiciones_pago id; Type: DEFAULT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_condiciones_pago ALTER COLUMN id SET DEFAULT nextval('public.kmr_condiciones_pago_id_seq'::regclass);
+
+
+--
+-- Name: kmr_contrato id; Type: DEFAULT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_contrato ALTER COLUMN id SET DEFAULT nextval('public.kmr_contrato_id_seq'::regclass);
+
+
+--
+-- Name: kmr_contrato_particulares id; Type: DEFAULT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_contrato_particulares ALTER COLUMN id SET DEFAULT nextval('public.kmr_contrato_particulares_id_seq'::regclass);
+
+
+--
+-- Name: kmr_criterio id; Type: DEFAULT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_criterio ALTER COLUMN id SET DEFAULT nextval('public.kmr_criterio_id_seq'::regclass);
+
+
+--
+-- Name: kmr_empresa_productora id; Type: DEFAULT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_empresa_productora ALTER COLUMN id SET DEFAULT nextval('public.kmr_empresa_productora_id_seq'::regclass);
+
+
+--
+-- Name: kmr_empresa_proveedora id; Type: DEFAULT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_empresa_proveedora ALTER COLUMN id SET DEFAULT nextval('public.kmr_empresa_proveedora_id_seq'::regclass);
+
+
+--
+-- Name: kmr_familia_olf id; Type: DEFAULT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_familia_olf ALTER COLUMN id SET DEFAULT nextval('public.kmr_familia_olf_id_seq'::regclass);
+
+
+--
+-- Name: kmr_ing_contrato id; Type: DEFAULT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_ing_contrato ALTER COLUMN id SET DEFAULT nextval('public.kmr_ing_contrato_id_seq'::regclass);
+
+
+--
+-- Name: kmr_ingrediente_presentacion id; Type: DEFAULT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_ingrediente_presentacion ALTER COLUMN id SET DEFAULT nextval('public.kmr_ingrediente_presentacion_id_seq'::regclass);
+
+
+--
+-- Name: kmr_intensidad id; Type: DEFAULT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_intensidad ALTER COLUMN id SET DEFAULT nextval('public.kmr_intensidad_id_seq'::regclass);
+
+
+--
+-- Name: kmr_membresia_ifra id; Type: DEFAULT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_membresia_ifra ALTER COLUMN id SET DEFAULT nextval('public.kmr_membresia_ifra_id_seq'::regclass);
+
+
+--
+-- Name: kmr_pago id; Type: DEFAULT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_pago ALTER COLUMN id SET DEFAULT nextval('public.kmr_pago_id_seq'::regclass);
+
+
+--
+-- Name: kmr_pais id; Type: DEFAULT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_pais ALTER COLUMN id SET DEFAULT nextval('public.kmr_pais_id_seq'::regclass);
+
+
+--
+-- Name: kmr_palabra_clave id; Type: DEFAULT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_palabra_clave ALTER COLUMN id SET DEFAULT nextval('public.kmr_palabra_clave_id_seq'::regclass);
+
+
+--
+-- Name: kmr_pedido id; Type: DEFAULT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_pedido ALTER COLUMN id SET DEFAULT nextval('public.kmr_pedido_id_seq'::regclass);
+
+
+--
+-- Name: kmr_pedido_lote id; Type: DEFAULT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_pedido_lote ALTER COLUMN id SET DEFAULT nextval('public.kmr_pedido_lote_id_seq'::regclass);
+
+
+--
+-- Name: kmr_perfume id; Type: DEFAULT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_perfume ALTER COLUMN id SET DEFAULT nextval('public.kmr_perfume_id_seq'::regclass);
+
+
+--
+-- Name: kmr_perfumista id; Type: DEFAULT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_perfumista ALTER COLUMN id SET DEFAULT nextval('public.kmr_perfumista_id_seq'::regclass);
+
+
+--
+-- Name: kmr_presentacion id; Type: DEFAULT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_presentacion ALTER COLUMN id SET DEFAULT nextval('public.kmr_presentacion_id_seq'::regclass);
+
+
+--
+-- Name: kmr_renueva id; Type: DEFAULT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_renueva ALTER COLUMN id SET DEFAULT nextval('public.kmr_renueva_id_seq'::regclass);
+
+
+--
+-- Data for Name: kmr_asociacion_nacional; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_asociacion_nacional (id, nombre, region, id_pais) FROM stdin;
+1	Asociación Chilena de Sabores y Fragancias Asociación	Region Metropolitana	44
+2	Cosmetic,Toiletry and Frangance Association of Singapore	Central Business District, Singapore	170
+3	South African Association of the Flavour & Fragrance Industry	Johannesburg, Gauteng	175
+4	Fragance Creator's Association	Centro Rosslyn	68
+5	Swiss Flavour and Fragrance Industry Association	Geneva	178
+\.
+
+
+--
+-- Data for Name: kmr_comp_extra; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_comp_extra (id_perfume, id_ing_presentacion) FROM stdin;
+\.
+
+
+--
+-- Data for Name: kmr_condiciones_pago; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_condiciones_pago (id, id_emp_prov, tipo, cuotas) FROM stdin;
+1	1	AP	3
+2	2	AP	2
+3	3	AP	1
+4	4	AP	2
+5	1	C	\N
+6	2	C	\N
+7	3	C	\N
+8	4	C	\N
+\.
+
+
+--
+-- Data for Name: kmr_contrato; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_contrato (id, id_emp_prod, id_emp_prov, exclusividad, fecha_emision, fecha_cancelado, motivo_cancelo) FROM stdin;
+1	1	1	f	2019-07-04	\N	\N
+2	1	2	t	2020-07-24	\N	\N
+3	2	3	f	2020-06-15	\N	\N
+4	2	4	f	2018-05-16	\N	\N
+5	3	1	f	2020-11-24	\N	\N
+6	3	3	f	2019-02-19	\N	\N
+7	4	2	f	2020-12-25	\N	\N
+8	5	2	f	2020-01-24	\N	\N
+9	5	4	t	2020-03-23	\N	\N
+\.
+
+
+--
+-- Data for Name: kmr_contrato_particulares; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_contrato_particulares (id, id_contrato, id_emp_prov, id_cond_pago, id_cond_pago_prov, id_envio_pais, id_envio_pais_prov, descripcion) FROM stdin;
+1	1	1	\N	\N	147	1	Iff contrato a Keva con envio a Panaama
+2	1	1	1	1	\N	\N	Iff contrato a Keva con condicion de pago aplazado con 3 cuotas
+3	2	2	2	2	\N	\N	Iff contrato a essence con condicion de pago Aplazado con 2 cuotas
+4	2	2	\N	\N	91	2	Iff contrato a essence con envio a la India
+5	3	3	\N	\N	68	3	Firmenich contrato a Privi con envio a America
+6	3	3	7	3	\N	\N	Firmenich contrato a Privi con condicion de pago contado sin cuotas
+7	4	4	\N	\N	44	4	Firmenich contrato a Perfumer's Aprentice con envio a Chile
+8	4	4	4	4	\N	\N	Firmenich contrato a Perfumer's Aprentice con condicion de pago aplazado con 2 cuotas
+9	5	1	\N	\N	89	1	Aromex contrato a Keva con envio a India
+10	5	1	5	1	\N	\N	Aromex contrato a Keva con condicion de pago contado sin cuotas
+11	6	3	\N	\N	126	3	Aromex contrato a Privi con envio a Mexico
+12	6	3	7	3	\N	\N	Aromex contrato a Privi con condicion de pago contado sin cuotas
+13	7	2	\N	\N	4	2	Sephora contrato a essence con envio a Alemania
+14	7	2	6	2	\N	\N	Sephora contrato a essence con condicion de pago contado sin cuotas
+15	8	2	\N	\N	14	2	fourchem contrato a essence con envio a Australia
+16	8	2	2	2	\N	\N	Sephora contrato a essence con condicion de pago aplazado con 2 cuotas
+17	9	4	\N	\N	14	4	fourchem contrato a essence con envio a Australia
+18	9	4	8	4	\N	\N	Sephora contrato a essence con condicion de pago contado con sin cuotas
+\.
+
+
+--
+-- Data for Name: kmr_criterio; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_criterio (id, nombre, descripcion) FROM stdin;
+1	Criterio de Condiciones de Pago	Criterio de evaluacion de una Evaluación inicial\n\t\t\t   , toma en consideracion las Condiciones de pago disponibles de una empresa proveedora
+2	Criterio de Alternativas de Envio	Criterio de evaluacion de una Evaluación inicial\n\t\t\t   , toma en consideracion las Alternativas de envío disponibles de una empresa proveedora
+3	Criterio de eficiencia	Condicion de evaluacion de una Evaluacion Anual, toma en consideracion\n\t\t\t   el porcentaje de pedidos que fueron entregados correctamente.
+\.
+
+
+--
+-- Data for Name: kmr_criterio_eval; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_criterio_eval (fechai, fechaf, tipoformula, peso, id_emp_prod, id_criterio) FROM stdin;
+2020-07-20	\N	I	33	1	1
+2020-07-10	\N	I	67	1	2
+2020-07-10	\N	E	100	1	3
+2020-07-20	\N	I	33	2	1
+2020-07-10	\N	I	67	2	2
+2020-07-10	\N	E	100	2	3
+2020-07-20	\N	I	33	3	1
+2020-07-10	\N	I	67	3	2
+2020-07-10	\N	E	100	3	3
+2020-07-20	\N	I	33	4	1
+2020-07-10	\N	I	67	4	2
+2020-07-10	\N	E	100	4	3
+2020-07-20	\N	I	33	5	1
+2020-07-10	\N	I	67	5	2
+2020-07-10	\N	E	100	5	3
+\.
+
+
+--
+-- Data for Name: kmr_empresa_productora; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_empresa_productora (id, nombre, pag_web, inf_contacto, id_asoc_nacional) FROM stdin;
+1	IFF	https://www.iff.com	+1 (212) 765-5500	\N
+2	Firmenich	https://www.firmenich.com	https://www.firmenich.com/en_INT/contact.html	\N
+3	Aromex	http://www.aromex.cl	22 443 87 85	1
+4	Sephora Asia Pte Ltd	https://www.sephora.sg	https://www.sephora.sg/contact-us	2
+5	fourchem	http://www.fourchem.co.za	+27 (0)21 709 0517	3
+\.
+
+
+--
+-- Data for Name: kmr_empresa_proveedora; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_empresa_proveedora (id, nombre, pag_web, inf_contacto, id_asoc_nacional) FROM stdin;
+1	Keva	https://www.keva.co.in/content/ingredients	+91 22 2206 9609	\N
+2	essence	https://essencia.ch/oele.php?pageID=89&language=E	+41 52 245 05 60	5
+3	Privi Organics India Limited	http://www.privi.com/	+91 22 33043500	\N
+4	Perfumer's Apprentice	https://shop.perfumersapprentice.com	1(877)627-7401	4
+\.
+
+
+--
+-- Data for Name: kmr_envio_pais; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_envio_pais (id_emp_prov, id_pais, dias_entrega, tipo_transporte, costo) FROM stdin;
+4	14	4	A	6.3499999
+4	44	4	A	6.3499999
+4	45	4	A	6.3499999
+2	4	4	A	2.17000008
+2	14	4	A	2.17000008
+2	91	4	A	2.17000008
+1	89	2	A	\N
+3	89	2	A	\N
+3	68	5	B	5
+3	126	5	B	5
+1	147	10	A	30
+\.
+
+
+--
+-- Data for Name: kmr_ep_fo; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_ep_fo (id_esencia_perf, id_familia_olf) FROM stdin;
+8006879	8
+8006879	6
+8014093	8
+8014093	7
+8008319	2
+84929408	3
+90028061	9
+84012340	4
+8006813	3
+8024064	9
+8001045	9
+5502750	3
+8022966	3
+8007758	2
+8007758	6
+8007758	7
+8008579	2
+8007703	9
+68606815	4
+97676272	4
+8016384	3
+84082688	9
+8000428	9
+8012917	4
+8006404	9
+8028895	9
+8015734	1
+8015734	6
+8015734	5
+8006904	1
+8006904	6
+8016204	2
+8000348	9
+90082432	4
+85940325	9
+103957	3
+90106380	3
+89998038	4
+223749017	3
+85085514	3
+28940116	10
+28940116	3
+8021430	3
+84776670	3
+94334357	3
+8002673	9
+92347212	3
+92201553	1
+92201553	6
+92201553	8
+84775508	9
+84696071	8
+84696071	1
+84696071	6
+223748445	2
+85116638	2
+85116638	6
+85116638	1
+84082791	1
+84082791	6
+84082791	5
+8008568	2
+91721981	3
+84649989	9
+90082512	5
+90082512	6
+90082512	3
+8022193	9
+84238299	8
+84961660	10
+233683846	2
+90045526	3
+8021361	9
+90147367	3
+8050075	9
+\.
+
+
+--
+-- Data for Name: kmr_ep_p; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_ep_p (id_emp_prod, id_pais) FROM stdin;
+1	155
+1	89
+1	147
+1	126
+1	91
+2	44
+2	4
+2	68
+3	126
+3	89
+3	14
+4	126
+4	91
+4	4
+5	14
+5	91
+\.
+
+
+--
+-- Data for Name: kmr_escala_eval; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_escala_eval (fechai, fechaf, rangoi, rangf, id_emp_prod) FROM stdin;
+2020-07-20	\N	1	10	1
+2020-07-10	\N	1	5	1
+\.
+
+
+--
+-- Data for Name: kmr_esencia_perfume; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_esencia_perfume (tsca_cas, nombre, tipo, descripcion) FROM stdin;
+8006879	sandalo	.	.
+8014093	pachuli	.	.
+8008319	naranja tangerina	.	.
+84929408	peonia	.	.
+90028061	haba tonka	.	.
+84012340	durazno	.	.
+8006813	ylang ylang	.	.
+8024064	vainilla	.	.
+8001045	almizcle	.	.
+5502750	muguete	.	.
+8022966	jazmin	.	.
+8007758	bergamota	.	.
+8008579	naranja	.	citrus sinensis
+8007703	anis estrellado	.	illicum verum
+68606815	grocella negra	.	ribes nigrum
+97676272	piña	.	ananas comosus
+8016384	flor de azahar del naranjo	.	citrus aurantium
+84082688	nuez moscada	.	myristica fragrans
+8000428	alcaravea	.	Carum carvi
+8012917	bayas rojas	.	.
+8006404	miel	.	.
+8028895	caramelo	.	.
+8015734	albahaca	.	Ocimum basilicum
+8006904	menta	.	Mentha spicata, piperita, aquatica (labiatae)
+8016204	toronja	.	citrus paradisi
+8000348	clavos de olor	.	eugenia caryophyllata
+90082432	pera	.	pyrus communis (rosaceae)
+85940325	cardamomo	.	elletaria cardamomum
+103957	ciclamen	.	Cyclamen
+90106380	rosa	.	rosa gallica, centifollia, damascena
+89998038	melon	.	cucurbitaceae family
+223749017	fresia	.	freesia refracta (Iridaceae)
+85085514	flor de loto	.	nelumbo nucifera
+28940116	calone	.	.
+8021430	clavel	.	.
+84776670	azucena	.	lilium (liliaceae)
+94334357	nardos	.	polianthes tuberosa
+8002673	ambar	.	ambra grisea
+92347212	osmanto	.	olivo oloroso
+92201553	cedro	.	cedrus, family pinaceae
+84775508	cilantro	.	coriandrum sativum
+84696071	cipres	.	cupressus (cupressaceae)
+223748445	mandarina	.	citrus reticulata
+90131456	estragon	.	artemisia dracunculus
+233683846	yuzu	.	citrus junos
+85116638	cedron	.	aloysia citrodora
+84082791	salvia	.	salvia Officinalis
+8008568	limon	.	citrus limon
+91721981	reseda	.	reseda odorata
+84649989	canela	.	cinnamomum verum
+90082512	geranio	.	pelargonium Graveolens
+8022193	azafran	.	crocus Sativus Linneaus
+84238299	vetiver	.	vetiveria Zizanoid
+84961660	tabaco	.	Nicotiana tabacum (Solanaceae)
+90045526	flor de espino	.	crataegus monogyna (rosaceae)
+8021361	opoponaco de Somalia	.	commiphora erythraea
+90147367	violeta	.	viola odorata
+8050075	incienso	.	.
+68916734	te blanco	.	.
+8016602	hoja de arroz	.	oryza family poaceae
+32388559	flor de cerezo	.	family rosaceae, genus prunus
+223748069	frangipani	.	Plumeria rubra (Apocyanaceae)
+90045582	heliotropo	.	heliotropium arborescens
+\.
+
+
+--
+-- Data for Name: kmr_familia_olf; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_familia_olf (id, nombre, descripcion) FROM stdin;
+1	Verde	.
+2	Citrico	.
+3	Floral	.
+4	Frutal	.
+5	Aromatico	.
+6	Fougere	.
+7	Chipre	.
+8	Amaderado	.
+9	Oriental	.
+10	Otros	.
+\.
+
+
+--
+-- Data for Name: kmr_fo_if; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_fo_if (id_ifra_ing, id_familia_olf) FROM stdin;
+\.
+
+
+--
+-- Data for Name: kmr_ifra_ingrediente; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_ifra_ingrediente (cas_number, id_emp_prov, descripcion_visual, proceso, vida_util, solubilidad, procesodescripcion) FROM stdin;
+131766739	1	Un liquido amarillo pálido claro.	Quimico	12 meses en almacenamiento	Ethanol 95%	\N
+14352615	1	Un liquido incoloro claro.	Quimico	12 meses en almacenamiento	Ethanol 95%	\N
+93049	1	Liquido cristalino	Quimico	36 meses en almacenamiento	Alcohol 100%	\N
+80546	2	Liquido aceitoso casi incoloro o amarilloso pastel	24 meses en almacenamiento	Quimico	Aceite Parafina	\N
+121335	2	Polvo blaco cristalino	24 meses en almacenamiento	Quimico	Cloroformo	\N
+106241	2	Liquido incoloro transparente	24 meses en almacenamiento	Quimico	Keroseno	\N
+28897214	3	NA	NA	NA	NA	\N
+18479577	3	Liquido transparente incoloro	Quimico	2 años	25% en alcohol a 75%	\N
+5989548	3	Liquido transparente incoloro	Quimico	NA	Aceites fijos	\N
+504632	4	Liquido transparente incoloro	Quimico	NA	Alcohol	\N
+111273	4	Liquido transparente incoloro	Quimico	NA	Alcohol	\N
+542461	4	Liquido cristalino incoloro o blanquecino	Quimico	2 semanas	Glicol Dipropileno	\N
+\.
+
+
+--
+-- Data for Name: kmr_ing_contrato; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_ing_contrato (id, id_contrato, id_emp_prov, id_ing_otros, id_ing_ifra) FROM stdin;
+1	1	1	\N	131766739
+2	1	1	\N	14352615
+3	2	2	\N	80546
+5	3	3	\N	18479577
+6	4	4	\N	111273
+7	4	4	\N	542461
+8	5	1	\N	14352615
+9	5	1	\N	93049
+10	6	3	\N	28897214
+11	7	2	\N	106241
+12	7	2	\N	121335
+13	8	2	\N	121335
+14	9	4	\N	504632
+\.
+
+
+--
+-- Data for Name: kmr_ingrediente_otros; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_ingrediente_otros (ipc, nombre, tipo, tsca_cas, id_emp_prov) FROM stdin;
+\.
+
+
+--
+-- Data for Name: kmr_ingrediente_presentacion; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_ingrediente_presentacion (id, vol, unidades, cantidad_almacenada, precio_unitario, id_ifra_ing, id_ing_otros) FROM stdin;
+1	5	g	100	5	131766739	\N
+2	25	g	100	9	131766739	\N
+3	200	g	100	45	131766739	\N
+4	5	g	100	5	131766739	\N
+5	25	g	100	9	131766739	\N
+6	200	g	100	45	131766739	\N
+\.
+
+
+--
+-- Data for Name: kmr_intensidad; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_intensidad (id, id_perfume, tipo, concentracion, descripcion) FROM stdin;
+1	1	EdP	15	clasico
+2	2	EdT	10	seductor
+3	3	EdP	15	normal
+4	4	EdT	10	elegante
+5	5	EdT	10	moderno
+6	6	EdP	15	clasico
+7	7	EdP	15	clasico
+\.
+
+
+--
+-- Data for Name: kmr_membresia_ifra; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_membresia_ifra (id, fechai, fechat, tipo, id_emp_prod, id_emp_prov) FROM stdin;
+\.
+
+
+--
+-- Data for Name: kmr_monolitico; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_monolitico (id_perfume, id_esencia_perf) FROM stdin;
+1	8006879
+1	8014093
+1	8008319
+1	84929408
+1	90028061
+1	84012340
+1	8006813
+1	8024064
+1	8001045
+1	8022966
+2	8024064
+2	97676272
+2	8028895
+2	90028061
+2	68606815
+2	8012917
+2	8016384
+2	8006404
+2	8007703
+3	8024064
+3	8015734
+3	8006904
+3	8016204
+3	8000348
+3	90082432
+3	85940325
+4	85085514
+4	89998038
+4	5502750
+4	84776670
+4	84929408
+4	223749017
+4	90106380
+4	28940116
+4	103957
+4	8001045
+4	94334357
+4	8021430
+4	92347212
+4	92201553
+4	8006879
+4	8002673
+5	233683846
+5	8008568
+5	85085514
+5	84238299
+5	8007758
+5	84082688
+5	223748445
+5	85116638
+5	5502750
+5	84696071
+5	8001045
+5	28940116
+5	84775508
+5	92201553
+5	8006879
+5	8022193
+5	84649989
+5	90131456
+5	90082512
+5	84082791
+5	84961660
+5	91721981
+5	8002673
+6	90147367
+6	90106380
+6	8024064
+6	8001045
+6	8050075
+6	8021361
+6	90045526
+6	8022966
+6	68606815
+\.
+
+
+--
+-- Data for Name: kmr_origen; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_origen (id_ifra_ing, id_pais) FROM stdin;
+\.
+
+
+--
+-- Data for Name: kmr_otros; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_otros (id_ifra_ing, id_ing_otros) FROM stdin;
+\.
+
+
+--
+-- Data for Name: kmr_p_fo; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_p_fo (id_perfume, id_familia_olf) FROM stdin;
+1	8
+1	3
+1	9
+2	9
+2	4
+2	5
+3	9
+3	5
+3	2
+3	1
+4	3
+5	2
+5	5
+5	9
+5	8
+5	3
+6	3
+6	9
+\.
+
+
+--
+-- Data for Name: kmr_p_p; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_p_p (id_perfume, id_perfumista) FROM stdin;
+1	1
+2	1
+3	1
+4	2
+5	2
+6	3
+7	4
+7	5
+\.
+
+
+--
+-- Data for Name: kmr_pago; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_pago (id, id_pedido, fecha_pago, monto) FROM stdin;
+\.
+
+
+--
+-- Data for Name: kmr_pais; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_pais (id, nombre, continente) FROM stdin;
+1	Afganistan	Asia
+2	Islas Gland	Europa
+3	Albania	Europa
+4	Alemania	Europa
+5	Andorra	Europa
+6	Angola	Africa
+7	Anguilla	America
+8	Antigua y Barbuda	America
+9	Arabia Saudi	Asia
+10	Argelia	Africa
+11	Argentina	America
+12	Armenia	Europa
+13	Aruba	America
+14	Australia	Oceania
+15	Austria	Europa
+16	Azerbaiyán	Asia
+17	Bahamas	America
+18	Bahrein	Asia
+19	Bangladesh	Asia
+20	Barbados	America
+21	Bielorrusia	Europa
+22	Bélgica	Europa
+23	Belice	America
+24	Benin	Africa
+25	Bermudas	America
+26	Bhutan	Asia
+27	Bolivia	America
+28	Bosnia y Herzegovina	Europa
+29	Botsuana	Africa
+30	Isla Bouvet	Antartida
+31	Brasil	America
+32	Brunéi	Asia
+33	Bulgaria	Europa
+34	Burkina Faso	Africa
+35	Burundi	Asia
+36	Cabo Verde	Africa
+37	Islas Caiman	America
+38	Camboya	Asia
+39	Camerun	Africa
+40	Canada	America
+41	Republica Centroafricana	Africa
+42	Chad	Africa
+43	Chequia	Europa
+44	Chile	America
+45	China	Asia
+46	Chipre	Europa
+47	Colombia	America
+48	Comoras	Africa
+49	Congo	Africa
+50	Islas Cook	Oceania
+51	Corea del Norte	Asia
+52	Corea del Sur	Asia
+53	Costa de Marfil	Africa
+54	Costa Rica	America
+55	Croacia	Europa
+56	Cuba	America
+57	Dinamarca	Europa
+58	Dominica	America
+59	Republica Dominicana	America
+60	Ecuador	America
+61	Egipto	Africa
+62	El Salvador	America
+63	Emiratos Arabes Unidos	Asia
+64	Eritrea	Africa
+65	Eslovaquia	Europa
+66	Eslovenia	Europa
+67	España	Europa
+68	Estados Unidos	America
+69	Estonia	Europa
+70	Etiopía	Africa
+71	Islas Feroe	Europa
+72	Filipinas	Asia
+73	Finlandia	Europa
+74	Fiyi	Oceania
+75	Francia	Europa
+76	Gabon	Africa
+77	Gambia	Africa
+78	Georgia	Europa
+79	Ghana	Africa
+80	Granada	America
+81	Grecia	Europa
+82	Groenlandia	America
+83	Guatemala	America
+84	Guinea	Africa
+85	Guyana	America
+86	Haití	America
+87	Honduras	America
+88	Hungría	Europa
+89	India	Asia
+90	Indonesia	Asia
+91	Irán	Asia
+92	Irak	Asia
+93	Irlanda	Europa
+94	Islandia	Europa
+95	Israel	Asia
+96	Italia	Europa
+97	Jamaica	America
+98	Japón	Asia
+99	Jordania	Asia
+100	Kazajstán	Asia
+101	Kenia	Africa
+102	Kirguistán	Asia
+103	Kiribati	Oceania
+104	Kuwait	Asia
+105	Laos	Asia
+106	Lesotho	Africa
+107	Letonia	Europa
+108	Líbano	Asia
+109	Liberia	Africa
+110	Libia	Africa
+111	Liechtenstein	Europa
+112	Lituania	Europa
+113	Luxemburgo	Europa
+114	Madagascar	Africa
+115	Malasia	Asia
+116	Malawi	Africa
+117	Maldivas	Asia
+118	Malí	Africa
+119	Malta	Europa
+120	Islas Malvinas	America
+121	Islas Marianas del Norte	Oceania
+122	Marruecos	Africa
+123	Islas Marshall	Oceania
+124	Mauricio	Africa
+125	Mauritania	Africa
+126	México	America
+127	Micronesia	Oceania
+128	Moldavia	Europa
+129	Mónaco	Europa
+130	Mongolia	Asia
+131	Mozambique	Africa
+132	Birmania	Africa
+133	Namibia	Africa
+134	Nauru	Oceania
+135	Nepal	Asia
+136	Nicaragua	Asia
+137	Níger	Africa
+138	Nigeria	Africa
+139	Niue	Oceania
+140	Noruega	Europa
+141	Nueva Zelanda	Oceania
+142	Omán	Asia
+143	Países Bajos	Europa
+144	Pakistán	Asia
+145	Palau	Oceania
+146	Palestina	Asia
+147	Panamá	America
+148	Papúa Nueva Guinea	Oceania
+149	Paraguay	America
+150	Perú	America
+151	Polonia	Europa
+152	Portugal	Europa
+153	Puerto Rico	America
+154	Qatar	Asia
+155	Reino Unido	Europa
+156	Reunión	Africa
+157	Ruanda	Africa
+158	Rumania	Europa
+159	Rusia	Europa
+160	Islas Salomón	Oceania
+161	Samoa	Oceania
+162	San Cristóbal y Nevis	America
+163	San Marino	Europa
+164	San Vicente y las Granadinas	America
+165	Santa Lucía	America
+166	Santo Tomé y Príncipe	Africa
+167	Senegal	Africa
+168	Seychelles	Africa
+169	Sierra Leona	Africa
+170	Singapur	Asia
+171	Siria	Asia
+172	Somalia	Africa
+173	Sri Lanka	Asia
+174	Suazilandia	Africa
+175	Sudáfrica	Africa
+176	Sudán	Africa
+177	Suecia	Europa
+178	Suiza	Europa
+179	Surinam	America
+180	Tailandia	Asia
+181	Taiwán	Asia
+182	Tanzania	Africa
+183	Tayikistán	Asia
+184	Timor Oriental	Asia
+185	Togo	Africa
+186	Tonga	Oceania
+187	Trinidad y Tobago	America
+188	Túnez	Africa
+189	Turkmenistán	Asia
+190	Turquía	Asia
+191	Tuvalu	Oceania
+192	Ucrania	Europa
+193	Uganda	Africa
+194	Uruguay	America
+195	Uzbekistán	Asia
+196	Vanuatu	Oceania
+197	Venezuela	America
+198	Vietnam	Asia
+199	Yemen	Asia
+200	Yibuti	Africa
+201	Zambia	Africa
+202	Zimbabue	Africa
+\.
+
+
+--
+-- Data for Name: kmr_palabra_clave; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_palabra_clave (id, palabra_unica) FROM stdin;
+\.
+
+
+--
+-- Data for Name: kmr_pc_fo; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_pc_fo (id_familia_olf, id_pal_clave) FROM stdin;
+\.
+
+
+--
+-- Data for Name: kmr_pedido; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_pedido (id, id_emp_prod, id_emp_prov, fecha_emision, pago_total, fecha_confirma, nro_factura, id_condcontrapago, id_condcontrapago_contrato, id_condcontrapago_prov, id_condcontenvio, id_condcontenvio_contrato, id_condcontenvio_prov) FROM stdin;
+\.
+
+
+--
+-- Data for Name: kmr_pedido_lote; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_pedido_lote (id, id_pedido, id_ing_presentacion, cantidad) FROM stdin;
+\.
+
+
+--
+-- Data for Name: kmr_perfume; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_perfume (id, nombre, tipo, genero, edad, id_emp_prod) FROM stdin;
+1	Geo Donna	F	M	AD	1
+2	Flags Donna	F	M	AT	1
+3	Geo Uomo	M	H	AD	1
+4	L Eau d Issey	F	M	AT	2
+5	L Eau d Issey Pour Homme	F	H	AT	2
+6	Flower by Kenzo	F	M	JO	2
+7	Kenzo Amour	F	M	JO	3
+8	Hugo Dark Blue	F	H	AD	3
+9	Miracle de Lancome	F	M	JO	3
+10	Tiffany & Love For Her 	F	M	AT	4
+11	Sauvage Eau de Parfum	F	H	AD	4
+12	Bloom Eau De Parfum	M	M	AT	4
+13	Love Secret	F	M	AT	5
+14	Secret Charm	M	M	AT	5
+15	Vitality	F	M	AD	5
+\.
+
+
+--
+-- Data for Name: kmr_perfume_fases; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_perfume_fases (id_perfume, id_esencia_per, tiponota) FROM stdin;
+1	8007758	S
+1	8008319	S
+1	84929408	C
+1	84012340	C
+1	8022966	C
+1	8006813	C
+1	5502750	C
+1	8006879	F
+1	90028061	F
+1	8014093	F
+1	8001045	F
+1	8024064	F
+2	8008579	S
+2	8007703	S
+2	68606815	S
+2	97676272	S
+2	8016384	C
+2	84082688	C
+2	8000428	C
+2	8012917	C
+2	90028061	F
+2	8024064	F
+2	8006404	F
+2	8028895	F
+4	103957	S
+4	90106380	S
+4	89998038	S
+4	223749017	S
+4	85085514	S
+4	28940116	S
+4	8021430	C
+4	84776670	C
+4	84929408	C
+4	94334357	F
+4	8002673	F
+4	8006879	F
+4	8001045	F
+4	92347212	F
+4	92201553	F
+5	84775508	S
+5	84696071	S
+5	223748445	S
+5	90131456	S
+5	233683846	S
+5	85116638	S
+5	84082791	S
+5	8007758	S
+5	8008568	S
+5	28940116	S
+5	84082688	C
+5	91721981	C
+5	84649989	C
+5	90082512	C
+5	8022193	C
+5	5502750	C
+5	85085514	C
+5	84238299	F
+5	8001045	F
+5	8006879	F
+5	92201553	F
+5	8002673	F
+5	84961660	F
+6	68606815	S
+6	90045526	S
+6	90106380	S
+6	223748445	S
+6	8021361	C
+6	8022966	C
+6	90147367	C
+6	8024064	F
+6	8001045	F
+6	8050075	F
+\.
+
+
+--
+-- Data for Name: kmr_perfumista; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_perfumista (id, nombre, primer_apellido, segundo_apellido, genero, id_pais) FROM stdin;
+1	Alviero	Martini	Martini	H	96
+2	Jacques	Cavallier	Belletrud	H	75
+3	Alberto	Morillas	Morillas	H	67
+4	Daphne	Bugey	Bugey	M	75
+5	Olivier	Cresp	Cresp	H	75
+\.
+
+
+--
+-- Data for Name: kmr_presentacion; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_presentacion (id, id_intensidad, id_perfume, volml) FROM stdin;
+1	1	1	100
+2	1	1	50
+3	2	2	50
+4	3	3	100
+5	3	3	50
+6	4	4	100
+7	4	4	50
+8	4	4	25
+9	5	5	200
+10	5	5	125
+11	5	5	75
+12	5	5	40
+13	6	6	100
+14	6	6	50
+15	6	6	30
+16	7	7	100
+17	7	7	50
+18	7	7	30
+\.
+
+
+--
+-- Data for Name: kmr_prohibida; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_prohibida (tscacas, nombre) FROM stdin;
+\.
+
+
+--
+-- Data for Name: kmr_renueva; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_renueva (id, id_contrato, id_emp_prov, fecha) FROM stdin;
+\.
+
+
+--
+-- Data for Name: kmr_resul_eval; Type: TABLE DATA; Schema: public; Owner: syfers
+--
+
+COPY public.kmr_resul_eval (fecha, id_emp_prod, id_emp_prov, resultado, tipoformula) FROM stdin;
+\.
+
+
+--
+-- Name: kmr_asociacion_nacional_id_seq; Type: SEQUENCE SET; Schema: public; Owner: syfers
+--
+
+SELECT pg_catalog.setval('public.kmr_asociacion_nacional_id_seq', 1, false);
+
+
+--
+-- Name: kmr_condiciones_pago_id_seq; Type: SEQUENCE SET; Schema: public; Owner: syfers
+--
+
+SELECT pg_catalog.setval('public.kmr_condiciones_pago_id_seq', 8, true);
+
+
+--
+-- Name: kmr_contrato_id_seq; Type: SEQUENCE SET; Schema: public; Owner: syfers
+--
+
+SELECT pg_catalog.setval('public.kmr_contrato_id_seq', 1, false);
+
+
+--
+-- Name: kmr_contrato_particulares_id_seq; Type: SEQUENCE SET; Schema: public; Owner: syfers
+--
+
+SELECT pg_catalog.setval('public.kmr_contrato_particulares_id_seq', 1, false);
+
+
+--
+-- Name: kmr_criterio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: syfers
+--
+
+SELECT pg_catalog.setval('public.kmr_criterio_id_seq', 3, true);
+
+
+--
+-- Name: kmr_empresa_productora_id_seq; Type: SEQUENCE SET; Schema: public; Owner: syfers
+--
+
+SELECT pg_catalog.setval('public.kmr_empresa_productora_id_seq', 1, false);
+
+
+--
+-- Name: kmr_empresa_proveedora_id_seq; Type: SEQUENCE SET; Schema: public; Owner: syfers
+--
+
+SELECT pg_catalog.setval('public.kmr_empresa_proveedora_id_seq', 4, true);
+
+
+--
+-- Name: kmr_familia_olf_id_seq; Type: SEQUENCE SET; Schema: public; Owner: syfers
+--
+
+SELECT pg_catalog.setval('public.kmr_familia_olf_id_seq', 1, false);
+
+
+--
+-- Name: kmr_ing_contrato_id_seq; Type: SEQUENCE SET; Schema: public; Owner: syfers
+--
+
+SELECT pg_catalog.setval('public.kmr_ing_contrato_id_seq', 1, false);
+
+
+--
+-- Name: kmr_ingrediente_presentacion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: syfers
+--
+
+SELECT pg_catalog.setval('public.kmr_ingrediente_presentacion_id_seq', 6, true);
+
+
+--
+-- Name: kmr_intensidad_id_seq; Type: SEQUENCE SET; Schema: public; Owner: syfers
+--
+
+SELECT pg_catalog.setval('public.kmr_intensidad_id_seq', 1, false);
+
+
+--
+-- Name: kmr_membresia_ifra_id_seq; Type: SEQUENCE SET; Schema: public; Owner: syfers
+--
+
+SELECT pg_catalog.setval('public.kmr_membresia_ifra_id_seq', 1, false);
+
+
+--
+-- Name: kmr_pago_id_seq; Type: SEQUENCE SET; Schema: public; Owner: syfers
+--
+
+SELECT pg_catalog.setval('public.kmr_pago_id_seq', 1, false);
+
+
+--
+-- Name: kmr_pais_id_seq; Type: SEQUENCE SET; Schema: public; Owner: syfers
+--
+
+SELECT pg_catalog.setval('public.kmr_pais_id_seq', 202, true);
+
+
+--
+-- Name: kmr_palabra_clave_id_seq; Type: SEQUENCE SET; Schema: public; Owner: syfers
+--
+
+SELECT pg_catalog.setval('public.kmr_palabra_clave_id_seq', 1, false);
+
+
+--
+-- Name: kmr_pedido_id_seq; Type: SEQUENCE SET; Schema: public; Owner: syfers
+--
+
+SELECT pg_catalog.setval('public.kmr_pedido_id_seq', 1, false);
+
+
+--
+-- Name: kmr_pedido_lote_id_seq; Type: SEQUENCE SET; Schema: public; Owner: syfers
+--
+
+SELECT pg_catalog.setval('public.kmr_pedido_lote_id_seq', 1, false);
+
+
+--
+-- Name: kmr_perfume_id_seq; Type: SEQUENCE SET; Schema: public; Owner: syfers
+--
+
+SELECT pg_catalog.setval('public.kmr_perfume_id_seq', 1, false);
+
+
+--
+-- Name: kmr_perfumista_id_seq; Type: SEQUENCE SET; Schema: public; Owner: syfers
+--
+
+SELECT pg_catalog.setval('public.kmr_perfumista_id_seq', 1, false);
+
+
+--
+-- Name: kmr_presentacion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: syfers
+--
+
+SELECT pg_catalog.setval('public.kmr_presentacion_id_seq', 1, false);
+
+
+--
+-- Name: kmr_renueva_id_seq; Type: SEQUENCE SET; Schema: public; Owner: syfers
+--
+
+SELECT pg_catalog.setval('public.kmr_renueva_id_seq', 1, false);
+
+
+--
+-- Name: kmr_asociacion_nacional kmr_asociacion_nacional_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_asociacion_nacional
+    ADD CONSTRAINT kmr_asociacion_nacional_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: kmr_comp_extra kmr_comp_extra_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_comp_extra
+    ADD CONSTRAINT kmr_comp_extra_pkey PRIMARY KEY (id_perfume, id_ing_presentacion);
+
+
+--
+-- Name: kmr_condiciones_pago kmr_condiciones_pago_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_condiciones_pago
+    ADD CONSTRAINT kmr_condiciones_pago_pkey PRIMARY KEY (id, id_emp_prov);
+
+
+--
+-- Name: kmr_contrato_particulares kmr_contrato_particulares_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_contrato_particulares
+    ADD CONSTRAINT kmr_contrato_particulares_pkey PRIMARY KEY (id, id_contrato, id_emp_prov);
+
+
+--
+-- Name: kmr_contrato kmr_contrato_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_contrato
+    ADD CONSTRAINT kmr_contrato_pkey PRIMARY KEY (id, id_emp_prov);
+
+
+--
+-- Name: kmr_criterio_eval kmr_criterio_eval_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_criterio_eval
+    ADD CONSTRAINT kmr_criterio_eval_pkey PRIMARY KEY (fechai, id_emp_prod, id_criterio);
+
+
+--
+-- Name: kmr_criterio kmr_criterio_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_criterio
+    ADD CONSTRAINT kmr_criterio_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: kmr_empresa_productora kmr_empresa_productora_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_empresa_productora
+    ADD CONSTRAINT kmr_empresa_productora_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: kmr_empresa_proveedora kmr_empresa_proveedora_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_empresa_proveedora
+    ADD CONSTRAINT kmr_empresa_proveedora_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: kmr_envio_pais kmr_envio_pais_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_envio_pais
+    ADD CONSTRAINT kmr_envio_pais_pkey PRIMARY KEY (id_emp_prov, id_pais);
+
+
+--
+-- Name: kmr_ep_fo kmr_ep_fo_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_ep_fo
+    ADD CONSTRAINT kmr_ep_fo_pkey PRIMARY KEY (id_esencia_perf, id_familia_olf);
+
+
+--
+-- Name: kmr_ep_p kmr_ep_p_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_ep_p
+    ADD CONSTRAINT kmr_ep_p_pkey PRIMARY KEY (id_emp_prod, id_pais);
+
+
+--
+-- Name: kmr_escala_eval kmr_escala_eval_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_escala_eval
+    ADD CONSTRAINT kmr_escala_eval_pkey PRIMARY KEY (fechai, id_emp_prod);
+
+
+--
+-- Name: kmr_esencia_perfume kmr_esencia_perfume_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_esencia_perfume
+    ADD CONSTRAINT kmr_esencia_perfume_pkey PRIMARY KEY (tsca_cas);
+
+
+--
+-- Name: kmr_familia_olf kmr_familia_olf_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_familia_olf
+    ADD CONSTRAINT kmr_familia_olf_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: kmr_fo_if kmr_fo_if_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_fo_if
+    ADD CONSTRAINT kmr_fo_if_pkey PRIMARY KEY (id_ifra_ing, id_familia_olf);
+
+
+--
+-- Name: kmr_ifra_ingrediente kmr_ifra_ingrediente_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_ifra_ingrediente
+    ADD CONSTRAINT kmr_ifra_ingrediente_pkey PRIMARY KEY (cas_number);
+
+
+--
+-- Name: kmr_ing_contrato kmr_ing_contrato_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_ing_contrato
+    ADD CONSTRAINT kmr_ing_contrato_pkey PRIMARY KEY (id, id_contrato, id_emp_prov);
+
+
+--
+-- Name: kmr_ingrediente_otros kmr_ingrediente_otros_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_ingrediente_otros
+    ADD CONSTRAINT kmr_ingrediente_otros_pkey PRIMARY KEY (ipc);
+
+
+--
+-- Name: kmr_ingrediente_presentacion kmr_ingrediente_presentacion_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_ingrediente_presentacion
+    ADD CONSTRAINT kmr_ingrediente_presentacion_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: kmr_intensidad kmr_intensidad_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_intensidad
+    ADD CONSTRAINT kmr_intensidad_pkey PRIMARY KEY (id, id_perfume);
+
+
+--
+-- Name: kmr_membresia_ifra kmr_membresia_ifra_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_membresia_ifra
+    ADD CONSTRAINT kmr_membresia_ifra_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: kmr_monolitico kmr_monolitico_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_monolitico
+    ADD CONSTRAINT kmr_monolitico_pkey PRIMARY KEY (id_perfume, id_esencia_perf);
+
+
+--
+-- Name: kmr_origen kmr_origen_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_origen
+    ADD CONSTRAINT kmr_origen_pkey PRIMARY KEY (id_ifra_ing, id_pais);
+
+
+--
+-- Name: kmr_otros kmr_otros_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_otros
+    ADD CONSTRAINT kmr_otros_pkey PRIMARY KEY (id_ifra_ing, id_ing_otros);
+
+
+--
+-- Name: kmr_p_fo kmr_p_fo_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_p_fo
+    ADD CONSTRAINT kmr_p_fo_pkey PRIMARY KEY (id_perfume, id_familia_olf);
+
+
+--
+-- Name: kmr_p_p kmr_p_p_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_p_p
+    ADD CONSTRAINT kmr_p_p_pkey PRIMARY KEY (id_perfume, id_perfumista);
+
+
+--
+-- Name: kmr_pago kmr_pago_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_pago
+    ADD CONSTRAINT kmr_pago_pkey PRIMARY KEY (id, id_pedido);
+
+
+--
+-- Name: kmr_pais kmr_pais_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_pais
+    ADD CONSTRAINT kmr_pais_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: kmr_palabra_clave kmr_palabra_clave_palabra_unica_key; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_palabra_clave
+    ADD CONSTRAINT kmr_palabra_clave_palabra_unica_key UNIQUE (palabra_unica);
+
+
+--
+-- Name: kmr_palabra_clave kmr_palabra_clave_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_palabra_clave
+    ADD CONSTRAINT kmr_palabra_clave_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: kmr_pc_fo kmr_pc_fo_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_pc_fo
+    ADD CONSTRAINT kmr_pc_fo_pkey PRIMARY KEY (id_familia_olf, id_pal_clave);
+
+
+--
+-- Name: kmr_pedido_lote kmr_pedido_lote_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_pedido_lote
+    ADD CONSTRAINT kmr_pedido_lote_pkey PRIMARY KEY (id, id_pedido);
+
+
+--
+-- Name: kmr_pedido kmr_pedido_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_pedido
+    ADD CONSTRAINT kmr_pedido_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: kmr_perfume_fases kmr_perfume_fases_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_perfume_fases
+    ADD CONSTRAINT kmr_perfume_fases_pkey PRIMARY KEY (id_perfume, id_esencia_per);
+
+
+--
+-- Name: kmr_perfume kmr_perfume_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_perfume
+    ADD CONSTRAINT kmr_perfume_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: kmr_perfumista kmr_perfumista_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_perfumista
+    ADD CONSTRAINT kmr_perfumista_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: kmr_presentacion kmr_presentacion_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_presentacion
+    ADD CONSTRAINT kmr_presentacion_pkey PRIMARY KEY (id, id_intensidad, id_perfume);
+
+
+--
+-- Name: kmr_prohibida kmr_prohibida_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_prohibida
+    ADD CONSTRAINT kmr_prohibida_pkey PRIMARY KEY (tscacas);
+
+
+--
+-- Name: kmr_renueva kmr_renueva_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_renueva
+    ADD CONSTRAINT kmr_renueva_pkey PRIMARY KEY (id, id_contrato, id_emp_prov);
+
+
+--
+-- Name: kmr_resul_eval kmr_resul_eval_pkey; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_resul_eval
+    ADD CONSTRAINT kmr_resul_eval_pkey PRIMARY KEY (fecha, id_emp_prod, id_emp_prov);
+
+
+--
+-- Name: kmr_contrato unique_one_per_pair; Type: CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_contrato
+    ADD CONSTRAINT unique_one_per_pair UNIQUE (id_emp_prov, id_emp_prod);
+
+
+--
+-- Name: kmr_pedido fk_concontenvio; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_pedido
+    ADD CONSTRAINT fk_concontenvio FOREIGN KEY (id_condcontenvio, id_condcontenvio_contrato, id_condcontenvio_prov) REFERENCES public.kmr_contrato_particulares(id, id_contrato, id_emp_prov);
+
+
+--
+-- Name: kmr_contrato_particulares fk_cond_pago; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_contrato_particulares
+    ADD CONSTRAINT fk_cond_pago FOREIGN KEY (id_cond_pago, id_cond_pago_prov) REFERENCES public.kmr_condiciones_pago(id, id_emp_prov);
+
+
+--
+-- Name: kmr_pedido fk_condcontrapago; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_pedido
+    ADD CONSTRAINT fk_condcontrapago FOREIGN KEY (id_condcontrapago, id_condcontrapago_contrato, id_emp_prov) REFERENCES public.kmr_contrato_particulares(id, id_contrato, id_emp_prov);
+
+
+--
+-- Name: kmr_renueva fk_contrato; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_renueva
+    ADD CONSTRAINT fk_contrato FOREIGN KEY (id_contrato, id_emp_prov) REFERENCES public.kmr_contrato(id, id_emp_prov);
+
+
+--
+-- Name: kmr_contrato_particulares fk_contrato; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_contrato_particulares
+    ADD CONSTRAINT fk_contrato FOREIGN KEY (id_contrato, id_emp_prov) REFERENCES public.kmr_contrato(id, id_emp_prov);
+
+
+--
+-- Name: kmr_ing_contrato fk_contrato; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_ing_contrato
+    ADD CONSTRAINT fk_contrato FOREIGN KEY (id_contrato, id_emp_prov) REFERENCES public.kmr_contrato(id, id_emp_prov);
+
+
+--
+-- Name: kmr_contrato_particulares fk_envio_pais; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_contrato_particulares
+    ADD CONSTRAINT fk_envio_pais FOREIGN KEY (id_envio_pais, id_envio_pais_prov) REFERENCES public.kmr_envio_pais(id_pais, id_emp_prov);
+
+
+--
+-- Name: kmr_origen fk_ifra_ing; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_origen
+    ADD CONSTRAINT fk_ifra_ing FOREIGN KEY (id_ifra_ing) REFERENCES public.kmr_ifra_ingrediente(cas_number);
+
+
+--
+-- Name: kmr_fo_if fk_ifra_ing; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_fo_if
+    ADD CONSTRAINT fk_ifra_ing FOREIGN KEY (id_ifra_ing) REFERENCES public.kmr_ifra_ingrediente(cas_number);
+
+
+--
+-- Name: kmr_otros fk_ifra_ing; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_otros
+    ADD CONSTRAINT fk_ifra_ing FOREIGN KEY (id_ifra_ing) REFERENCES public.kmr_ifra_ingrediente(cas_number);
+
+
+--
+-- Name: kmr_ingrediente_presentacion fk_ifra_ing; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_ingrediente_presentacion
+    ADD CONSTRAINT fk_ifra_ing FOREIGN KEY (id_ifra_ing) REFERENCES public.kmr_ifra_ingrediente(cas_number);
+
+
+--
+-- Name: kmr_ing_contrato fk_ing_ifra; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_ing_contrato
+    ADD CONSTRAINT fk_ing_ifra FOREIGN KEY (id_ing_ifra) REFERENCES public.kmr_ifra_ingrediente(cas_number);
+
+
+--
+-- Name: kmr_presentacion fk_intensidad; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_presentacion
+    ADD CONSTRAINT fk_intensidad FOREIGN KEY (id_intensidad, id_perfume) REFERENCES public.kmr_intensidad(id, id_perfume);
+
+
+--
+-- Name: kmr_asociacion_nacional kmr_asociacion_nacional_id_pais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_asociacion_nacional
+    ADD CONSTRAINT kmr_asociacion_nacional_id_pais_fkey FOREIGN KEY (id_pais) REFERENCES public.kmr_pais(id);
+
+
+--
+-- Name: kmr_comp_extra kmr_comp_extra_id_ing_presentacion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_comp_extra
+    ADD CONSTRAINT kmr_comp_extra_id_ing_presentacion_fkey FOREIGN KEY (id_ing_presentacion) REFERENCES public.kmr_ingrediente_presentacion(id);
+
+
+--
+-- Name: kmr_comp_extra kmr_comp_extra_id_perfume_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_comp_extra
+    ADD CONSTRAINT kmr_comp_extra_id_perfume_fkey FOREIGN KEY (id_perfume) REFERENCES public.kmr_perfume(id);
+
+
+--
+-- Name: kmr_condiciones_pago kmr_condiciones_pago_id_emp_prov_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_condiciones_pago
+    ADD CONSTRAINT kmr_condiciones_pago_id_emp_prov_fkey FOREIGN KEY (id_emp_prov) REFERENCES public.kmr_empresa_proveedora(id);
+
+
+--
+-- Name: kmr_contrato kmr_contrato_id_emp_prod_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_contrato
+    ADD CONSTRAINT kmr_contrato_id_emp_prod_fkey FOREIGN KEY (id_emp_prod) REFERENCES public.kmr_empresa_productora(id);
+
+
+--
+-- Name: kmr_contrato kmr_contrato_id_emp_prov_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_contrato
+    ADD CONSTRAINT kmr_contrato_id_emp_prov_fkey FOREIGN KEY (id_emp_prov) REFERENCES public.kmr_empresa_proveedora(id);
+
+
+--
+-- Name: kmr_criterio_eval kmr_criterio_eval_id_criterio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_criterio_eval
+    ADD CONSTRAINT kmr_criterio_eval_id_criterio_fkey FOREIGN KEY (id_criterio) REFERENCES public.kmr_criterio(id);
+
+
+--
+-- Name: kmr_criterio_eval kmr_criterio_eval_id_emp_prod_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_criterio_eval
+    ADD CONSTRAINT kmr_criterio_eval_id_emp_prod_fkey FOREIGN KEY (id_emp_prod) REFERENCES public.kmr_empresa_productora(id);
+
+
+--
+-- Name: kmr_empresa_productora kmr_empresa_productora_id_asoc_nacional_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_empresa_productora
+    ADD CONSTRAINT kmr_empresa_productora_id_asoc_nacional_fkey FOREIGN KEY (id_asoc_nacional) REFERENCES public.kmr_asociacion_nacional(id);
+
+
+--
+-- Name: kmr_empresa_proveedora kmr_empresa_proveedora_id_asoc_nacional_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_empresa_proveedora
+    ADD CONSTRAINT kmr_empresa_proveedora_id_asoc_nacional_fkey FOREIGN KEY (id_asoc_nacional) REFERENCES public.kmr_asociacion_nacional(id);
+
+
+--
+-- Name: kmr_envio_pais kmr_envio_pais_id_emp_prov_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_envio_pais
+    ADD CONSTRAINT kmr_envio_pais_id_emp_prov_fkey FOREIGN KEY (id_emp_prov) REFERENCES public.kmr_empresa_proveedora(id);
+
+
+--
+-- Name: kmr_envio_pais kmr_envio_pais_id_pais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_envio_pais
+    ADD CONSTRAINT kmr_envio_pais_id_pais_fkey FOREIGN KEY (id_pais) REFERENCES public.kmr_pais(id);
+
+
+--
+-- Name: kmr_ep_fo kmr_ep_fo_id_esencia_perf_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_ep_fo
+    ADD CONSTRAINT kmr_ep_fo_id_esencia_perf_fkey FOREIGN KEY (id_esencia_perf) REFERENCES public.kmr_esencia_perfume(tsca_cas);
+
+
+--
+-- Name: kmr_ep_fo kmr_ep_fo_id_familia_olf_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_ep_fo
+    ADD CONSTRAINT kmr_ep_fo_id_familia_olf_fkey FOREIGN KEY (id_familia_olf) REFERENCES public.kmr_familia_olf(id);
+
+
+--
+-- Name: kmr_ep_p kmr_ep_p_id_emp_prod_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_ep_p
+    ADD CONSTRAINT kmr_ep_p_id_emp_prod_fkey FOREIGN KEY (id_emp_prod) REFERENCES public.kmr_empresa_productora(id);
+
+
+--
+-- Name: kmr_ep_p kmr_ep_p_id_pais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_ep_p
+    ADD CONSTRAINT kmr_ep_p_id_pais_fkey FOREIGN KEY (id_pais) REFERENCES public.kmr_pais(id);
+
+
+--
+-- Name: kmr_escala_eval kmr_escala_eval_id_emp_prod_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_escala_eval
+    ADD CONSTRAINT kmr_escala_eval_id_emp_prod_fkey FOREIGN KEY (id_emp_prod) REFERENCES public.kmr_empresa_productora(id);
+
+
+--
+-- Name: kmr_fo_if kmr_fo_if_id_familia_olf_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_fo_if
+    ADD CONSTRAINT kmr_fo_if_id_familia_olf_fkey FOREIGN KEY (id_familia_olf) REFERENCES public.kmr_familia_olf(id);
+
+
+--
+-- Name: kmr_ifra_ingrediente kmr_ifra_ingrediente_id_emp_prov_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_ifra_ingrediente
+    ADD CONSTRAINT kmr_ifra_ingrediente_id_emp_prov_fkey FOREIGN KEY (id_emp_prov) REFERENCES public.kmr_empresa_proveedora(id);
+
+
+--
+-- Name: kmr_ing_contrato kmr_ing_contrato_id_ing_otros_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_ing_contrato
+    ADD CONSTRAINT kmr_ing_contrato_id_ing_otros_fkey FOREIGN KEY (id_ing_otros) REFERENCES public.kmr_ingrediente_otros(ipc);
+
+
+--
+-- Name: kmr_ingrediente_otros kmr_ingrediente_otros_id_emp_prov_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_ingrediente_otros
+    ADD CONSTRAINT kmr_ingrediente_otros_id_emp_prov_fkey FOREIGN KEY (id_emp_prov) REFERENCES public.kmr_empresa_proveedora(id);
+
+
+--
+-- Name: kmr_ingrediente_presentacion kmr_ingrediente_presentacion_id_ing_otros_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_ingrediente_presentacion
+    ADD CONSTRAINT kmr_ingrediente_presentacion_id_ing_otros_fkey FOREIGN KEY (id_ing_otros) REFERENCES public.kmr_ingrediente_otros(ipc);
+
+
+--
+-- Name: kmr_intensidad kmr_intensidad_id_perfume_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_intensidad
+    ADD CONSTRAINT kmr_intensidad_id_perfume_fkey FOREIGN KEY (id_perfume) REFERENCES public.kmr_perfume(id);
+
+
+--
+-- Name: kmr_membresia_ifra kmr_membresia_ifra_id_emp_prod_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_membresia_ifra
+    ADD CONSTRAINT kmr_membresia_ifra_id_emp_prod_fkey FOREIGN KEY (id_emp_prod) REFERENCES public.kmr_empresa_productora(id);
+
+
+--
+-- Name: kmr_membresia_ifra kmr_membresia_ifra_id_emp_prov_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_membresia_ifra
+    ADD CONSTRAINT kmr_membresia_ifra_id_emp_prov_fkey FOREIGN KEY (id_emp_prov) REFERENCES public.kmr_empresa_proveedora(id);
+
+
+--
+-- Name: kmr_monolitico kmr_monolitico_id_esencia_perf_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_monolitico
+    ADD CONSTRAINT kmr_monolitico_id_esencia_perf_fkey FOREIGN KEY (id_esencia_perf) REFERENCES public.kmr_esencia_perfume(tsca_cas);
+
+
+--
+-- Name: kmr_monolitico kmr_monolitico_id_perfume_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_monolitico
+    ADD CONSTRAINT kmr_monolitico_id_perfume_fkey FOREIGN KEY (id_perfume) REFERENCES public.kmr_perfume(id);
+
+
+--
+-- Name: kmr_origen kmr_origen_id_pais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_origen
+    ADD CONSTRAINT kmr_origen_id_pais_fkey FOREIGN KEY (id_pais) REFERENCES public.kmr_pais(id);
+
+
+--
+-- Name: kmr_otros kmr_otros_id_ing_otros_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_otros
+    ADD CONSTRAINT kmr_otros_id_ing_otros_fkey FOREIGN KEY (id_ing_otros) REFERENCES public.kmr_ingrediente_otros(ipc);
+
+
+--
+-- Name: kmr_p_fo kmr_p_fo_id_familia_olf_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_p_fo
+    ADD CONSTRAINT kmr_p_fo_id_familia_olf_fkey FOREIGN KEY (id_familia_olf) REFERENCES public.kmr_familia_olf(id);
+
+
+--
+-- Name: kmr_p_fo kmr_p_fo_id_perfume_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_p_fo
+    ADD CONSTRAINT kmr_p_fo_id_perfume_fkey FOREIGN KEY (id_perfume) REFERENCES public.kmr_perfume(id);
+
+
+--
+-- Name: kmr_p_p kmr_p_p_id_perfume_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_p_p
+    ADD CONSTRAINT kmr_p_p_id_perfume_fkey FOREIGN KEY (id_perfume) REFERENCES public.kmr_perfume(id);
+
+
+--
+-- Name: kmr_p_p kmr_p_p_id_perfumista_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_p_p
+    ADD CONSTRAINT kmr_p_p_id_perfumista_fkey FOREIGN KEY (id_perfumista) REFERENCES public.kmr_perfumista(id);
+
+
+--
+-- Name: kmr_pago kmr_pago_id_pedido_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_pago
+    ADD CONSTRAINT kmr_pago_id_pedido_fkey FOREIGN KEY (id_pedido) REFERENCES public.kmr_pedido(id);
+
+
+--
+-- Name: kmr_pc_fo kmr_pc_fo_id_familia_olf_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_pc_fo
+    ADD CONSTRAINT kmr_pc_fo_id_familia_olf_fkey FOREIGN KEY (id_familia_olf) REFERENCES public.kmr_familia_olf(id);
+
+
+--
+-- Name: kmr_pc_fo kmr_pc_fo_id_pal_clave_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_pc_fo
+    ADD CONSTRAINT kmr_pc_fo_id_pal_clave_fkey FOREIGN KEY (id_pal_clave) REFERENCES public.kmr_palabra_clave(id);
+
+
+--
+-- Name: kmr_pedido kmr_pedido_id_emp_prod_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_pedido
+    ADD CONSTRAINT kmr_pedido_id_emp_prod_fkey FOREIGN KEY (id_emp_prod) REFERENCES public.kmr_empresa_productora(id);
+
+
+--
+-- Name: kmr_pedido kmr_pedido_id_emp_prov_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_pedido
+    ADD CONSTRAINT kmr_pedido_id_emp_prov_fkey FOREIGN KEY (id_emp_prov) REFERENCES public.kmr_empresa_proveedora(id);
+
+
+--
+-- Name: kmr_pedido_lote kmr_pedido_lote_id_ing_presentacion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_pedido_lote
+    ADD CONSTRAINT kmr_pedido_lote_id_ing_presentacion_fkey FOREIGN KEY (id_ing_presentacion) REFERENCES public.kmr_ingrediente_presentacion(id);
+
+
+--
+-- Name: kmr_pedido_lote kmr_pedido_lote_id_pedido_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_pedido_lote
+    ADD CONSTRAINT kmr_pedido_lote_id_pedido_fkey FOREIGN KEY (id_pedido) REFERENCES public.kmr_pedido(id);
+
+
+--
+-- Name: kmr_perfume_fases kmr_perfume_fases_id_esencia_per_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_perfume_fases
+    ADD CONSTRAINT kmr_perfume_fases_id_esencia_per_fkey FOREIGN KEY (id_esencia_per) REFERENCES public.kmr_esencia_perfume(tsca_cas);
+
+
+--
+-- Name: kmr_perfume_fases kmr_perfume_fases_id_perfume_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_perfume_fases
+    ADD CONSTRAINT kmr_perfume_fases_id_perfume_fkey FOREIGN KEY (id_perfume) REFERENCES public.kmr_perfume(id);
+
+
+--
+-- Name: kmr_perfume kmr_perfume_id_emp_prod_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_perfume
+    ADD CONSTRAINT kmr_perfume_id_emp_prod_fkey FOREIGN KEY (id_emp_prod) REFERENCES public.kmr_empresa_productora(id);
+
+
+--
+-- Name: kmr_perfumista kmr_perfumista_id_pais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_perfumista
+    ADD CONSTRAINT kmr_perfumista_id_pais_fkey FOREIGN KEY (id_pais) REFERENCES public.kmr_pais(id);
+
+
+--
+-- Name: kmr_resul_eval kmr_resul_eval_id_emp_prod_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_resul_eval
+    ADD CONSTRAINT kmr_resul_eval_id_emp_prod_fkey FOREIGN KEY (id_emp_prod) REFERENCES public.kmr_empresa_productora(id);
+
+
+--
+-- Name: kmr_resul_eval kmr_resul_eval_id_emp_prov_fkey; Type: FK CONSTRAINT; Schema: public; Owner: syfers
+--
+
+ALTER TABLE ONLY public.kmr_resul_eval
+    ADD CONSTRAINT kmr_resul_eval_id_emp_prov_fkey FOREIGN KEY (id_emp_prov) REFERENCES public.kmr_empresa_proveedora(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
