@@ -19,6 +19,14 @@ INSERT INTO KMR_Criterio_Eval --Almacena todos los criterios de evaluación
 INSERT INTO KMR_Escala_Eval
     VALUES
 	('2020-07-20',NULL,1,10,1),
+	('2018-06-28',NULL,1,20,2),
+	('2019-05-08',NULL,1,30,3),
+	('2017-04-07',NULL,1,21,2),
+	('2012-08-01',NULL,1,18,1),
+	('2015-12-07',NULL,1,22,3),
+	('2016-01-31',NULL,1,17,2),
+	('2013-09-12',NULL,1,14,1),
+	('2000-05-04',NULL,1,25,3),
 	('2020-07-10',NULL,1,5,1);
 
 
