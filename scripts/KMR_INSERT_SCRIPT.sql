@@ -925,9 +925,13 @@ INSERT INTO KMR_Ingrediente_Presentacion
 	   (5, 'g', 100, 5, 131766739, NULL),
 	   (25, 'g', 100, 9, 131766739, NULL),
 	   (200, 'g', 100, 45, 131766739, NULL),
-	   (5, 'g', 100, 5, 131766739, NULL),
-	   (25, 'g', 100, 9, 131766739, NULL),
-	   (200, 'g', 100, 45, 131766739, NULL);
+	   (75, 'g',777, 7, 542461, NULL),
+	   (125, 'g', 504, 17.4,542461, NULL),
+	   (30, 'g', 20, 23, 111273, NULL),
+	   (50, 'g', 737, 35, 111273, NULL),
+	   (100, 'g', 431, 50, 111273, NULL),
+	   (30, 'g', 212, 56, 93049, NULL),
+	   (90, 'g', 132, 70, 93049, NULL);	
 
 INSERT INTO KMR_Ingrediente_Otros --Almacena los ingredientes de las empresas proveedoras 
 	(ipc,nombre,tipo,tsca_cas,id_emp_prov)
