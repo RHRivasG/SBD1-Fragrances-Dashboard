@@ -119,7 +119,7 @@ CREATE TABLE KMR_PC_FO(
 );
 
 CREATE TABLE KMR_Escala_Eval(
-    fechai DATE NOT NULL,
+    fechai TIMESTAMP NOT NULL,
     fechaf DATE,
     rangoi INT NOT NULL,
     rangf INT NOT NULL,
@@ -134,7 +134,7 @@ CREATE TABLE KMR_Criterio(
 );
 
 CREATE TABLE KMR_Criterio_Eval(
-    fechai DATE NOT NULL,
+    fechai TIMESTAMP NOT NULL,
     fechaf DATE,
     tipoformula VARCHAR NOT NULL CHECK(tipoformula='E' OR tipoformula='I'),
     peso INT NOT NULL,

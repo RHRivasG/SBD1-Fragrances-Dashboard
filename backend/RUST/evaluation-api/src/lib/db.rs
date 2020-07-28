@@ -14,6 +14,7 @@ where
 {
     insert
         .get_result(&conn)
+        .map_err(|e| println!("Ocurrio un error {}", e.to_string()))
         .ok()
 }
 

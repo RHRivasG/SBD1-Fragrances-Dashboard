@@ -58,7 +58,7 @@ table! {
 
 table! {
     kmr_criterio_eval (fechai, id_emp_prod, id_criterio) {
-        fechai -> Date,
+        fechai -> Timestamp,
         fechaf -> Nullable<Date>,
         tipoformula -> Varchar,
         peso -> Int4,
@@ -113,7 +113,7 @@ table! {
 
 table! {
     kmr_escala_eval (fechai, id_emp_prod) {
-        fechai -> Date,
+        fechai -> Timestamp,
         fechaf -> Nullable<Date>,
         rangoi -> Int4,
         rangf -> Int4,
@@ -269,6 +269,7 @@ table! {
         id_emp_prov -> Int4,
         fecha_emision -> Date,
         pago_total -> Int4,
+        status -> Varchar,
         fecha_confirma -> Nullable<Date>,
         nro_factura -> Nullable<Int4>,
         id_condcontrapago -> Nullable<Int4>,
