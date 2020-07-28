@@ -1,4 +1,4 @@
-INSERT INTO KMR_Pais (nombre,continente)
+INSERT INTO KMR_Pais (nombre,continente) --Este insert se encarga de agregar todos los países con sus respectivo continente
     VALUES
 	('Afganistan','Asia'),
 	('Islas Gland','Europa'),
@@ -203,7 +203,7 @@ INSERT INTO KMR_Pais (nombre,continente)
 	('Zambia','Africa'),
 	('Zimbabue','Africa');
 
-INSERT INTO KMR_Asociacion_Nacional
+INSERT INTO KMR_Asociacion_Nacional --se encarga de agregar las asociaciones nacionales con el id del país que les corresponde
     VALUES 
 	(1,'Asociación Chilena de Sabores y Fragancias Asociación','Region Metropolitana',44),
 	(2,'Cosmetic,Toiletry and Frangance Association of Singapore','Central Business District, Singapore',170),
@@ -211,7 +211,7 @@ INSERT INTO KMR_Asociacion_Nacional
 	(4,'Fragance Creator''s Association', 'Centro Rosslyn', 68),
 	(5, 'Swiss Flavour and Fragrance Industry Association', 'Geneva', 178);
 	
-INSERT INTO KMR_Empresa_Productora 
+INSERT INTO KMR_Empresa_Productora --Se encarga de agregar las empresas productoras a la base de datos con toda su información
     VALUES
 	(1,'IFF','https://www.iff.com','+1 (212) 765-5500',NULL),
 	(2,'Firmenich','https://www.firmenich.com','https://www.firmenich.com/en_INT/contact.html',NULL),
@@ -219,7 +219,7 @@ INSERT INTO KMR_Empresa_Productora
 	(4,'Sephora Asia Pte Ltd','https://www.sephora.sg','https://www.sephora.sg/contact-us',2),
 	(5,'fourchem','http://www.fourchem.co.za','+27 (0)21 709 0517',3);
 
-INSERT INTO KMR_Perfume
+INSERT INTO KMR_Perfume --Se encarga de agregar los perfumes al sistema con sus caracteristicas y el id de la empresa productora que la elaboró 
     VALUES 
 	(1,'Geo Donna','F','M','AD',1),
 	(2,'Flags Donna','F','M','AT',1),
@@ -237,7 +237,7 @@ INSERT INTO KMR_Perfume
 	(14,'Secret Charm','M','M','AT',5),
 	(15,'Vitality','F','M','AD',5);
 
-INSERT INTO KMR_Perfumista
+INSERT INTO KMR_Perfumista -- Se encarga de agregar a los perfumistas que dieron origen a los perfumes que se encuentran en la tabla kmr_perfume, con sus respectivos nombres, genero y origen identificado con el id del país de origen
     VALUES
 	(1,'Alviero','Martini','Martini','H',96),
 	(2,'Jacques','Cavallier','Belletrud','H',75),
@@ -252,7 +252,7 @@ INSERT INTO KMR_Perfumista
 	(11,'Francois','Demachy','','H',75),
 	(12,'Sebastian','leblanc','','H',67);
 
-INSERT INTO KMR_P_P
+INSERT INTO KMR_P_P --Se encarga de tener una conexión entre los perfumes y los perfumistas con los ids de cada uno
     VALUES
 	(1,1),
 	(2,1),
@@ -275,7 +275,7 @@ INSERT INTO KMR_P_P
 	(15,11),
 	(15,12);
 
-INSERT INTO KMR_Intensidad
+INSERT INTO KMR_Intensidad --En este insert se maneja la intensidad de cada perfume y con una descripción
     VALUES
 	(1,1,'EdP',15,'clasico'),
 	(2,2,'EdT',10,'seductor'),
@@ -285,15 +285,15 @@ INSERT INTO KMR_Intensidad
 	(6,6,'EdP',15,'clasico'),
 	(7,7,'EdP',15,'clasico'),
 	(8,8,'EdT',10,'seductor'),
-	(9,9,'EdP',15,'vigoroza'),
+	(9,9,'EdP',15,'normal'),
 	(10,10,'EdP',15,'moderno'),
 	(11,11,'EdP',15,'seductor'),
-	(12,12,'EdP',15,'contemporaneo'),
+	(12,12,'EdP',15,'normal'),
 	(13,13,'EdP',15,'elegante'),
 	(14,14,'EdT',10,'seductor'),
 	(15,15,'EdT',10,'normal');
 
-INSERT INTO KMR_Presentacion
+INSERT INTO KMR_Presentacion -- En esta tabla se almacenan todas las presentaciones más el id de cada perfume 
     VALUES
 	(1,1,1,100),
 	(2,1,1,50),
@@ -329,7 +329,7 @@ INSERT INTO KMR_Presentacion
 	(32,14,14,30),
 	(33,15,15,70);
 
-INSERT INTO KMR_Esencia_Perfume
+INSERT INTO KMR_Esencia_Perfume --Se almacena las esencias que tiene cada perfume con su numero cas
     VALUES
 	(8006879,'sandalo','.','.'),
 	(8014093,'pachuli','.','.'),
@@ -416,7 +416,7 @@ INSERT INTO KMR_Esencia_Perfume
 	(68650442,'chabacano','.','.'),
 	(8001294,'flor del algodonero','.','.');
 
-INSERT INTO KMR_Familia_Olf
+INSERT INTO KMR_Familia_Olf --Se almacena familia olfativa que pueden tener los perfumes
     VALUES
 	(1,'Verde','.'),
 	(2,'Citrico','.'),
@@ -429,7 +429,7 @@ INSERT INTO KMR_Familia_Olf
 	(9,'Oriental','.'),
 	(10,'Otros','.');
 
-INSERT INTO KMR_P_FO
+INSERT INTO KMR_P_FO -- Se establece una conexión entre perfumes y las familias olfativas
     VALUES
 	(1,8),
 	(1,3),
@@ -483,7 +483,7 @@ INSERT INTO KMR_P_FO
 	(15,3),
 	(15,8);
 
-INSERT INTO KMR_EP_FO
+INSERT INTO KMR_EP_FO --Se establece una conexión con los numeros cas de las esencias de los perfumes y las familias olfativas
     VALUES
 	(8006879,8),
 	(8006879,6),
@@ -588,7 +588,7 @@ INSERT INTO KMR_EP_FO
 	(68650442,4),
 	(8001294,3);
 
-INSERT INTO KMR_Monolitico
+INSERT INTO KMR_Monolitico --Se establece una conexión entre los perfumes y los numeros cas de las esencias que pertenecen a dicho perfume
     VALUES
 	(1,8006879),
 	(1,8014093),
@@ -725,7 +725,7 @@ INSERT INTO KMR_Monolitico
 	(15,84238299);
 	
 
-INSERT INTO KMR_Perfume_Fases
+INSERT INTO KMR_Perfume_Fases --Se guarda el numero cas de la esencia del perfume mas su tipo de fase
     VALUES
 	(1,8007758,'S'),
 	(1,8008319,'S'),
@@ -859,7 +859,7 @@ INSERT INTO KMR_Perfume_Fases
 	(15,84238299,'F');
 	
 
-INSERT INTO KMR_Empresa_Proveedora
+INSERT INTO KMR_Empresa_Proveedora --Se encuentran los datos de las empresas proveedoras 
 	(nombre, pag_web, inf_contacto, id_asoc_nacional) VALUES
 	('Keva', 'https://www.keva.co.in/content/ingredients', '+91 22 2206 9609', NULL),
 	('essence', 'https://essencia.ch/oele.php?pageID=89&language=E', '+41 52 245 05 60', 5),
@@ -894,7 +894,7 @@ INSERT INTO KMR_Envio_Pais
 	(3, 126, 5, 'B', 5.00);
 
 
-INSERT INTO KMR_IFRA_Ingrediente
+INSERT INTO KMR_IFRA_Ingrediente --Almacena todos los ingredientes ifra del sistema
 	VALUES
 	(131766739, 1, 'Un liquido amarillo pálido claro.', 'Quimico', '12 meses en almacenamiento', 'Ethanol 95%', NULL),
 	(14352615, 1, 'Un liquido incoloro claro.', 'Quimico', '12 meses en almacenamiento', 'Ethanol 95%', NULL),
@@ -929,7 +929,7 @@ INSERT INTO KMR_Ingrediente_Presentacion
 	   (25, 'g', 100, 9, 131766739, NULL),
 	   (200, 'g', 100, 45, 131766739, NULL);
 
-INSERT INTO KMR_Ingrediente_Otros
+INSERT INTO KMR_Ingrediente_Otros --Almacena los ingredientes de las empresas proveedoras 
 	(ipc,nombre,tipo,tsca_cas,id_emp_prov)
 	VALUES
 	(131766739,'Sagecete','Floral',NUll,1),
@@ -939,4 +939,46 @@ INSERT INTO KMR_Ingrediente_Otros
 	(5989548,'L Limonene','citrico',NUll,3),
 	(542461,'Civettone','oriental',NUll,4),
 	(121335,'Vanillin','oriental',NUll,2);
+
+INSERT INTO KMR_Palabra_Clave --Almacena palabras claves con las que se puede identificas una familia olfativa
+	(id,palabra_unica)
+	VALUES
+	(1,'citrico'),
+	(2,'limon'),
+	(3,'hierbas'),
+	(4,'esencia'),
+	(5,'musgo'),
+	(6,'cumarina'),
+	(7,'fruta'),
+	(8,'madera'),
+	(9,'pera'),
+	(10,'mandarina'),
+	(11,'caoba'),
+	(12,'rosa'),
+	(13,'flor'),
+	(14,'violeta'),
+	(15,'musgo de roble'),
+	(16,'durazno');
+	
+INSERT INTO KMR_Pc_fo --Establece una conexión entre las palabra claves y las familias olfativas
+	(id_familia_olf,id_pal_clave)
+	VALUES
+	(2,1),
+	(2,2),
+	(1,3),
+	(9,4),
+	(6,5),
+	(6,6),
+	(4,7),
+	(8,8),
+	(4,9),
+	(2,10),
+	(8,11),
+	(3,12),
+	(3,13),
+	(3,14),
+	(7,15),
+	(4,16);
+	
+	
 	
