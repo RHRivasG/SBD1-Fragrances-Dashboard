@@ -36,6 +36,7 @@ func StartServer(db *pg.DB) {
 	{
 		routes.SetIngredienteRoutes(api, db)
 		routes.SetParticularRoutes(api, db)
+		routes.SetPedidoRoutes(api, db)
 	}
 
 	e.Logger.Fatal(e.Start(":1323"))
