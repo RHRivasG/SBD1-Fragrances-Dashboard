@@ -291,7 +291,7 @@ INSERT INTO KMR_Intensidad
 	(12,12,'EdP',15,'contemporaneo'),
 	(13,13,'EdP',15,'elegante'),
 	(14,14,'EdT',10,'seductor'),
-	(15,15,'EdT',10.'normal');
+	(15,15,'EdT',10,'normal');
 
 INSERT INTO KMR_Presentacion
     VALUES
@@ -474,7 +474,7 @@ INSERT INTO KMR_P_FO
 	(11,10),
 	(12,3),
 	(13,1),
-	(13,3)
+	(13,3),
 	(13,4),
 	(14,3),
 	(14,1),
@@ -536,7 +536,6 @@ INSERT INTO KMR_EP_FO
 	(92201553,6),
 	(92201553,8),
 	(84775508,9),
-	(84696071,8),
 	(84696071,1),
 	(84696071,6),
 	(223748445,2),
@@ -564,10 +563,6 @@ INSERT INTO KMR_EP_FO
 	(90063528,2),
 	(68966869,8),
 	(84696071,8),
-	(84082791,1),
-	(90082512,3),
-	(85940325,9),
-	(8014093,8),
 	(2845577,9),
 	(85116638,8),
 	(68916734,1),
@@ -826,7 +821,7 @@ INSERT INTO KMR_Perfume_Fases
 	(8,2845577,'F'),
 	(8,84238299,'F'),
 	(8,85116638,'F'),
-	(9,91722815.'S'),
+	(9,91722815,'S'),
 	(9,223749017,'S'),
 	(9,85085478,'C'),
 	(9,8007087,'C'),
@@ -937,11 +932,11 @@ INSERT INTO KMR_Ingrediente_Presentacion
 INSERT INTO KMR_Ingrediente_Otros
 	(ipc,nombre,tipo,tsca_cas,id_emp_prov)
 	VALUES
-	(131766739,'Sagecete','Floral',,1),
-	(93049,'Yara Yara','citrico',,1),
+	(131766739,'Sagecete','Floral',NUll,1),
+	(93049,'Yara Yara','citrico',NUll,1),
 	(28897214,'Beta Iso Damascol','amaderado',4927360, 3),
-	(18479577,'Tetrahydromyrcenol','citrico',,3),
-	(5989548,'L Limonene','citrico',,3),
-	(542461,'Civettone','oriental',,4),
-	(121335,'Vanillin','oriental',,2);
+	(18479577,'Tetrahydromyrcenol','citrico',NUll,3),
+	(5989548,'L Limonene','citrico',NUll,3),
+	(542461,'Civettone','oriental',NUll,4),
+	(121335,'Vanillin','oriental',NUll,2);
 	

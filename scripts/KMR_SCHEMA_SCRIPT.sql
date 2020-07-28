@@ -303,7 +303,7 @@ CREATE TABLE KMR_Pedido(
     id_emp_prov INT NOT NULL REFERENCES KMR_Empresa_Proveedora(id),
     fecha_emision DATE NOT NULL,
     pago_total INT NOT NULL,
-	status VARCHAR NOT NULL CHECK(status='ped' OR status='pag')
+	status VARCHAR NOT NULL CHECK(status='ped' OR status='pag'),
     fecha_confirma DATE,
     nro_factura INT,
     id_condcontrapago INT,
