@@ -229,7 +229,7 @@ CREATE TABLE KMR_Condiciones_Pago(
     PRIMARY KEY (id,id_emp_prov)
 );
 
-CREATE TABLE KMR_Envio_Pais(
+CREATE TABLE KMR_Envio_Pais( --crea la tabla en donde se guardan los tipos de envios de las empresas proveedoras
     id_emp_prov INT NOT NULL REFERENCES KMR_Empresa_Proveedora(id),
     id_pais SMALLINT NOT NULL REFERENCES KMR_Pais(id),
     dias_entrega INT NOT NULL,
@@ -238,7 +238,7 @@ CREATE TABLE KMR_Envio_Pais(
     PRIMARY KEY (id_emp_prov, id_pais)
 );
 
-CREATE TABLE KMR_Contrato(
+CREATE TABLE KMR_Contrato( 
     id SERIAL,
     id_emp_prod INT NOT NULL REFERENCES KMR_Empresa_Productora(id),
     id_emp_prov INT NOT NULL REFERENCES KMR_Empresa_Proveedora(id),

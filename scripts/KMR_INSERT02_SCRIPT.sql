@@ -1,12 +1,12 @@
-INSERT INTO KMR_Criterio_Eval
+INSERT INTO KMR_Criterio_Eval --Almacena todos los criterios de evaluación
     VALUES
 	('2020-07-20',NULL,'I', 33, 1,1),
 	('2020-07-10',NULL,'I', 67, 1,2),
 	('2020-07-10',NULL,'E', 100, 1,3),
-    ('2020-07-20',NULL,'I', 33, 2, 1),
+   	('2020-07-20',NULL,'I', 33, 2, 1),
 	('2020-07-10',NULL,'I', 67, 2,2),
 	('2020-07-10',NULL,'E', 100, 2,3),
-    ('2020-07-20',NULL,'I', 33, 3,1),
+    	('2020-07-20',NULL,'I', 33, 3,1),
 	('2020-07-10',NULL,'I', 67, 3,2),
 	('2020-07-10',NULL,'E', 100, 3,3),
 	('2020-07-20',NULL,'I', 33, 4,1),
@@ -59,22 +59,22 @@ INSERT INTO KMR_Contrato_Particulares
     (18,9,4,8,4, NULL, NULL, 'Sephora contrato a essence con condicion de pago contado con sin cuotas');
 
 
-INSERT INTO KMR_Ing_Contrato
+INSERT INTO KMR_Ing_Contrato --Se encarga de tener una conexión entre los contratos con los ingredientes ifra
     (id,id_contrato,id_emp_prov,id_ing_ifra)
     VALUES 
 	(1,1,1,131766739),
 	(2,1,1,14352615),
-    (3,2,2,80546),
-    (5,3,3,18479577),
-    (6,4,4,111273),
-    (7,4,4,542461),
-    (8,5,1,14352615),
-    (9,5,1,93049),
-    (10,6,3,28897214),
-    (11,7,2,106241),
-    (12,7,2,121335),
-    (13,8,2,121335),
-    (14,9,4,504632);
+    	(3,2,2,80546),
+    	(5,3,3,18479577),
+ 	(6,4,4,111273),
+    	(7,4,4,542461),
+    	(8,5,1,14352615),
+    	(9,5,1,93049),
+    	(10,6,3,28897214),
+    	(11,7,2,106241),
+    	(12,7,2,121335),
+    	(13,8,2,121335),
+    	(14,9,4,504632);
     
 INSERT INTO KMR_EP_P
     VALUES

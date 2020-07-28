@@ -867,7 +867,7 @@ INSERT INTO KMR_Empresa_Proveedora --Se encuentran los datos de las empresas pro
 	('Perfumer''s Apprentice', 'https://shop.perfumersapprentice.com', '1(877)627-7401', 4);
 
 
-INSERT INTO KMR_Condiciones_Pago
+INSERT INTO KMR_Condiciones_Pago --Se almacena las condiciones de pago de las empresas proveedoras
 	(id_emp_prov, tipo, cuotas)
 	VALUES
 	(1, 'AP', 3),
@@ -879,7 +879,7 @@ INSERT INTO KMR_Condiciones_Pago
 	(3, 'C', NULL),
 	(4, 'C', NULL);
 
-INSERT INTO KMR_Envio_Pais
+INSERT INTO KMR_Envio_Pais --Se almacena el tipo de transporte con su costo respectivo
 	(id_emp_prov, id_pais, dias_entrega, tipo_transporte, costo)
     VALUES
 	(4, 14, 4, 'A', 6.35),
