@@ -922,8 +922,8 @@ INSERT INTO KMR_Criterio
 INSERT INTO KMR_Ingrediente_Presentacion
 	   (vol, unidades, cantidad_almacenada, precio_unitario, id_ifra_ing, id_ing_otros)
 	   VALUES
-	   (5, 'g', 100, 5, 131766739, NULL),
-	   (25, 'g', 100, 9, 131766739, NULL),
+	   (5, 'g', 100, 5, 131766739, null),
+	   (25, 'g', 100, 9, 131766739, null),
 	   (200, 'g', 100, 45, 131766739, NULL),
 	   (75, 'g',777, 7, 542461, NULL),
 	   (125, 'g', 504, 17.4,542461, NULL),
@@ -931,12 +931,18 @@ INSERT INTO KMR_Ingrediente_Presentacion
 	   (50, 'g', 737, 35, 111273, NULL),
 	   (100, 'g', 431, 50, 111273, NULL),
 	   (30, 'g', 212, 56, 93049, NULL),
-	   (90, 'g', 132, 70, 93049, NULL);	
+	   (90, 'g', 132, 70, 93049, NULL),	
+	   (30, 'g', 212, 56, NULL,93049),
+	   (90, 'g', 132, 70, NULL,93049 ),
+	   (5, 'g', 100, 5, NULL, 131766739 ),
+	   (25, 'g', 100, 9, NULL,131766739),
+	   (200, 'g', 100, 45, NULL,131766739);
 
 INSERT INTO KMR_Ingrediente_Otros --Almacena los ingredientes de las empresas proveedoras 
 	(ipc,nombre,tipo,tsca_cas,id_emp_prov)
 	VALUES
 	(131766739,'Sagecete','Floral',NUll,1),
+	(14352615,'Tropicate','',NULL,1),
 	(93049,'Yara Yara','citrico',NUll,1),
 	(28897214,'Beta Iso Damascol','amaderado',4927360, 3),
 	(18479577,'Tetrahydromyrcenol','citrico',NUll,3),
@@ -983,6 +989,5 @@ INSERT INTO KMR_Pc_fo --Establece una conexión entre las palabra claves y las f
 	(3,14),
 	(7,15),
 	(4,16);
-	
 	
 	
